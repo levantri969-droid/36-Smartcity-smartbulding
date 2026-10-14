@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Giám sát năng lượng - SmartBuilding BTL-36</title>
+<link rel="stylesheet" href="../css/style.css" />
+<link rel="stylesheet" href="../css/responsive.css" />
+<style>
+  /* ============================================================
+     Operator Energy Monitor — page-specific styles
+     Sidebar dùng chung .app-sidebar nền sáng như manager.
+     Chỉ override phần trạng thái + nội dung trang.
+     ============================================================ */
+
+  /* --- Status box trong sidebar (sáng, hợp theme manager) --- */
+  .op-status {
+    background: var(--primary-green-light);
+    border: 1px solid var(--primary-green-border);
+    border-radius: var(--border-radius-lg);
+    padding: 12px 14px;
+    margin-top: 14px;
+    font-size: 11px;
+  }
+
+  .op-status .ok-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--primary-green-dark);
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .op-status .ok-row i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--primary-green-dark);
+    display: inline-block;
+  }
+
+  .op-status .sub {
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* --- Page head + Live pill --- */
+  .pg-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .live-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--primary-green-light);
+    color: var(--primary-green-dark);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: var(--border-radius-full);
+    white-space: nowrap;
+  }
+
+  .live-pill i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--primary-green-dark);
+  }
+
+  /* --- Chart card: tỉ lệ thoáng như ảnh desktop --- */
+  .chart-card {
+    padding: 20px;
+  }
+
+  .chart-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 4px;
+  }
+
+  .chart-title {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .chart-now {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--primary-green-dark);
+    white-space: nowrap;
+  }
+
+  /* 24 bars = 24 giờ, cao tối đa theo container 140px */
+  #powerChart.bars-container {
+    height: 140px;
+    gap: 6px;
+    padding-top: 14px;
+  }
+
+  .chart-bar-btn {
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    min-width: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: var(--primary-green);
+  }
+
+  .chart-bar-btn:focus-visible {
+    outline: 2px solid var(--secondary-blue-dark);
+    outline-offset: 2px;
+  }
+
+  .chart-bar-btn.is-selected {
+    outline: 2px solid var(--text-dark);
+    outline-offset: 1px;
+    opacity: 1;
+  }
+
+  .chart-info {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    min-height: 18px;
+  }
+
+  .chart-bar.b-blue {
+    background-color: var(--secondary-blue);
+    opacity: 0.92;
+  }
+
+  /* --- Banner cảnh báo AI --- */
+  .anom {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--alert-red-light);
+    border: 1px solid var(--alert-red-border);
+    border-radius: var(--border-radius-lg);
+    padding: 14px 16px;
+  }
+
+  .anom-ic {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: var(--alert-red);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .anom-tx {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .anom-brand {
+    color: var(--alert-red);
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .anom-msg {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.45;
+  }
+
+  .btn-alert {
+    background: var(--alert-red);
+    border: 1px solid var(--alert-red);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 10px 16px;
+    border-radius: var(--border-radius-md);
+    white-space: nowrap;
+  }
+
+  .btn-alert:hover {
+    filter: brightness(0.95);
+  }
+
+  .btn-alert:focus-visible,
+  .btn-ghost:focus-visible,
+  .modal-close:focus-visible {
+    outline: 2px solid var(--secondary-blue-dark);
+    outline-offset: 2px;
+  }
+
+  .btn-alert:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .anom-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  .anom-small {
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .anom-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .btn-ghost {
+    background: #fff;
+    border: 1px solid var(--border-color);
+    color: var(--text-dark);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 10px 14px;
+    border-radius: var(--border-radius-md);
+    white-space: nowrap;
+  }
+
+  .btn-center {
+    background: #fff;
+    border: 1px solid var(--alert-red);
+    color: var(--alert-red);
+    text-align: center;
+  }
+
+  .alert-detail {
+    display: none;
+    margin-top: 10px;
+    background: #fff;
+    border: 1px dashed var(--alert-red-border);
+    border-radius: var(--border-radius-md);
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .alert-detail.show {
+    display: block;
+  }
+
+  .alert-row {
+    padding: 3px 0;
+  }
+
+  /* --- Modal + toast --- */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 20, 31, 0.45);
+    z-index: 1200;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.show {
+    display: flex;
+  }
+
+  .modal {
+    width: min(440px, 100%);
+    max-height: 90vh;
+    overflow: auto;
+    background: #fff;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .modal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  .modal-head h2 {
+    font-size: 16px;
+  }
+
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  .modal-body {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+  }
+
+  .modal-cause {
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--bg-light);
+    border-radius: var(--border-radius-md);
+    padding: 10px 12px;
+  }
+
+  .zone-card {
+    cursor: pointer;
+  }
+
+  .zone-card:hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  .zone-card:focus-visible {
+    outline: 2px solid var(--secondary-blue-dark);
+    outline-offset: 2px;
+  }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 88px;
+    transform: translateX(-50%) translateY(10px);
+    min-width: 240px;
+    max-width: min(420px, calc(100vw - 32px));
+    padding: 12px 16px;
+    border-radius: var(--border-radius-md);
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--text-dark);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1300;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .toast-ok {
+    background: var(--primary-green-dark);
+  }
+
+  .toast-error {
+    background: var(--alert-red);
+  }
+
+  /* --- Lưới 4 zone: cân bằng, hợp mắt --- */
+  .zgrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+
+  .zone-card {
+    padding: 16px;
+  }
+
+  .ztop {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .zname {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .zval {
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 10px;
+    line-height: 1;
+  }
+
+  .zval small {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .zsub {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: var(--border-radius-full);
+    white-space: nowrap;
+  }
+
+  .pill i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  .pill.ok {
+    background: var(--primary-green-light);
+    color: var(--primary-green-dark);
+  }
+
+  .pill.ok i {
+    background: var(--primary-green-dark);
+  }
+
+  .pill.bad {
+    background: #FEE2E2;
+    color: #DC2626;
+  }
+
+  .pill.bad i {
+    background: #DC2626;
+  }
+
+  @media (max-width: 1024px) {
+    .zgrid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .pg-head {
+      flex-direction: column;
+    }
+
+    .zgrid {
+      grid-template-columns: 1fr;
+    }
+
+    .anom {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .anom-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .anom-actions .btn-ghost,
+    .anom-actions .btn-alert,
+    .anom-actions .btn-center {
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn-center {
+      background: var(--primary-green);
+      border-color: var(--primary-green);
+      color: #fff;
+    }
+
+    .chart-card {
+      padding: 14px;
+    }
+
+    #powerChart.bars-container {
+      height: 120px;
+      gap: 4px;
+    }
+
+    .modal-overlay {
+      padding: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+<div id="sidebarOverlay" class="sidebar-overlay"></div>
+<div class="app-layout">
+<aside id="appSidebar" class="app-sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-logo">▥</div>
+    <div class="brand-text">
+      <span class="brand-title">SmartBuilding</span>
+      <span class="brand-sub">BTL-36</span>
+    </div>
+    <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">×</button>
+  </div>
+
+  <div class="sidebar-profile">
+    <div class="profile-avatar">LB</div>
+    <div class="profile-info">
+      <div class="profile-name">Lê Quốc Bảo</div>
+      <div class="profile-role">Operator • operator@greentower.vn</div>
+    </div>
+  </div>
+
+  <div class="sidebar-section-title">ĐIỀU HƯỚNG</div>
+  <nav class="sidebar-nav">
+    <a href="operator-energy-monitor.html" class="nav-item active">
+      <span class="nav-num">01</span>
+      <span class="nav-label">Giám sát năng lượng</span>
+      <span class="nav-arrow">›</span>
+    </a>
+    <a href="operator-alert-center.html" class="nav-item">
+      <span class="nav-num">02</span>
+      <span class="nav-label">Trung tâm cảnh báo</span>
+      <span class="nav-arrow">›</span>
+    </a>
+    <a href="operator-saving-actions.html" class="nav-item">
+      <span class="nav-num">03</span>
+      <span class="nav-label">Điều phối tiết kiệm</span>
+      <span class="nav-arrow">›</span>
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-num">04</span>
+      <span class="nav-label">Hồ sơ</span>
+      <span class="nav-arrow">›</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-divider"></div>
+
+  <nav class="sidebar-nav secondary-nav">
+    <a href="#" class="nav-item">
+      <span class="nav-icon">⚙</span>
+      <span class="nav-label">Cài đặt tài khoản</span>
+      <span class="nav-arrow">›</span>
+    </a>
+    <a href="#" class="nav-item">
+      <span class="nav-icon">?</span>
+      <span class="nav-label">Trợ giúp và hỗ trợ</span>
+      <span class="nav-arrow">›</span>
+    </a>
+  </nav>
+
+  <div class="op-status">
+    <div class="ok-row"><i></i>Hệ thống ổn định</div>
+    <div class="sub">Đang ổn 10:32 • 248 cảm biến</div>
+  </div>
+
+  <div class="sidebar-bottom">
+    <div class="building-badge">
+      <span class="building-badge-sub">TÒA NHÀ HIỆN TẠI</span>
+      <div class="building-badge-main">
+        <span class="building-name">Green Tower • BTL-36</span>
+        <span class="nav-arrow">›</span>
+      </div>
+    </div>
+    <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
+  </div>
+</aside>
+  <div class="main-wrapper">
+    <!-- Header dùng chung -->
+    <header class="app-header">
+      <div class="header-left">
+        <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <div class="header-location">
+          <span class="location-name">Green Tower • Hà Nội</span>
+          <span class="status-online"><span class="dot"></span>Trực tuyến</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="header-icon-btn" aria-label="Thông báo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+          </svg>
+        </button>
+        <div class="header-user">
+          <img src="https://i.pravatar.cc/68?img=12" class="user-avatar-img" alt="Lê Quốc Bảo" />
+          <div class="user-text">
+            <span class="user-name">Lê Quốc Bảo</span>
+            <span class="user-role">Operator</span>
+          </div>
+          <span class="user-chevron">›</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-body">
+      <!-- Tiêu đề + Live -->
+      <div class="pg-head">
+        <div class="page-title-box">
+          <h1 class="page-title-text">Giám sát năng lượng</h1>
+          <p class="page-subtitle-text">Công suất thời gian thực - 248 cảm biến đang hoạt động</p>
+        </div>
+        <span class="live-pill"><i></i><span id="liveClock">Live - 10:32</span></span>
+      </div>
+
+      <!-- Biểu đồ 24 giờ -->
+      <div class="card chart-card">
+        <div class="chart-head">
+          <span class="chart-title">Công suất toàn tòa nhà - 24 giờ</span>
+          <span class="chart-now">Hiện tại 218 kW</span>
+        </div>
+        <div class="zone-chart-legend" aria-label="Chú thích biểu đồ">
+          <div class="legend-item">
+            <span class="legend-color-box" style="background-color: #10B981;"></span>
+            <span>Trong ngưỡng 85 kW</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color-box" style="background-color: #EF4444;"></span>
+            <span>Vượt ngưỡng</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color-box" style="background-color: #3B82F6;"></span>
+            <span>Buổi tối</span>
+          </div>
+        </div>
+        <div class="bars-container" id="powerChart"></div>
+        <div class="chart-timeline-labels">
+          <span>00:00</span>
+          <span>06:00</span>
+          <span>12:00</span>
+          <span>18:00</span>
+          <span>24:00</span>
+        </div>
+        <p class="chart-info" id="chartInfo" role="status" aria-live="polite"></p>
+      </div>
+
+      <!-- Banner cảnh báo mô phỏng quy tắc -->
+      <section class="anom" aria-label="Cảnh báo công suất">
+        <div class="anom-ic" aria-hidden="true">!</div>
+        <div class="anom-tx">
+          <div class="anom-brand">AI-1 Energy Anomaly Detector (mô phỏng quy tắc)</div>
+          <div class="anom-msg" id="alertMsg">CẢNH BÁO KHẨN: AI phát hiện Tầng 2 công suất +150% lúc 02:00 AM</div>
+          <div class="anom-meta">
+            <span class="pill bad" id="alertStatus">Chưa tiếp nhận</span>
+            <span class="anom-small">Khu vực <b id="alertZone">Tầng 2</b> • <span id="alertTime">02:00 AM</span></span>
+          </div>
+          <div class="alert-detail" id="alertDetail"></div>
+        </div>
+        <div class="anom-actions">
+          <button class="btn-ghost" id="alertDetailBtn" type="button" aria-expanded="false">Chi tiết</button>
+          <button class="btn-alert" id="alertAckBtn" type="button">Đã tiếp nhận</button>
+          <a class="btn-alert btn-center" data-alert-center href="operator-alert-center.html">Xem tại Alert Center</a>
+        </div>
+      </section>
+
+      <!-- 4 zone -->
+      <div class="zgrid">
+        <div class="card zone-card" data-zone-card="tang-1">
+          <div class="ztop">
+            <span class="zname">Tầng 1</span>
+            <span class="pill ok"><i></i>Bình thường</span>
+          </div>
+          <div class="zval">42 <small>kW</small></div>
+          <div class="zsub">So với trung bình 7 ngày</div>
+        </div>
+        <div class="card zone-card" data-zone-card="tang-2">
+          <div class="ztop">
+            <span class="zname">Tầng 2</span>
+            <span class="pill bad"><i></i>Bất thường</span>
+          </div>
+          <div class="zval">96 <small>kW</small></div>
+          <div class="zsub">So với trung bình 7 ngày</div>
+        </div>
+        <div class="card zone-card" data-zone-card="server-room">
+          <div class="ztop">
+            <span class="zname">Server Room</span>
+            <span class="pill ok"><i></i>Bình thường</span>
+          </div>
+          <div class="zval">68 <small>kW</small></div>
+          <div class="zsub">So với trung bình 7 ngày</div>
+        </div>
+        <div class="card zone-card" data-zone-card="office">
+          <div class="ztop">
+            <span class="zname">Khối văn phòng</span>
+            <span class="pill ok"><i></i>Bình thường</span>
+          </div>
+          <div class="zval">54 <small>kW</small></div>
+          <div class="zsub">So với trung bình 7 ngày</div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Nav mobile -->
+<nav class="mobile-bottom-nav">
+  <a href="operator-energy-monitor.html" class="bottom-nav-item active">
+    <span class="bottom-nav-icon">📊</span>
+    <span class="bottom-nav-label">Giám sát</span>
+  </a>
+  <a href="operator-alert-center.html" class="bottom-nav-item">
+    <span class="bottom-nav-icon">🔔</span>
+    <span class="bottom-nav-label">Cảnh báo</span>
+  </a>
+  <a href="operator-saving-actions.html" class="bottom-nav-item">
+    <span class="bottom-nav-icon">💡</span>
+    <span class="bottom-nav-label">Điều phối</span>
+  </a>
+  <a href="#" class="bottom-nav-item">
+    <span class="bottom-nav-icon">👤</span>
+    <span class="bottom-nav-label">Hồ sơ</span>
+  </a>
+</nav>
+
+<!-- Modal chi tiết khu vực -->
+<div class="modal-overlay" id="zoneModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="zoneModalTitle">
+    <div class="modal-head">
+      <h2 id="zoneModalTitle">Chi tiết khu vực</h2>
+      <button class="modal-close" id="zoneModalClose" type="button" aria-label="Đóng">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-row">
+        <span>Trạng thái</span>
+        <span class="pill ok" id="zoneModalStatus">Bình thường</span>
+      </div>
+      <div class="modal-row">
+        <span>Công suất hiện tại</span>
+        <b id="zoneModalPower">-- kW</b>
+      </div>
+      <div class="modal-row">
+        <span>Trung bình 7 ngày</span>
+        <b id="zoneModalAvg">-- kW</b>
+      </div>
+      <div class="modal-row">
+        <span>Ngưỡng minh họa</span>
+        <b id="zoneModalThreshold">-- kW</b>
+      </div>
+      <p class="modal-cause" id="zoneModalCause"></p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../js/main.js"></script>
+<script src="../js/operator-energy-monitor.js"></script>
+</body>
+</html>

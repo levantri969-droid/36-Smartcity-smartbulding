@@ -193,3 +193,49 @@
     font-weight: 700;
   }
 }
+
+/* --- OPERATOR ENERGY MONITOR (pages/operator-energy-monitor.html) --- */
+/* Scope body.op-energy-page de de phan biet voi Manager/Admin */
+@media (max-width: 1024px) {
+  body.op-energy-page .zgrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  body.op-energy-page .pg-head {
+    flex-direction: column;
+  }
+  body.op-energy-page .zgrid {
+    grid-template-columns: 1fr;
+  }
+  body.op-energy-page .anom {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  body.op-energy-page .anom-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  body.op-energy-page .anom-actions .btn-ghost,
+  body.op-energy-page .anom-actions .btn-alert,
+  body.op-energy-page .anom-actions .btn-center {
+    width: 100%;
+    text-align: center;
+  }
+  body.op-energy-page .btn-center {
+    background: var(--primary-green);
+    border-color: var(--primary-green);
+    color: #fff;
+  }
+  body.op-energy-page .chart-card {
+    padding: 14px;
+  }
+  body.op-energy-page #powerChart.bars-container {
+    height: 120px;
+    gap: 4px;
+  }
+  body.op-energy-page .modal-overlay {
+    padding: 12px;
+  }
+}

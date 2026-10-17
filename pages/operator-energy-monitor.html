@@ -6,6 +6,7 @@
 <title>Giám sát năng lượng - SmartBuilding </title>
 <link rel="stylesheet" href="../css/style.css" />
 <link rel="stylesheet" href="../css/responsive.css" />
+<link rel="stylesheet" href="../css/operator-energy-monitor.css" />
 </head>
 <body class="op-energy-page">
 <div id="sidebarOverlay" class="sidebar-overlay"></div>
@@ -135,15 +136,15 @@
         </div>
         <div class="zone-chart-legend" aria-label="Chú thích biểu đồ">
           <div class="legend-item">
-            <span class="legend-color-box" style="background-color: #10B981;"></span>
+            <span class="legend-color-box legend-green"></span>
             <span>Trong ngưỡng 85 kW</span>
           </div>
           <div class="legend-item">
-            <span class="legend-color-box" style="background-color: #EF4444;"></span>
+            <span class="legend-color-box legend-red"></span>
             <span>Vượt ngưỡng</span>
           </div>
           <div class="legend-item">
-            <span class="legend-color-box" style="background-color: #3B82F6;"></span>
+            <span class="legend-color-box legend-blue"></span>
             <span>Buổi tối</span>
           </div>
         </div>
@@ -237,7 +238,7 @@
 </nav>
 
 <!-- Modal chi tiết khu vực -->
-<div class="modal-overlay" id="zoneModal" aria-hidden="true">
+<div class="modal-overlay" id="zoneModal" aria-hidden="true"> 
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="zoneModalTitle">
     <div class="modal-head">
       <h2 id="zoneModalTitle">Chi tiết khu vực</h2>

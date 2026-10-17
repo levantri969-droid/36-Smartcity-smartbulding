@@ -6,7 +6,7 @@
  * Chuc nang:
  * 1. Bieu do 24 gio tuong tac (mock co dinh, khong random)
  * 2. Xem chi tiet khu vuc qua Modal (dong bang nut + Escape)
- * 3. Phat hien vuot nguong bang quy tac don gian (mo phong, khong phai AI that)
+ * 3. Phat hien vuot nguong bang quy tac don gian 
  * 4. Xu ly banner canh bao + nut "Da tiep nhan" + dieu huong Alert Center
  * 5. Luu trang thai tiep nhan vao localStorage (co fallback)
  */
@@ -15,7 +15,7 @@
   'use strict';
 
   // ------------------------------------------------------------
-  // 1. DU LIEU MOCK CO DINH (de sua, de giai thich khi van dap)
+  // 1. DU LIEU MOCK CO DINH 
   // ------------------------------------------------------------
 
   // Nguong minh hoa cho tong toa nha (kW). Vuot nguong -> cot do.

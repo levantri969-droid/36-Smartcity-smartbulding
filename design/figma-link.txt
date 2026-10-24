@@ -2,7 +2,7 @@ FIGMA DESIGN & PROTOTYPE LINK - TEAM 01 (CSE122 - SMARTBUILDING BTL-36)
 =================================================================================
 
 Figma File URL:
-https://www.figma.com/design/sample-cse122-smartbuilding-team01
+https://www.figma.com/design/GxyxWCHGyobvm2KCDMrdoJ/H%25C3%25ACnh-%25E1%25BA%25A3nh-tr%25E1%25BB%25B1c-quan?node-id=0-1&p=f&t=IR3ZuFhOyRgVQC3P-0
 
 Design Specifications:
 - Brand: Green Tower • BTL-36 (Hà Nội)

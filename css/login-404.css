@@ -1,0 +1,507 @@
+/* ==========================================================================
+   CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
+   LOGIN & 404 SPECIFIC STYLES (css/login-404.css)
+   Dành riêng cho màn hình Đăng nhập (login.html) và Trang 404 (404.html)
+   ========================================================================== */
+
+/* ==========================================================================
+   1. MÀN HÌNH ĐĂNG NHẬP (pages/login.html) - FIGMA COMPLIANT
+   ========================================================================== */
+.login-body {
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.login-container {
+  display: flex;
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+
+/* Left Hero Banner (Figma 724px) */
+.login-banner {
+  width: 724px;
+  flex: 0 0 724px;
+  padding: 64px;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.13) 0%, rgba(15, 23, 42, 0.80) 100%),
+              url('../assets/images/smartbuilding.jpg') center/cover no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: #FFFFFF;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.login-banner-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.login-banner-logo {
+  width: 36px;
+  height: 36px;
+  background-color: #10B981;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.login-banner-brand-title {
+  color: #FFFFFF;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.login-banner-brand-sub {
+  color: #94A3B8;
+  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.login-banner-hero {
+  width: 580px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-banner-heading {
+  color: #FFFFFF;
+  font-size: 42px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 47.04px;
+  margin: 0;
+}
+
+.login-banner-desc {
+  color: #E2E8F0;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 24px;
+  margin: 0;
+}
+
+/* Right Panel & Card (Figma 716px + 520px Card) */
+.login-panel {
+  width: 716px;
+  flex: 1 1 716px;
+  padding: 80px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  background-color: #F8FAFC;
+  box-sizing: border-box;
+}
+
+.login-card {
+  width: 520px;
+  max-width: 100%;
+  padding: 32px;
+  background: #FFFFFF;
+  box-shadow: 0px 12px 32px -8px rgba(15, 23, 42, 0.07);
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  outline: 1px #E2E8F0 solid;
+  outline-offset: -1px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  box-sizing: border-box;
+}
+
+.login-mobile-header {
+  display: none;
+}
+
+.login-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-card-title {
+  color: #1E293B;
+  font-size: 40px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.login-card-sub {
+  color: #64748B;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 25.60px;
+  margin: 0;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.login-field-label {
+  color: #1E293B;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.login-input-box {
+  width: 100%;
+  height: 50px;
+  padding: 0 14px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  outline: 1px #E2E8F0 solid;
+  outline-offset: -1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.login-input-box:focus-within {
+  border-color: #10B981;
+  outline-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.login-input-icon {
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.login-input-field {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  color: #1E293B;
+}
+
+.login-input-field::placeholder {
+  color: #64748B;
+}
+
+.login-aux-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+}
+
+.login-remember {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748B;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+}
+
+.login-remember input {
+  accent-color: #10B981;
+}
+
+.login-forgot-link {
+  color: #3B82F6;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-forgot-link:hover {
+  text-decoration: underline;
+}
+
+.login-submit-btn {
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  background-color: #10B981;
+  color: #FFFFFF;
+  border: 1px solid #10B981;
+  outline: 1px #10B981 solid;
+  outline-offset: -1px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.login-submit-btn:hover {
+  background-color: #059669;
+  border-color: #059669;
+}
+
+/* Fast Demo Role Login Section */
+.demo-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.demo-title {
+  text-align: center;
+  color: #64748B;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+
+.demo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+.demo-role-btn {
+  width: calc(50% - 4px);
+  min-width: 190px;
+  height: 44px;
+  padding: 0 12px;
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  outline: 1px #E2E8F0 solid;
+  outline-offset: -1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1E293B;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all var(--transition-fast);
+}
+
+.demo-role-btn:hover {
+  background-color: #F8FAFC;
+  border-color: #3B82F6;
+  color: #3B82F6;
+}
+
+.demo-role-icon {
+  color: #3B82F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.login-footer-text {
+  text-align: center;
+  color: #64748B;
+  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+/* Responsive login (≤ 900px) → Đã tách sang css/responsive-login-404.css */
+
+
+/* ==========================================================================
+   2. TRANG 404 KHÔNG TÌM THẤY (pages/404.html) - FIGMA COMPLIANT
+   ========================================================================== */
+.notfound-body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #F8FAFC;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.notfound-container {
+  width: 100%;
+  max-width: 1440px;
+  min-height: 100vh;
+  padding: 48px;
+  background: #F8FAFC;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.notfound-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notfound-brand-logo {
+  width: 44px;
+  height: 44px;
+  background: #10B981;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.notfound-brand-title {
+  color: #1E293B;
+  font-size: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.notfound-brand-sub {
+  color: #64748B;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.notfound-center {
+  width: 720px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+  text-align: center;
+}
+
+.notfound-illustration {
+  width: 360px;
+  height: 280px;
+  background: #ECFDF5;
+  border-radius: 16px;
+  border: 1px solid #D1FAE5;
+  outline: 1px #D1FAE5 solid;
+  outline-offset: -1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+
+.notfound-divider-line {
+  width: 100px;
+  height: 0px;
+  border: 3px solid #F59E0B;
+  border-radius: 2px;
+}
+
+.notfound-text-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.notfound-tag {
+  color: #10B981;
+  font-size: 18px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.notfound-heading {
+  color: #1E293B;
+  font-size: 40px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.notfound-desc {
+  color: #64748B;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 25.60px;
+  max-width: 600px;
+  margin: 0;
+}
+
+.notfound-btn {
+  height: 48px;
+  padding: 0 20px;
+  background: #10B981;
+  border-radius: 10px;
+  border: 1px solid #10B981;
+  outline: 1px #10B981 solid;
+  outline-offset: -1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.notfound-btn:hover {
+  background: #059669;
+  border-color: #059669;
+}
+
+.notfound-footer {
+  color: #64748B;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* Responsive 404 (≤ 850px) → Đã tách sang css/responsive-login-404.css */

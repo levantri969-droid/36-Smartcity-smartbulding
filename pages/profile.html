@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hồ Sơ Cá Nhân - SmartBuilding (Team 01)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin-manager.css">
+  <link rel="stylesheet" href="../css/responsive-admin-manager.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <!-- Backdrop for Mobile Off-Canvas Drawer -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar Navigation (Desktop & Mobile Drawer) -->
+    <aside id="appSidebar" class="app-sidebar">
+      <!-- Brand Logo Header -->
+      <div class="sidebar-brand">
+        <div class="brand-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SmartBuilding</span>
+          <span class="brand-sub">BTL-36</span>
+        </div>
+        <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">&times;</button>
+      </div>
+
+      <!-- User Profile Box -->
+      <div class="sidebar-profile">
+        <div class="profile-avatar" id="sidebarAvatar">NA</div>
+        <div class="profile-info">
+          <div class="profile-name" id="sidebarName">Nguyễn Minh Anh</div>
+          <div class="profile-role" id="sidebarRole">Admin • minh.anh@greentower.vn</div>
+        </div>
+      </div>
+
+      <!-- Main Navigation -->
+      <div class="sidebar-section-title" id="sidebarSectionTitle">QUẢN TRỊ HỆ THỐNG</div>
+      <nav class="sidebar-nav" id="sidebarNav" aria-label="Điều hướng quản trị">
+        <a href="admin-zone-management.html" class="nav-item">
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+          </span>
+          <span class="nav-label">Quản lý Zone</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+        <a href="admin-sensor-management.html" class="nav-item">
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </span>
+          <span class="nav-label">Cảm biến</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+        <a href="admin-user-management.html" class="nav-item">
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </span>
+          <span class="nav-label">Người dùng</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+        <a href="profile.html?role=admin" class="nav-item active">
+          <span class="nav-icon" style="color: #10B981;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </span>
+          <span class="nav-label">Hồ sơ</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-bottom">
+        <div id="sidebarBuildingBadgeWrap">
+          <div class="building-badge" style="background: #F8FAFC; border-radius: 8px; padding: 14px; border: 1px solid #E2E8F0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="pill-dot" style="background-color: #10B981; width: 8px; height: 8px; border-radius: 999px;"></span>
+              <span style="font-size: 13px; font-weight: 600; color: #0F172A;">Hệ thống ổn định</span>
+            </div>
+            <span style="font-size: 11px; color: #64748B; margin-top: 6px; display: block;">Đồng bộ 10:32 • 248 cảm biến</span>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Master Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu điều hướng">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="header-location">
+            <span class="location-name">Green Tower • Hà Nội</span>
+            <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <button class="header-icon-btn" aria-label="Thông báo hệ thống">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+          <div class="header-user" id="headerUserBox">
+            <img src="../assets/images/profilepic.webp" alt="User Avatar" class="user-avatar-img">
+            <div class="user-text">
+              <span class="user-name" id="headerUserName">Nguyễn Minh Anh</span>
+              <span class="user-role" id="headerUserRole">System Admin (SV3)</span>
+            </div>
+            <span class="user-chevron">&#9662;</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Page Content Body -->
+      <main class="content-body">
+        <!-- Title & Subtitle -->
+        <div class="page-header-row">
+          <div class="page-title-box">
+            <h1 class="page-title-text">Hồ sơ cá nhân</h1>
+            <p class="page-subtitle-text">Quản lý thông tin tài khoản, mật khẩu và lịch sử hoạt động</p>
+          </div>
+        </div>
+
+        <!-- Mobile View Tabs Switcher (Visible on <= 900px) -->
+        <div class="profile-tabs-mobile" role="tablist" aria-label="Chọn thẻ xem hồ sơ">
+          <button type="button" class="profile-tab-btn active" data-tab="cardInfo">Thông tin</button>
+          <button type="button" class="profile-tab-btn" data-tab="cardPassword">Mật khẩu</button>
+          <button type="button" class="profile-tab-btn" data-tab="cardActivity">Hoạt động</button>
+        </div>
+
+        <!-- 3 Columns Layout (Figma Desktop: 3 equal cards) -->
+        <div class="profile-grid">
+
+          <!-- Card 1: Thông tin cá nhân -->
+          <section class="profile-col-card active-tab-card" id="cardInfo">
+            <div>
+              <h2 class="profile-card-title">Thông tin cá nhân</h2>
+              <p class="profile-card-sub" style="margin-top: 4px;">Cập nhật ảnh đại diện và chi tiết liên hệ của bạn.</p>
+            </div>
+
+            <!-- Avatar Row -->
+            <div class="profile-avatar-row">
+              <div class="profile-avatar-lg" id="profileAvatarBadge"></div>
+              <div class="profile-avatar-actions">
+                <button type="button" class="profile-btn-upload" id="btnChangeAvatar">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  Tải ảnh mới
+                </button>
+                <span class="profile-avatar-hint">JPG, PNG tối đa 2MB</span>
+              </div>
+            </div>
+
+            <!-- Profile Form -->
+            <form id="profileInfoForm" style="display: flex; flex-direction: column; gap: 14px; width: 100%;">
+              <!-- Full Name Field -->
+              <div class="profile-field">
+                <label class="profile-field-label" for="profileNameInput">Họ và tên</label>
+                <div class="profile-input-box">
+                  <input type="text" id="profileNameInput" class="profile-input-field" value="Nguyễn Minh Anh" required>
+                </div>
+              </div>
+
+              <!-- Email Field -->
+              <div class="profile-field">
+                <label class="profile-field-label" for="profileEmailInput">Email</label>
+                <div class="profile-input-box">
+                  <input type="email" id="profileEmailInput" class="profile-input-field" value="minhanh@greentower.vn" required>
+                </div>
+              </div>
+
+              <!-- 2-col Row: Phone & Department -->
+              <div class="profile-row-2col">
+                <div class="profile-field" style="flex: 1;">
+                  <label class="profile-field-label" for="profilePhoneInput">Số điện thoại</label>
+                  <div class="profile-input-box">
+                    <input type="tel" id="profilePhoneInput" class="profile-input-field" value="0988 246 810">
+                  </div>
+                </div>
+
+                <div class="profile-field" style="flex: 1;">
+                  <label class="profile-field-label" for="profileDeptInput">Đơn vị / Phòng</label>
+                  <div class="profile-input-box">
+                    <input type="text" id="profileDeptInput" class="profile-input-field" value="Ban Vận hành • P. B2-04">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Save Changes Button -->
+              <button type="submit" class="profile-save-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Lưu thay đổi
+              </button>
+            </form>
+          </section>
+
+          <!-- Card 2: Đổi mật khẩu -->
+          <section class="profile-col-card" id="cardPassword">
+            <div>
+              <h2 class="profile-card-title">Đổi mật khẩu</h2>
+              <p class="profile-card-sub" style="margin-top: 4px;">Mật khẩu mới cần ít nhất 8 ký tự, gồm chữ hoa và số.</p>
+            </div>
+
+            <!-- Password Form -->
+            <form id="profilePasswordForm" style="display: flex; flex-direction: column; gap: 14px; width: 100%;">
+              <!-- Current Password -->
+              <div class="profile-field">
+                <label class="profile-field-label" for="currentPasswordInput">Mật khẩu hiện tại</label>
+                <div class="profile-input-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <input type="password" id="currentPasswordInput" class="profile-input-field" placeholder="••••••••" value="admin2026" required>
+                </div>
+              </div>
+
+              <!-- New Password -->
+              <div class="profile-field">
+                <label class="profile-field-label" for="newPasswordInput">Mật khẩu mới</label>
+                <div class="profile-input-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2">
+                    <path d="M21 2l-2 2m-1.5 1.5L16 7m-3 3l-6 6a2 2 0 0 0 0 2.83l1.17 1.17a2 2 0 0 0 2.83 0l6-6m-4-4l4-4a3 3 0 0 0-4.24-4.24l-4 4"></path>
+                  </svg>
+                  <input type="password" id="newPasswordInput" class="profile-input-field" placeholder="••••••••••" required>
+                </div>
+              </div>
+
+              <!-- Confirm New Password -->
+              <div class="profile-field">
+                <label class="profile-field-label" for="confirmPasswordInput">Xác nhận mật khẩu mới</label>
+                <div class="profile-input-box">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2">
+                    <path d="M21 2l-2 2m-1.5 1.5L16 7m-3 3l-6 6a2 2 0 0 0 0 2.83l1.17 1.17a2 2 0 0 0 2.83 0l6-6m-4-4l4-4a3 3 0 0 0-4.24-4.24l-4 4"></path>
+                  </svg>
+                  <input type="password" id="confirmPasswordInput" class="profile-input-field" placeholder="••••••••••" required>
+                </div>
+              </div>
+
+              <!-- Save Changes Button -->
+              <button type="submit" class="profile-save-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Lưu thay đổi
+              </button>
+            </form>
+          </section>
+
+          <!-- Card 3: Lịch sử hoạt động -->
+          <section class="profile-col-card" id="cardActivity">
+            <h2 class="profile-card-title">Lịch sử hoạt động</h2>
+
+            <div class="profile-activity-list">
+              <!-- Item 1: Thành công -->
+              <div class="profile-activity-item">
+                <div class="profile-activity-icon-box" style="background: #ECFDF5;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <div class="profile-activity-info">
+                  <span class="profile-activity-title">Cập nhật hồ sơ cá nhân</span>
+                  <span class="profile-activity-time">10:32 • Nguyễn Minh Anh</span>
+                </div>
+                <span class="badge badge-success">Thành công</span>
+              </div>
+
+              <!-- Item 2: Hoàn tất -->
+              <div class="profile-activity-item">
+                <div class="profile-activity-icon-box" style="background: #DBEAFE;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                </div>
+                <div class="profile-activity-info">
+                  <span class="profile-activity-title">Thay đổi mật khẩu</span>
+                  <span class="profile-activity-time">09:18 • Hệ thống bảo mật</span>
+                </div>
+                <span class="badge badge-info">Hoàn tất</span>
+              </div>
+
+              <!-- Item 3: Cảnh báo -->
+              <div class="profile-activity-item">
+                <div class="profile-activity-icon-box" style="background: #FEF2F2;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2">
+                    <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                </div>
+                <div class="profile-activity-info">
+                  <span class="profile-activity-title">Đăng nhập thất bại</span>
+                  <span class="profile-activity-time">08:45 • IP 203.113.12.9</span>
+                </div>
+                <span class="badge badge-danger">Cảnh báo</span>
+              </div>
+
+              <!-- Item 4: Chờ xác nhận -->
+              <div class="profile-activity-item">
+                <div class="profile-activity-icon-box" style="background: #FFFBEB;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <polyline points="16 11 18 13 22 9"></polyline>
+                  </svg>
+                </div>
+                <div class="profile-activity-info">
+                  <span class="profile-activity-title">Cập nhật vai trò người dùng</span>
+                  <span class="profile-activity-time">07:10 • Admin hệ thống</span>
+                </div>
+                <span class="badge badge-warning">Chờ xác nhận</span>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Điều hướng di động">
+    <a href="admin-zone-management.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">🏢</span>
+      <span class="bottom-nav-label">Quản lý Zone</span>
+    </a>
+    <a href="admin-sensor-management.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">📡</span>
+      <span class="bottom-nav-label">Cảm biến</span>
+    </a>
+    <a href="admin-user-management.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">👥</span>
+      <span class="bottom-nav-label">Người dùng</span>
+    </a>
+    <a href="profile.html?role=admin" class="bottom-nav-item active">
+      <span class="bottom-nav-icon">👤</span>
+      <span class="bottom-nav-label">Hồ sơ</span>
+    </a>
+  </nav>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="../js/main.js" defer></script>
+  <script src="../js/profile.js" defer></script>
+</body>
+</html>

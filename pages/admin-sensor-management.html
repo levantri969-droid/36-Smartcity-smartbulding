@@ -1,76 +1,116 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quản Lý Sensors - SmartBuilding Admin</title>
+  <title>Quản Lý Sensors - SmartBuilding Admin</title>git init
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin-manager.css">
+  <link rel="stylesheet" href="../css/responsive-admin-manager.css">
   <link rel="stylesheet" href="../css/responsive.css">
 </head>
 <body>
 
+  <!-- Mobile Overlay Backdrop -->
   <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
   <div class="app-layout">
+    <!-- Sidebar Navigation (Admin Role) -->
     <aside id="appSidebar" class="app-sidebar">
+
+      <!-- Brand Logo Header -->
       <div class="sidebar-brand">
-        <div class="brand-logo">▥</div>
+        <div class="brand-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
         <div class="brand-text">
           <span class="brand-title">SmartBuilding</span>
           <span class="brand-sub">BTL-36</span>
         </div>
-        <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">×</button>
+        <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">&times;</button>
       </div>
 
+      <!-- User Profile Box (Admin) -->
       <div class="sidebar-profile">
-        <div class="profile-avatar">AD</div>
+        <div class="profile-avatar">NA</div>
         <div class="profile-info">
-          <div class="profile-name">Nguyễn Quản Trị</div>
-          <div class="profile-role">Admin • admin@greentower.vn</div>
+          <div class="profile-name">Nguyễn Minh Anh</div>
+          <div class="profile-role">Admin • minh.anh@greentower.vn</div>
         </div>
       </div>
 
+      <!-- Navigation Links -->
       <div class="sidebar-section-title">QUẢN TRỊ HỆ THỐNG</div>
-      <nav class="sidebar-nav">
+      <nav class="sidebar-nav" aria-label="Điều hướng quản trị">
         <a href="admin-zone-management.html" class="nav-item">
-          <span class="nav-num">01</span>
-          <span class="nav-label">Quản lý Zones</span>
-          <span class="nav-arrow">›</span>
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+          </span>
+          <span class="nav-label">Quản lý Zone</span>
+          <span class="nav-arrow">&rsaquo;</span>
         </a>
         <a href="admin-sensor-management.html" class="nav-item active">
-          <span class="nav-num">02</span>
-          <span class="nav-label">Quản lý Sensors</span>
-          <span class="nav-arrow">›</span>
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </span>
+          <span class="nav-label">Cảm biến</span>
+          <span class="nav-arrow">&rsaquo;</span>
         </a>
         <a href="admin-user-management.html" class="nav-item">
-          <span class="nav-num">03</span>
-          <span class="nav-label">Quản trị Users</span>
-          <span class="nav-arrow">›</span>
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </span>
+          <span class="nav-label">Người dùng</span>
+          <span class="nav-arrow">&rsaquo;</span>
         </a>
-        <a href="manager-energy-kpis.html" class="nav-item">
-          <span class="nav-num">04</span>
-          <span class="nav-label">Chuyển sang Manager</span>
-          <span class="nav-arrow">›</span>
+        <a href="profile.html?role=admin" class="nav-item">
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </span>
+          <span class="nav-label">Hồ sơ</span>
+          <span class="nav-arrow">&rsaquo;</span>
         </a>
       </nav>
 
+      <!-- Sidebar Footer -->
       <div class="sidebar-bottom">
         <div class="building-badge">
-          <span class="building-badge-sub">TÒA NHÀ HIỆN TẠI</span>
+          <span class="building-badge-sub">TRẠNG THÁI HỆ THỐNG</span>
           <div class="building-badge-main">
-            <span class="building-name">Green Tower • BTL-36</span>
-            <span class="nav-arrow">›</span>
+            <span class="building-name">Đang ổn định • 248 cảm biến</span>
           </div>
         </div>
         <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
       </div>
     </aside>
 
+    <!-- Main Content Wrapper -->
     <div class="main-wrapper">
+      <!-- Master Header -->
       <header class="app-header">
         <div class="header-left">
-          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu điều hướng">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -83,26 +123,132 @@
         </div>
 
         <div class="header-right">
-          <div class="header-user">
-            <div class="profile-avatar" style="width: 34px; height: 34px; font-size: 0.8rem;">AD</div>
+          <button class="header-icon-btn" aria-label="Thông báo hệ thống">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+          <div class="header-user" onclick="location.href='profile.html?role=admin'">
+            <img src="../assets/images/profilepic.webp" alt="Nguyễn Minh Anh" class="user-avatar-img">
             <div class="user-text">
-              <span class="user-name">Nguyễn Quản Trị</span>
-              <span class="user-role">System Administrator (SV3)</span>
+              <span class="user-name">Nguyễn Minh Anh</span>
+              <span class="user-role">System Admin (SV3)</span>
             </div>
+            <span class="user-chevron">&#9662;</span>
           </div>
         </div>
       </header>
 
+      <!-- Main Page Content Body -->
       <main class="content-body">
-        <div class="card" style="padding: 32px; text-align: center;">
-          <h3 style="color: var(--text-dark); font-size: 1.15rem; font-weight: 600;">Màn hình đang trong quá trình phát triển...</h3>
-          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 8px;">Mô-đun Quản lý cảm biến IoT (Sensors) sẽ được hoàn thiện trong giai đoạn tiếp theo.</p>
-          <a href="manager-energy-kpis.html" class="btn btn-primary btn-sm" style="margin-top: 16px; display: inline-flex;">&larr; Về trang KPI Năng lượng</a>
+        <!-- Title & Action Toolbar -->
+        <div class="page-header-row">
+          <div class="page-title-box">
+            <h1 class="page-title-text">Quản lý Cảm biến & Thiết bị</h1>
+            <p class="page-subtitle-text">248 cảm biến • 246 trực tuyến • 2 cảnh báo AI • Đồng bộ 10:32</p>
+          </div>
+          <div class="page-header-actions">
+            <div class="search-box-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="sensorSearchInput" class="form-input" placeholder="Tìm mã cảm biến, zone..." aria-label="Tìm mã cảm biến, zone" style="padding-left: 36px;" />
+            </div>
+            <button class="btn btn-outline" style="min-width: 90px;">
+              Bộ lọc <span style="color: var(--text-muted);">&#9662;</span>
+            </button>
+            <button id="btnCreateSensor" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Tạo cảm biến
+            </button>
+          </div>
+        </div>
+
+        <!-- AI Alert Banner -->
+        <div class="sensor-alert-banner">
+          <div style="width: 36px; height: 36px; background: var(--warning-amber); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: white; font-size: 16px;">⚠️</div>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 3px;">
+            <div style="color: var(--warning-amber-text); font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+              AI quét cảnh báo cảm biến
+              <span class="alert-badge">AI ALERT</span>
+            </div>
+            <div style="color: var(--text-dark); font-size: 14px; font-weight: 600; line-height: 1.4;">Phát hiện 2 cảm biến dùng trùng địa chỉ Modbus và 1 cảm biến mất tín hiệu trên 8 phút.</div>
+          </div>
+          <button id="btnAiDetail" class="btn btn-sm" style="background: var(--warning-amber); color: white; border-color: var(--warning-amber); white-space: nowrap; flex-shrink: 0;">Xem chi tiết</button>
+        </div>
+
+        <!-- Desktop Sensors Table -->
+        <div class="card table-card desktop-table-view">
+          <div class="table-card-header">
+            <span class="card-title" style="font-size: 15px;">Danh sách cảm biến</span>
+            <div class="badge badge-warning">2 cảnh báo</div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 16%;">Mã Sensor</th>
+                  <th style="width: 18%;">Loại</th>
+                  <th style="width: 18%;">Zone</th>
+                  <th style="width: 16%;">Trạng thái</th>
+                  <th style="width: 18%;">Cấu hình / Khóa</th>
+                  <th style="width: 14%;">Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="sensorTableBody">
+                <!-- Rendered dynamically by admin-sensor-management.js -->
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination Footer -->
+          <div style="padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color);">
+            <span style="color: var(--text-muted); font-size: 12px;">Hiển thị 6 trên 248 cảm biến</span>
+            <div style="display: flex; gap: 8px;">
+              <button class="btn btn-outline btn-sm">Trước</button>
+              <div style="height: 32px; padding: 0 12px; background: var(--primary-green); border-radius: 6px; display: flex; align-items: center; color: white; font-size: 12px; font-weight: 700;">1</div>
+              <button class="btn btn-outline btn-sm">Tiếp</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Cards Container -->
+        <div id="sensorMobileCardsContainer" class="mobile-card-list">
+          <!-- Rendered dynamically by admin-sensor-management.js -->
         </div>
       </main>
     </div>
   </div>
 
-  <script src="../js/main.js"></script>
+  <!-- Mobile Bottom Navigation (Admin Role) -->
+  <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
+    <a href="admin-zone-management.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">🏢</span>
+      <span class="bottom-nav-label">Quản lý Zone</span>
+    </a>
+    <a href="admin-sensor-management.html" class="bottom-nav-item active">
+      <span class="bottom-nav-icon">📡</span>
+      <span class="bottom-nav-label">Cảm biến</span>
+    </a>
+    <a href="admin-user-management.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">👥</span>
+      <span class="bottom-nav-label">Người dùng</span>
+    </a>
+    <a href="profile.html?role=admin" class="bottom-nav-item">
+      <span class="bottom-nav-icon">👤</span>
+      <span class="bottom-nav-label">Hồ sơ</span>
+    </a>
+  </nav>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="../js/main.js" defer></script>
+  <script src="../js/admin-sensor-management.js" defer></script>
 </body>
 </html>

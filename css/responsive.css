@@ -1,18 +1,38 @@
 /* ==========================================================================
-   CSE122 - SMARTBUILDING TEAM 01 - RESPONSIVE STYLESHEET
-   Accurate Mobile & Tablet Implementation from Figma
+   CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
+   RESPONSIVE CHUNG — css/responsive.css
+   Dùng chung cho TẤT CẢ các trang trong hệ thống.
+   Chứa các @media rules ảnh hưởng đến layout chung (sidebar, header,
+   content-body, bottom-nav) được định nghĩa trong style.css.
+
+   Load ORDER trong HTML:
+     style.css → [admin-manager|login-404].css
+     → [responsive-admin-manager|responsive-login-404].css
+     → responsive.css  (LUÔN load cuối cùng)
+
+   Breakpoints:
+     ≤ 1024px  — Tablet
+     ≤  768px  — Mobile (layout chính)
+     ≥  769px  — Desktop-only guard
    ========================================================================== */
 
-/* Breakpoint for Tablets & Laptops */
+
+/* ==========================================================================
+   1. TABLET (≤ 1024px) — Shared layout
+   ========================================================================== */
 @media (max-width: 1024px) {
-  .widgets-row {
-    flex-direction: column;
+  .content-body {
+    padding: 20px;
   }
 }
 
-/* Breakpoint for Mobile (max-width: 768px) */
+
+/* ==========================================================================
+   2. MOBILE (≤ 768px) — App layout: sidebar, header, content, bottom-nav
+   ========================================================================== */
 @media (max-width: 768px) {
-  /* Hide desktop sidebar off-screen */
+
+  /* ---- Sidebar: ẩn sang trái, mở bằng class show-mobile ---- */
   .app-sidebar {
     width: 312px;
     transform: translateX(-100%);
@@ -24,12 +44,12 @@
     transform: translateX(0);
   }
 
-  /* Close button on mobile drawer */
+  /* ---- Nút đóng sidebar (hiện trên mobile) ---- */
   .close-sidebar-btn {
     display: flex;
   }
 
-  /* Overlay backdrop */
+  /* ---- Overlay backdrop ---- */
   .sidebar-overlay {
     display: block;
     position: fixed;
@@ -49,12 +69,12 @@
     pointer-events: auto;
   }
 
-  /* Adjust Main Wrapper */
+  /* ---- Main wrapper: bỏ margin-left khi sidebar ẩn ---- */
   .main-wrapper {
     margin-left: 0;
   }
 
-  /* Mobile Header (Height 56px, Padding 16px) */
+  /* ---- Header mobile ---- */
   .app-header {
     height: 56px;
     padding: 0 16px;
@@ -67,11 +87,12 @@
   }
 
   .header-location .location-name {
-    display: none; /* Hide long location name on mobile */
+    display: none;
   }
 
-  .user-text, .user-chevron {
-    display: none; /* Hide text on compact header */
+  .user-text,
+  .user-chevron {
+    display: none;
   }
 
   .user-avatar-img {
@@ -79,74 +100,18 @@
     height: 30px;
   }
 
-  /* Main Content Body */
+  /* ---- Content body ---- */
   .content-body {
     padding: 16px;
-    padding-bottom: 96px; /* Spacing so mobile bottom nav doesn't cover content */
+    padding-bottom: 96px; /* Chừa chỗ cho bottom-nav */
     gap: 16px;
   }
 
   .page-title-text {
-    font-size: 24px;
+    font-size: 20px;
   }
 
-  /* Compact 3 KPI Cards on Mobile (Matching Figma) */
-  .kpi-row {
-    gap: 8px;
-  }
-
-  .kpi-card {
-    padding: 10px;
-    gap: 5px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .kpi-card .kpi-icon-wrap,
-  .kpi-card .kpi-card-footer {
-    display: none; /* Compact view removes large icon and footer */
-  }
-
-  .kpi-card-header {
-    flex-direction: column-reverse;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .kpi-indicator-bar {
-    display: block !important;
-    width: 24px;
-    height: 3px;
-    border-radius: 2px;
-    margin-bottom: 2px;
-  }
-
-  .kpi-label {
-    font-size: 10px;
-    font-weight: 400;
-  }
-
-  .kpi-val {
-    font-size: 14px;
-    font-weight: 600;
-  }
-
-  /* Stack Widgets Row */
-  .widgets-row {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .widget-card {
-    padding: 12px;
-    gap: 12px;
-  }
-
-  .sim-box-value {
-    font-size: 15px;
-  }
-
-  /* Mobile Bottom Navigation Bar (Figma Spec) */
+  /* ---- Mobile Bottom Navigation Bar ---- */
   .mobile-bottom-nav {
     display: flex;
     position: fixed;
@@ -193,4 +158,3 @@
     font-weight: 700;
   }
 }
-

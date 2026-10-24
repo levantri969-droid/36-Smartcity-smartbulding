@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initWhatIfSimulator() {
   const slider = document.getElementById("powerReductionSlider");
-  const percentDisplay = document.getElementById("reductionPercentDisplay");
+  const percentDisplay = document.getElementById("reductionPercentDisplay") || document.getElementById("sliderPercentDisplay");
   const costDisplay = document.getElementById("savedCostVal");
   const co2Display = document.getElementById("savedCO2Val");
   const fillBar = document.getElementById("rangeFillBar");
@@ -46,7 +46,7 @@ function initWhatIfSimulator() {
 
     if (co2Display) {
       // Format with dot thousand separator (e.g., −15.408)
-      const costDisplayFormat = savedCO2Kg.toLocaleString("vi-VN");
+      costDisplayFormat = savedCO2Kg.toLocaleString("vi-VN");
       co2Display.textContent = `−${costDisplayFormat}`;
     }
 

@@ -1,0 +1,1113 @@
+/* ==========================================================================
+   CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
+   ADMIN & MANAGER SPECIFIC COMPONENT STYLES (css/admin-manager.css)
+   Chứa toàn bộ các thuộc tính và thành phần riêng của nhóm Manager & Admin
+   ========================================================================== */
+
+/* ==========================================================================
+   0. KPI CARDS & SUMMARY STATS (Manager & Admin specific)
+   ========================================================================== */
+.kpi-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.kpi-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kpi-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kpi-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.kpi-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpi-val {
+  color: var(--text-dark);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.kpi-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kpi-pill {
+  padding: 3px 8px;
+  border-radius: var(--border-radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.kpi-pill .pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.kpi-subtext {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.kpi-indicator-bar {
+  display: none;
+}
+
+/* Responsive KPI (≤ 768px) → Đã tách sang css/responsive-admin-manager.css */
+/* ==========================================================================
+   2. TRANG KPI NĂNG LƯỢNG (pages/manager-energy-kpis.html)
+   ========================================================================== */
+.widgets-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.widget-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.widget-title-area {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.widget-title {
+  color: var(--text-dark);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.widget-subtitle {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* AI-3 What-if Simulator */
+.simulator-card {
+  border: 1px solid var(--border-color);
+}
+
+.sim-slider-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sim-slider-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sim-slider-val {
+  color: var(--primary-green-dark);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.range-track-container {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background-color: var(--border-color);
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+}
+
+.range-slider-native {
+  width: 100%;
+  -webkit-appearance: none;
+  background: transparent;
+  height: 8px;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+}
+
+.range-slider-native:focus {
+  outline: none;
+}
+
+.range-slider-native::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 3px solid var(--primary-green);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  cursor: grab;
+  transition: transform 0.15s ease;
+}
+
+.range-slider-native::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.range-fill-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 8px;
+  background-color: var(--primary-green);
+  border-radius: var(--border-radius-full);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sim-results-grid {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.sim-result-box {
+  flex: 1;
+  padding: 12px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sim-box-green {
+  background-color: var(--primary-green-light);
+}
+
+.sim-box-blue {
+  background-color: var(--secondary-blue-light);
+}
+
+.sim-box-label {
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.sim-box-value {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.sim-box-green .sim-box-value {
+  color: var(--primary-green-dark);
+}
+
+.sim-box-blue .sim-box-value {
+  color: var(--secondary-blue);
+}
+
+.sim-box-unit {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.btn-save-scenario {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--primary-green);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-save-scenario:hover {
+  background-color: var(--primary-green-dark);
+}
+
+/* Trend 12-bar chart */
+.zone-chart-legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.legend-color-box {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.bars-container {
+  height: 112px;
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  width: 100%;
+  padding-top: 10px;
+}
+
+.chart-bar {
+  flex: 1;
+  background-color: var(--primary-green);
+  opacity: 0.8;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  transition: height 0.4s ease, opacity 0.2s ease;
+  position: relative;
+}
+
+.chart-bar:hover {
+  opacity: 1;
+}
+
+.chart-bar.bar-peak {
+  background-color: var(--alert-red);
+  opacity: 1;
+}
+
+.chart-timeline-labels {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 400;
+  margin-top: 6px;
+}
+
+/* Responsive widgets (≤ 1024px) → Đã tách sang css/responsive-admin-manager.css */
+
+
+/* ==========================================================================
+   3. TRANG SO SÁNH ZONE (pages/manager-zone-comparison.html)
+   ========================================================================== */
+.zone-selector-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.zone-check-item {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #F8FAFC;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.zone-check-item:hover {
+  background-color: #F1F5F9;
+  border-color: #CBD5E1;
+}
+
+.zone-check-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #CBD5E1;
+  background-color: #FFFFFF;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.zone-check-box svg {
+  display: none;
+}
+
+.zone-check-item.selected .zone-check-box {
+  border: none;
+}
+
+.zone-check-item.selected .zone-check-box svg {
+  display: block;
+}
+
+.zone-check-label {
+  flex: 1;
+  color: var(--text-dark);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.zone-check-sub {
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 400;
+}
+
+/* SVG Chart Container */
+.chart-container-box {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  background: #F1F5F9;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chart-svg-layer {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.chart-grid-line {
+  stroke: #E2E8F0;
+  stroke-dasharray: 4 4;
+  stroke-width: 1;
+}
+
+.chart-path-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: d 0.4s ease;
+}
+
+.chart-point-dot {
+  cursor: pointer;
+  transition: r 0.2s ease;
+}
+
+.chart-point-dot:hover {
+  r: 6;
+}
+
+.chart-tooltip-bubble {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(15, 23, 42, 0.9);
+  color: #FFFFFF;
+  font-size: 11px;
+  padding: 5px 9px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transform: translate(-50%, -120%);
+  display: none;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+/* Summary KPI Cards */
+.summary-cards-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.summary-stat-box {
+  flex: 1;
+  padding: 16px;
+  background: #FFFFFF;
+  box-shadow: var(--card-shadow);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.summary-stat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-stat-label {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.summary-stat-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.summary-stat-val {
+  color: var(--text-dark);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.summary-stat-sub {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* Responsive zone comparison (≤ 768px / ≥ 769px) → Đã tách sang css/responsive-admin-manager.css */
+
+
+/* ==========================================================================
+   4. TRANG BÁO CÁO THÁNG (pages/manager-monthly-report.html)
+   ========================================================================== */
+.report-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.report-action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.report-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 18px;
+  background-color: var(--bg-white);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.filter-left, .filter-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.report-two-cols {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.breakdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.breakdown-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.breakdown-name {
+  font-weight: 600;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breakdown-name-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.breakdown-val {
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.breakdown-val strong {
+  color: var(--text-dark);
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background-color: #F1F5F9;
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: var(--border-radius-full);
+  transition: width 0.5s ease-in-out;
+}
+
+/* Weekly chart */
+.weekly-chart-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.weekly-bars-flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 140px;
+  padding-top: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.weekly-bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.weekly-bar-pair {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 110px;
+}
+
+.wb-bar {
+  width: 16px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: height 0.4s ease;
+  position: relative;
+}
+
+.wb-actual {
+  background-color: var(--primary-green);
+}
+
+.wb-plan {
+  background-color: #CBD5E1;
+}
+
+.weekly-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.weekly-legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* AI Insights Grid */
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.insight-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background-color: #F8FAFC;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.insight-item:hover {
+  transform: translateY(-2px);
+  border-color: #CBD5E1;
+}
+
+.insight-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.insight-icon-green {
+  background-color: var(--primary-green-light);
+  color: var(--primary-green-dark);
+}
+
+.insight-icon-amber {
+  background-color: var(--warning-amber-light);
+  color: var(--warning-amber-text);
+}
+
+.insight-icon-blue {
+  background-color: var(--secondary-blue-light);
+  color: var(--secondary-blue);
+}
+
+.insight-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.insight-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.insight-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.insight-impact {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary-green-dark);
+  margin-top: 2px;
+}
+
+/* Responsive monthly report (≤ 768px) → Đã tách sang css/responsive-admin-manager.css */
+
+
+/* ==========================================================================
+   5. CÁC TRANG ADMIN (Zone, Sensor, User Management)
+   ========================================================================== */
+.search-add-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* Sensor Conflict Banner */
+.sensor-alert-banner {
+  padding: 14px 18px;
+  background-color: #FFFBEB;
+  border: 1px solid #FDE68A;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.alert-badge {
+  padding: 2px 8px;
+  border-radius: var(--border-radius-full);
+  background-color: #FEF3C7;
+  color: #B45309;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Role Filter Tabs */
+.role-filter-tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.role-tab-btn {
+  padding: 6px 14px;
+  border-radius: var(--border-radius-full);
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.role-tab-btn:hover {
+  background-color: #F8FAFC;
+  color: var(--text-dark);
+}
+
+.role-tab-btn.active {
+  background-color: var(--primary-green-active);
+  border-color: var(--primary-green-border);
+  color: var(--primary-green-dark);
+}
+
+/* Mobile Data Cards (Shown on mobile instead of heavy table) */
+.mobile-card-list {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-data-card {
+  padding: 14px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-data-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile-data-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.mobile-data-card-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.mobile-data-card-row span:last-child {
+  color: var(--text-dark);
+  font-weight: 500;
+}
+
+/* Responsive admin tables (≤ 768px) → Đã tách sang css/responsive-admin-manager.css */
+
+
+/* ==========================================================================
+   6. TRANG HỒ SƠ CÁ NHÂN (pages/profile.html) - FIGMA COMPLIANT
+   ========================================================================== */
+.profile-grid {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.profile-col-card {
+  flex: 1 1 0;
+  padding: 18px;
+  background: #FFFFFF;
+  box-shadow: 0px 2px 8px rgba(15, 23, 42, 0.05);
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  outline: 1px #E2E8F0 solid;
+  outline-offset: -1px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-sizing: border-box;
+}
+
+.profile-card-title {
+  color: #1E293B;
+  font-size: 18px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  margin: 0;
+}
+
+.profile-card-sub {
+  color: #64748B;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.profile-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.profile-avatar-lg {
+  width: 72px;
+  height: 72px;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 2px solid #E2E8F0;
+  background-color: #DEF0EB;
+  background-image: url('../assets/images/profilepic.webp');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  color: transparent;
+}
+
+.profile-avatar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.profile-btn-upload {
+  height: 34px;
+  padding: 0 12px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  outline: 1px #E2E8F0 solid;
+  outline-offset: -1px;
+  color: #1E293B;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.profile-btn-upload:hover {
+  background-color: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+.profile-avatar-hint {
+  color: #64748B;
+  font-size: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.profile-field-label {
+  color: #1E293B;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+.profile-input-box {
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  outline: 1px #E2E8F0 solid;
+  outline-offset: -1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  transition: border-color var(--transition-fast);
+}
+
+.profile-input-box:focus-within {
+  border-color: #10B981;
+  outline-color: #10B981;
+}
+
+.profile-input-field {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #1E293B;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.profile-input-field::placeholder {
+  color: #64748B;
+}
+
+.profile-row-2col {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.profile-save-btn {
+  width: 100%;
+  height: 40px;
+  padding: 0 16px;
+  background: #10B981;
+  border-radius: 8px;
+  border: 1px solid #10B981;
+  outline: 1px #10B981 solid;
+  outline-offset: -1px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.profile-save-btn:hover {
+  background-color: #059669;
+  border-color: #059669;
+}
+
+.profile-activity-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.profile-activity-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.profile-activity-item:last-child {
+  border-bottom: none;
+}
+
+.profile-activity-icon-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-activity-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.profile-activity-title {
+  color: #1E293B;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-activity-time {
+  color: #64748B;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.profile-tabs-mobile {
+  display: none;
+  gap: 8px;
+  width: 100%;
+}
+
+.profile-tab-btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  outline: 1px #E2E8F0 solid;
+  outline-offset: -1px;
+  background: #FFFFFF;
+  color: #64748B;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.profile-tab-btn.active {
+  background: #10B981;
+  border-color: #10B981;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+/* Responsive profile (≤ 900px) → Đã tách sang css/responsive-admin-manager.css */
+

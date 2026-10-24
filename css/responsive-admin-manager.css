@@ -1,0 +1,227 @@
+/* ==========================================================================
+   CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
+   RESPONSIVE ADMIN & MANAGER — css/responsive-admin-manager.css
+   Chứa TẤT CẢ các @media rules dành riêng cho các trang Admin & Manager:
+     - KPI cards (manager-energy-kpis.html)
+     - Zone comparison chart (manager-zone-comparison.html)
+     - Monthly report (manager-monthly-report.html)
+     - Admin tables → mobile cards (admin-*.html)
+     - Header toolbars & Action alignments (admin-*.html)
+     - Profile page (profile.html)
+     - Widgets row (manager-energy-kpis.html)
+
+   Load ORDER trong HTML (admin & manager pages):
+     style.css → admin-manager.css
+     → responsive-admin-manager.css → responsive.css
+
+   Breakpoints:
+     ≤ 1024px  — Tablet (widgets stack)
+     ≤  900px  — Profile mobile tabs
+     ≤  768px  — Mobile (tables → cards, report layout, KPI compact, toolbars)
+     ≥  769px  — Desktop guard cho zone selector
+   ========================================================================== */
+
+
+/* ==========================================================================
+   1. TABLET (≤ 1024px) — Widgets row stack vertically
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .widgets-row {
+    flex-direction: column;
+  }
+}
+
+
+/* ==========================================================================
+   2. MOBILE (≤ 900px) — Profile: hiện mobile tabs, ẩn card dư
+   ========================================================================== */
+@media (max-width: 900px) {
+  .profile-tabs-mobile {
+    display: flex;
+  }
+
+  .profile-grid {
+    flex-direction: column;
+  }
+
+  .profile-col-card {
+    width: 100%;
+    display: none;
+  }
+
+  .profile-col-card.active-tab-card {
+    display: flex;
+  }
+
+  .profile-row-2col {
+    flex-direction: column;
+  }
+}
+
+
+/* ==========================================================================
+   3. MOBILE (≤ 768px) — KPI cards, zone comparison, monthly report,
+                          admin tables → mobile cards, search & header toolbars
+   ========================================================================== */
+@media (max-width: 768px) {
+
+  /* ---- Page Header Row & Action Toolbar Alignment ---- */
+  .page-header-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .page-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .page-header-actions .search-box-wrap {
+    width: 100%;
+  }
+
+  .page-header-actions .search-box-wrap input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .page-header-actions .btn,
+  .page-header-actions .form-select {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ---- KPI Cards: compact layout ---- */
+  .kpi-row {
+    gap: 8px;
+  }
+
+  .kpi-card {
+    padding: 10px;
+    gap: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kpi-card .kpi-icon-wrap,
+  .kpi-card .kpi-card-footer {
+    display: none;
+  }
+
+  .kpi-card-header {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .kpi-indicator-bar {
+    display: block !important;
+    width: 24px;
+    height: 3px;
+    border-radius: 2px;
+    margin-bottom: 2px;
+  }
+
+  .kpi-label {
+    font-size: 10px;
+    font-weight: 400;
+  }
+
+  .kpi-val {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* ---- Zone Comparison: chart height & summary stack ---- */
+  .chart-container-box {
+    height: 160px;
+  }
+
+  .summary-cards-row {
+    flex-direction: column;
+  }
+
+  /* Hiện dropdown zone trên mobile, ẩn list desktop */
+  .zone-mobile-dropdown {
+    display: flex !important;
+  }
+
+  .zone-desktop-list {
+    display: none !important;
+  }
+
+  /* ---- Monthly Report: header & filter stack ---- */
+  .report-header-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .report-action-buttons {
+    width: 100%;
+  }
+
+  .report-action-buttons .btn {
+    flex: 1;
+  }
+
+  .report-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-left,
+  .filter-right {
+    width: 100%;
+  }
+
+  .report-two-cols {
+    flex-direction: column !important;
+  }
+
+  /* ---- Admin Tables → Mobile Cards ---- */
+  .desktop-table-view {
+    display: none !important;
+  }
+
+  .mobile-card-list {
+    display: flex !important;
+  }
+
+  /* ---- Search & Add Bar (fallback for standalone bars) ---- */
+  .search-add-bar {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .search-add-bar .search-box-wrap {
+    width: 100%;
+  }
+
+  .search-add-bar .search-box-wrap input {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .search-add-bar .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ==========================================================================
+   4. DESKTOP GUARD (≥ 769px) — Zone: ẩn dropdown mobile, hiện list desktop
+   ========================================================================== */
+@media (min-width: 769px) {
+  .zone-mobile-dropdown {
+    display: none !important;
+  }
+
+  .zone-desktop-list {
+    display: flex !important;
+  }
+}

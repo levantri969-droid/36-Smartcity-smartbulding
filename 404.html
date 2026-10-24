@@ -1,56 +1,89 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>404 - Duong dan khong ton tai | SmartBuilding</title>
-<link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="css/responsive.css" />
-<style>
-.nf-wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;background:var(--bg-light);padding:20px 16px 28px}
-.nf-brand{display:flex;align-items:center;gap:10px;margin-top:14px;text-decoration:none}
-.nf-brand .brand-logo{width:32px;height:32px;background:var(--primary-accent);border-radius:8px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
-.nf-brand .brand-text{display:flex;flex-direction:column;line-height:1.2}
-.nf-brand .brand-title{color:#1A263B;font-size:14px;font-weight:700}
-.nf-brand .brand-sub{color:var(--text-sub);font-size:10px}
-.nf-card{width:min(640px,100%);display:flex;flex-direction:column;align-items:center;text-align:center;margin:auto;padding:24px 16px}
-.nf-illu{width:min(420px,100%);background:var(--primary-green-light);border-radius:12px;padding:36px 24px;display:flex;align-items:center;justify-content:center}
-.nf-code{margin-top:22px;color:var(--primary-green-dark);font-size:12px;font-weight:700;letter-spacing:.12em}
-.nf-title{margin-top:6px;color:var(--text-dark);font-size:28px;font-weight:800;line-height:1.25}
-.nf-desc{margin-top:10px;color:var(--text-muted);font-size:13px;max-width:520px;line-height:1.6}
-.nf-btn{margin-top:18px;display:inline-flex;align-items:center;gap:8px;background:var(--primary-green);border:1px solid var(--primary-green);color:#fff;font-size:13px;font-weight:700;padding:11px 20px;border-radius:8px;text-decoration:none}
-.nf-btn:hover{background:var(--primary-green-dark)}
-.nf-btn:focus-visible{outline:2px solid var(--secondary-blue-dark);outline-offset:2px}
-.nf-foot{color:var(--text-muted);font-size:11px;margin-top:24px}
-@media(max-width:768px){.nf-title{font-size:24px}.nf-btn{width:100%;justify-content:center;padding:13px 16px}.nf-illu{padding:28px 16px}.nf-wrap{padding-bottom:90px}.nf-foot{margin-top:auto;padding-top:24px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Đường Dẫn Không Tồn Tại - SmartBuilding (Team 01)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/login-404.css">
+  <link rel="stylesheet" href="css/responsive-login-404.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
-<body>
-<main class="nf-wrap">
-<a class="nf-brand" href="index.html" aria-label="SmartBuilding trang chu">
-<span class="brand-logo">▥</span>
-<span class="brand-text"><span class="brand-title">SmartBuilding</span><span class="brand-sub">BTL-36</span></span>
-</a>
-<section class="nf-card" aria-labelledby="nfTitle">
-<div class="nf-illu" aria-hidden="true">
-<svg width="220" height="90" viewBox="0 0 220 90" fill="none" aria-hidden="true">
-<g stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-<rect x="8" y="30" width="14" height="30" rx="2"/><rect x="24" y="18" width="26" height="42" rx="2"/><rect x="52" y="30" width="14" height="30" rx="2"/>
-<line x1="29" y1="28" x2="45" y2="28"/><line x1="29" y1="36" x2="45" y2="36"/><line x1="29" y1="44" x2="45" y2="44"/>
-<path d="M33 60 v-6 a4 4 0 0 1 8 0 v6"/>
-</g>
-<g stroke="#F59E0B" stroke-width="2" stroke-linecap="round" stroke-dasharray="5 6"><line x1="84" y1="45" x2="136" y2="45"/></g>
-<g stroke="#F59E0B" stroke-width="2" stroke-linecap="round">
-<path d="M156 30 q14 2 22 12"/><path d="M158 40 q10 2 16 9"/><path d="M160 50 q6 1 10 6"/><line x1="154" y1="28" x2="188" y2="62"/>
-</g>
-</svg>
-</div>
-<div class="nf-code">404</div>
-<h1 class="nf-title" id="nfTitle">404 - Đường dẫn không tồn tại</h1>
-<p class="nf-desc">Liên kết bạn truy cập có thể đã thay đổi hoặc trang yêu cầu hiện không tồn tại. Hãy quay lại màn hình chính để tiếp tục.</p>
-<a class="nf-btn" href="index.html"><span aria-hidden="true">⌂</span> Quay lại Trang chủ</a>
-</section>
-<footer class="nf-foot">© 2026 SmartBuilding BTL-36 • Green Tower</footer>
-</main>
+<body class="notfound-body">
+
+  <div class="notfound-container">
+
+    <!-- Top Brand Logo (Desktop) / Bottom Brand (Mobile) -->
+    <div class="notfound-brand">
+      <div class="notfound-brand-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 1px;">
+        <span class="notfound-brand-title">SmartBuilding</span>
+        <span class="notfound-brand-sub">BTL-36</span>
+      </div>
+    </div>
+
+    <!-- Center Content Block -->
+    <div class="notfound-center">
+
+      <!-- Graphic Illustration Box -->
+      <div class="notfound-illustration" role="img" aria-label="Hình minh họa mất kết nối đường dẫn">
+        <!-- Building IoT Hub Node -->
+        <svg width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="1.8" class="notfound-icon-left">
+          <path d="M3 21h18M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path>
+          <line x1="9" y1="9" x2="9.01" y2="9"></line>
+          <line x1="15" y1="9" x2="15.01" y2="9"></line>
+          <line x1="9" y1="13" x2="9.01" y2="13"></line>
+          <line x1="15" y1="13" x2="15.01" y2="13"></line>
+          <line x1="9" y1="17" x2="9.01" y2="17"></line>
+          <line x1="15" y1="17" x2="15.01" y2="17"></line>
+        </svg>
+
+        <!-- Broken Circuit Connector -->
+        <div class="notfound-divider-line"></div>
+
+        <!-- Warning Triangle Node -->
+        <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.8" class="notfound-icon-right">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+          <line x1="12" y1="9" x2="12" y2="13"></line>
+          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+        </svg>
+      </div>
+
+      <!-- Text Section -->
+      <div class="notfound-text-box">
+        <span class="notfound-tag">404</span>
+        <h1 class="notfound-heading">404 - Đường dẫn không tồn tại</h1>
+        <p class="notfound-desc">
+          Liên kết bạn truy cập có thể đã thay đổi hoặc trang yêu cầu hiện không tồn tại. Hãy quay lại màn hình chính để tiếp tục.
+        </p>
+      </div>
+
+      <!-- Back to Home Action Button -->
+      <a href="pages/manager-energy-kpis.html" class="notfound-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        Quay lại Trang chủ
+      </a>
+    </div>
+
+    <!-- Bottom Help Text -->
+    <div class="notfound-footer">
+      Cần hỗ trợ? help@smartbuilding.vn • 1900 636 246
+    </div>
+
+  </div>
+
 </body>
 </html>

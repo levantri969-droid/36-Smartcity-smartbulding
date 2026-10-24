@@ -46,7 +46,7 @@ function initWhatIfSimulator() {
 
     if (co2Display) {
       // Format with dot thousand separator (e.g., −15.408)
-      costDisplayFormat = savedCO2Kg.toLocaleString("vi-VN");
+      const costDisplayFormat = savedCO2Kg.toLocaleString("vi-VN");
       co2Display.textContent = `−${costDisplayFormat}`;
     }
 

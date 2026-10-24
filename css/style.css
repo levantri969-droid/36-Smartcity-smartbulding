@@ -716,6 +716,94 @@ button {
   z-index: 1;
 }
 
+/* Progress edit input */
+.progress-edit-input {
+  background: transparent;
+  border: none;
+  color: var(--text-dark);
+  font-size: 12px;
+  padding: 2px 4px;
+}
+
+/* Delete button */
+.task-delete-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.task-delete-btn:hover {
+  background: var(--alert-red);
+  border-color: var(--alert-red);
+  color: #fff;
+}
+
+.task-delete-btn:focus-visible {
+  outline: 2px solid var(--secondary-blue-dark);
+  outline-offset: 2px;
+}
+
+/* Cot nut xoa trong bang */
+.delete-cell {
+  width: 56px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.task-table thead th.delete-cell {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Keo chuot de chinh % tien do (ngang) */
+body.op-saving-page .prog-wrap {
+  cursor: ew-resize;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body.op-saving-page .prog-pct {
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+body.op-saving-page .prog-pct.dragging {
+  color: var(--secondary-blue-dark);
+  transform: scale(1.08);
+}
+
+body.op-saving-page.is-dragging-progress {
+  cursor: ew-resize;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Card header needs overflow to contain float */
+.task-card .tc-top {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.task-card .tc-top .st {
+  margin-left: auto;
+}
+
 /* Simulator Output Boxes */
 .sim-results-grid {
   display: flex;

@@ -26,7 +26,7 @@ const DEMO_ACCOUNTS = {
     name: "Phạm Kỹ Thuật",
     role: "engineer",
     roleTitle: "Facility Engineer",
-    redirect: "manager-energy-kpis.html" // fallback for demo
+    redirect: "operator-energy-monitor.html"
   },
   occupant: {
     username: "occupant@smartbuilding.io",

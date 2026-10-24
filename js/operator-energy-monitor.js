@@ -244,6 +244,8 @@
           openZoneModal(zone);
         }
       });
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
     });
 
     const overlay = $('zoneModal');
@@ -322,7 +324,7 @@
     }
     if (ackBtn) {
       ackBtn.disabled = state.acked;
-      ackBtn.textContent = state.acked ? 'Đã tiếp nhận' : 'Đã tiếp nhận';
+      ackBtn.textContent = state.acked ? 'Đã tiếp nhận' : 'Tiếp nhận';
     }
     if (detailBox && !detailBox.dataset.filled) {
       detailBox.dataset.filled = '1';

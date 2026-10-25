@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KPI năng lượng Operator & AI-3 What-if Simulator - SmartBuilding</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <!-- Backdrop for Mobile Off-Canvas Drawer -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar Navigation (Desktop & Mobile Drawer) -->
+    <aside id="appSidebar" class="app-sidebar">
+      <!-- Brand Logo -->
+      <div class="sidebar-brand">
+        <div class="brand-logo">▥</div>
+        <div class="brand-text">
+          <span class="brand-title">SmartBuilding</span>
+          <span class="brand-sub">BTL-36</span>
+        </div>
+        <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">×</button>
+      </div>
+
+      <!-- User Profile Box -->
+      <div class="sidebar-profile">
+        <div class="profile-avatar">OP</div>
+        <div class="profile-info">
+          <div class="profile-name">Operator</div>
+          <div class="profile-role">Vận hành tòa nhà</div>
+        </div>
+      </div>
+
+      <!-- Main Navigation -->
+      <div class="sidebar-section-title">ĐIỀU HƯỚNG</div>
+      <nav class="sidebar-nav">
+        <a href="operator-energy-kpis.html" class="nav-item active">
+          <span class="nav-num">01</span>
+          <span class="nav-label">KPI năng lượng</span>
+          <span class="nav-arrow">›</span>
+        </a>
+        <a href="engineer-energy-monitor.html" class="nav-item">
+          <span class="nav-num">02</span>
+          <span class="nav-label">Vận hành tòa nhà</span>
+          <span class="nav-arrow">›</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-bottom">
+        <div class="building-badge">
+          <span class="building-badge-sub">TÒA NHÀ HIỆN TẠI</span>
+          <div class="building-badge-main">
+            <span class="building-name">Green Tower • BTL-36</span>
+            <span class="nav-arrow">›</span>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Master Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu điều hướng">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="header-location">
+            <span class="location-name">Green Tower • Hà Nội</span>
+            <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <button class="header-icon-btn" aria-label="Thông báo hệ thống">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+          <div class="header-user">
+            <div class="profile-avatar">LK</div>
+            <div class="user-text">
+              <span class="user-name">Operator</span>
+              <span class="user-role">Vận hành tòa nhà</span>
+            </div>
+            <span class="user-chevron">▾</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Page Content Body -->
+      <main class="content-body">
+        <!-- Page Title & Subtitle -->
+        <div class="page-title-box">
+          <h1 class="page-title-text">KPI năng lượng</h1>
+          <p class="page-subtitle-text">Tháng 10/2026 • So với mục tiêu BQL</p>
+        </div>
+
+        <!-- Row 1: 3 KPI Cards -->
+        <div class="kpi-row">
+          <!-- Card 1: Chi phí điện -->
+          <div class="card kpi-card">
+            <div class="kpi-indicator-bar" style="background-color: #10B981; display: none;"></div>
+            <div class="kpi-card-header">
+              <span class="kpi-label">Chi phí điện</span>
+              <div class="kpi-icon-wrap" style="background-color: #ECFDF5;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-val">482,6 triệu VNĐ</div>
+            <div class="kpi-card-footer">
+              <span class="kpi-pill" style="background-color: #ECFDF5; color: #047857;">
+                <span class="pill-dot" style="background-color: #10B981;"></span>
+                ↓ 6,8%
+              </span>
+              <span class="kpi-compare-text">so với tháng trước</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Phát thải CO2 -->
+          <div class="card kpi-card">
+            <div class="kpi-indicator-bar" style="background-color: #3B82F6; display: none;"></div>
+            <div class="kpi-card-header">
+              <span class="kpi-label">Phát thải CO2</span>
+              <div class="kpi-icon-wrap" style="background-color: #EFF6FF;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2">
+                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-val">128,4 Tấn</div>
+            <div class="kpi-card-footer">
+              <span class="kpi-pill" style="background-color: #EFF6FF; color: #3B82F6;">
+                <span class="pill-dot" style="background-color: #3B82F6;"></span>
+                ↓ 9,2 tấn
+              </span>
+              <span class="kpi-compare-text">so với mục tiêu</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Tỷ lệ tiết kiệm -->
+          <div class="card kpi-card">
+            <div class="kpi-indicator-bar" style="background-color: #F59E0B; display: none;"></div>
+            <div class="kpi-card-header">
+              <span class="kpi-label">Tỷ lệ tiết kiệm</span>
+              <div class="kpi-icon-wrap" style="background-color: #FFFBEB;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+              </div>
+            </div>
+            <div class="kpi-val">14,8%</div>
+            <div class="kpi-card-footer">
+              <span class="kpi-pill" style="background-color: #FFFBEB; color: #F59E0B;">
+                <span class="pill-dot" style="background-color: #F59E0B;"></span>
+                +2,8%
+              </span>
+              <span class="kpi-compare-text">vượt mục tiêu</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: AI-3 What-if Simulator & Zone Comparison Chart -->
+        <div class="widgets-row">
+          <!-- Widget 1: AI-3 What-if Simulator -->
+          <div class="card widget-card simulator-card">
+            <div class="widget-title-area">
+              <h2 class="widget-title">AI-3 What-if Simulator</h2>
+              <p class="widget-subtitle">Dự báo tác động khi cắt giảm công suất</p>
+            </div>
+
+            <!-- Dynamic Slider Header -->
+            <div class="sim-slider-row">
+              <span class="sim-slider-label">Cắt giảm công suất</span>
+              <span id="reductionPercentDisplay" class="sim-slider-val">12%</span>
+            </div>
+
+            <!-- Modern Slider Track -->
+            <div class="range-track-container">
+              <div id="rangeFillBar" class="range-fill-bar" style="width: 15.5%;"></div>
+              <input type="range" id="powerReductionSlider" class="range-slider-native" min="5" max="50" step="1" value="12" aria-label="Điều chỉnh tỷ lệ cắt giảm công suất">
+            </div>
+
+            <!-- Simulator Output Metrics -->
+            <div class="sim-results-grid">
+              <div class="sim-result-box sim-box-green">
+                <span class="sim-box-label">Tiền điện giảm</span>
+                <span id="savedCostVal" class="sim-box-value">−57,9 triệu</span>
+                <span class="sim-box-unit" style="color: var(--primary-green-dark);">VNĐ</span>
+              </div>
+
+              <div class="sim-result-box sim-box-blue">
+                <span class="sim-box-label">CO2 giảm</span>
+                <span id="savedCO2Val" class="sim-box-value">−15.408</span>
+                <span class="sim-box-unit" style="color: var(--secondary-blue);">kg</span>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <button id="btnSaveScenario" class="btn-save-scenario">💾 Lưu kịch bản</button>
+          </div>
+
+          <!-- Widget 2: Tiêu thụ theo Zone Bar Chart -->
+          <div class="card widget-card">
+            <div class="widget-title-area">
+              <h2 class="widget-title">Tiêu thụ theo Zone</h2>
+              <p class="widget-subtitle">12 Zone • 24 giờ</p>
+            </div>
+
+            <!-- Chart Legend -->
+            <div class="zone-chart-legend">
+              <div class="legend-item">
+                <span class="legend-color-box" style="background-color: #10B981;"></span>
+                <span>Zone tiêu chuẩn</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-color-box" style="background-color: #EF4444;"></span>
+                <span>Zone cao nhất</span>
+              </div>
+            </div>
+
+            <!-- 12 Bars Matching Figma -->
+            <div class="bars-container">
+              <div class="chart-bar" style="height: 42px;" data-zone="Zone 01 (Sảnh chính)" data-kw="42.5"></div>
+              <div class="chart-bar" style="height: 58px;" data-zone="Zone 02 (Tầng 2)" data-kw="58.1"></div>
+              <div class="chart-bar" style="height: 40px;" data-zone="Zone 03 (Tầng 3)" data-kw="40.0"></div>
+              <div class="chart-bar" style="height: 68px;" data-zone="Zone 04 (Tầng 4)" data-kw="68.4"></div>
+              <div class="chart-bar" style="height: 82px;" data-zone="Zone 05 (Tầng 5 - VP Kỹ thuật)" data-kw="82.0"></div>
+              <div class="chart-bar" style="height: 72px;" data-zone="Zone 06 (Tầng 6)" data-kw="72.3"></div>
+              <div class="chart-bar bar-peak" style="height: 96px;" data-zone="Zone 07 (Tầng 12 - Server Room)" data-kw="115.8"></div>
+              <div class="chart-bar" style="height: 62px;" data-zone="Zone 08 (Tầng 8 - Hội nghị)" data-kw="62.5"></div>
+              <div class="chart-bar" style="height: 74px;" data-zone="Zone 09 (Tầng 9)" data-kw="74.2"></div>
+              <div class="chart-bar" style="height: 52px;" data-zone="Zone 10 (Tầng 10)" data-kw="52.0"></div>
+              <div class="chart-bar" style="height: 46px;" data-zone="Zone 11 (Tầng 11)" data-kw="46.3"></div>
+              <div class="chart-bar" style="height: 60px;" data-zone="Zone 12 (Tầng Thượng)" data-kw="60.1"></div>
+            </div>
+
+            <!-- Time Axis Labels -->
+            <div class="chart-timeline-labels">
+              <span>00:00</span>
+              <span>06:00</span>
+              <span>12:00</span>
+              <span>18:00</span>
+              <span>24:00</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Navigation Bar (Figma Standard) -->
+  <nav class="mobile-bottom-nav">
+    <a href="operator-energy-kpis.html" class="bottom-nav-item active">
+      <span class="bottom-nav-icon">📊</span>
+      <span class="bottom-nav-label">KPI năng lượng</span>
+    </a>
+    <a href="engineer-energy-monitor.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">🔧</span>
+      <span class="bottom-nav-label">Vận hành</span>
+    </a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="../js/user.js"></script>
+  <script src="../js/operator-energy-kpis.js"></script>
+</body>
+</html>

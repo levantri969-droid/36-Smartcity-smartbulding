@@ -243,6 +243,12 @@ function renderZones() {
                   <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
                 </svg>
               </button>
+              <button class="btn btn-outline btn-sm" onclick="handleDeleteZone('${z.id}')" title="Xóa khu vực" style="padding: 0 10px; color: var(--alert-red-text);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
             </div>
           </td>
         </tr>
@@ -281,6 +287,7 @@ function renderZones() {
           <div style="display: flex; gap: 8px; margin-top: 10px;">
             <button class="btn btn-outline btn-sm" onclick="handleEditZone('${z.id}')" style="flex: 1;">Sửa</button>
             <button class="btn btn-outline btn-sm" onclick="handleToggleZone('${z.id}')" style="flex: 1; color: var(--alert-red-text);">Đổi trạng thái</button>
+            <button class="btn btn-outline btn-sm" onclick="handleDeleteZone('${z.id}')" style="flex: 1; color: var(--alert-red-text);">Xóa</button>
           </div>
         </div>
       `).join("");
@@ -307,6 +314,26 @@ window.handleToggleZone = function(id) {
 
   renderZones();
   showToast(`Đã chuyển trạng thái ${z.id} sang: ${newLabel}`);
+};
+
+window.handleDeleteZone = function(id) {
+  const z = DB.get('zones').find(x => x.id === id);
+  if (!z) return;
+
+  // Kiểm tra an toàn: Nếu zone còn cảm biến đang liên kết
+  const sensors = DB.get('sensors') || [];
+  const relatedSensors = sensors.filter(s => s.zone === z.floor || s.zone === z.name || (z.floor && s.zone.includes(z.floor)));
+  
+  let confirmMsg = `Bạn có chắc chắn muốn xóa khu vực ${z.name} (${z.id}) khỏi hệ thống?`;
+  if (relatedSensors.length > 0) {
+    confirmMsg += `\nLưu ý: Khu vực này hiện có ${relatedSensors.length} cảm biến liên kết.`;
+  }
+
+  if (confirm(confirmMsg)) {
+    DB.delete('zones', id);
+    renderZones();
+    showToast(`Đã xóa thành công khu vực: ${z.name} (${id})`);
+  }
 };
 
 function showToast(msg) {

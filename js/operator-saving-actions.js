@@ -211,6 +211,7 @@
       + '<td class="delete-cell">' + deleteBtnHtml() + '</td>';
     if (tb) tb.appendChild(tr);
     bindProgress(tr, t.id);
+    bindDelete(tr, t.id);
 
     var cards = $('taskCards');
     var ac = document.createElement('article');
@@ -222,6 +223,7 @@
       + progHtml(t.progress);
     if (cards) cards.appendChild(ac);
     bindProgress(ac, t.id);
+    bindDelete(ac, t.id);
   }
   function bindDelete(el, id) {
     var btn = el.querySelector('.task-delete-btn');
@@ -241,11 +243,24 @@
   function openModal() { var m = $('taskModal'); if (m) { m.classList.add('show'); m.setAttribute('aria-hidden', 'false'); var f = $('fContent'); if (f) f.focus(); } }
   function closeModal() { var m = $('taskModal'); if (m) { m.classList.remove('show'); m.setAttribute('aria-hidden', 'true'); } }
   document.addEventListener('DOMContentLoaded', function () {
-    // 1. Nap task da luu
-    load().forEach(addTask);
-    // 2. Gan su kien cho cac task co san trong HTML
-    all('#taskTableBody tr, #taskCards .task-card').forEach(bindStatic);
-    // 3. Modal
+    // 1. Neu localStorage trong, dua mac dinh 3 task tu HTML static
+    var list = load();
+    if (list.length === 0) {
+      list = [
+        { id: 'TASK-142', content: 'Gi\u1ea3m 50% \u0111\u00e8n h\u00e0nh lang T3', tech: 'K\u1ef9 thu\u1eadt \u0111i\u1ec7n', deadline: '18/10/2025', progress: 65 },
+        { id: 'TASK-138', content: '\u0110i\u1ec1u ch\u1ec9nh l\u1ecbch Chiller 02', tech: 'HVAC', deadline: '15/10/2025', progress: 100 },
+        { id: 'TASK-136', content: 'Ki\u1ec3m tra timer bi\u1ec3n hi\u1ec7u', tech: 'K\u1ef9 thu\u1eadt \u0111i\u1ec7n', deadline: '20/10/2025', progress: 30 }
+      ];
+      save(list);
+    }
+    // 2. Xoa task static cu trong HTML de tranh render trung lap (HTML co san + localStorage)
+    var tb = $('taskTableBody');
+    var cards = $('taskCards');
+    if (tb) tb.innerHTML = '';
+    if (cards) cards.innerHTML = '';
+    // 3. Nap task tu localStorage (addTask da gắn sự kiện xoá + tiến độ)
+    list.forEach(addTask);
+    // 4. Modal
     ['createTaskTop', 'createTaskMobile'].forEach(function (id) {
       var b = $(id); if (b) b.addEventListener('click', openModal);
     });
@@ -260,10 +275,18 @@
       var deadline = ($('fDeadline') && $('fDeadline').value.trim()) || '20/10/2025';
       var progress = Math.max(0, Math.min(100, parseInt(($('fProgress') && $('fProgress').value) || '0', 10)));
       var list = load();
-      var id = 'TASK-' + (143 + list.length);
+      var maxNum = 142;
+      list.forEach(function (t) {
+        var m = /^TASK-(\d+)$/.exec(t.id);
+        if (m) maxNum = Math.max(maxNum, parseInt(m[1], 10));
+      });
+      var id = 'TASK-' + (maxNum + 1);
       var t = { id: id, content: content, tech: tech, deadline: deadline, progress: progress };
       list.push(t); save(list); addTask(t); closeModal();
       toast('\u0110\u00e3 t\u1ea1o ' + id + ' giao ' + tech + '.', true);
     });
   });
 })();
+
+
+

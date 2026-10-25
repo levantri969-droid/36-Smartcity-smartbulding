@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <script>(function(){try{if(localStorage.getItem('sm_theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KPI Năng Lượng & AI-3 What-if Simulator - SmartBuilding (Team 01)</title>
@@ -96,13 +97,29 @@
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
           </button>
-          <div class="header-location">
-            <span class="location-name">Green Tower • Hà Nội</span>
-            <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+          <div class="header-breadcrumb-wrap">
+            <div class="header-location">
+              <span class="location-name">Green Tower • Hà Nội</span>
+              <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+            </div>
+            <nav class="breadcrumb-nav" aria-label="Đường dẫn điều hướng"><a href="../index.html">Trang chủ</a><span class="breadcrumb-sep">/</span><a href="manager-energy-kpis.html">Quản lý vận hành</a><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">KPI Năng lượng</span></nav>
           </div>
         </div>
 
         <div class="header-right">
+
+        <!-- Role Switcher (Mục 2.4 Barem - Chuyển đổi vai trò nhanh phục vụ chấm vấn đáp) -->
+        <div class="role-switcher-container" role="group" aria-label="Chuyển đổi vai trò nhanh">
+          <a href="manager-energy-kpis.html" class="role-switch-btn active" title="Chuyển sang vai trò Facility Manager" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'manager',name:'Trần Thu Hà',email:'thuha@greentower.vn'}))">
+            <span>Quản lý</span>
+            <span class="role-switch-badge">Đang chọn</span>
+          </a>
+          <a href="admin-zone-management.html" class="role-switch-btn " title="Chuyển sang vai trò System Admin" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'admin',name:'Nguyễn Minh Anh',email:'minh.anh@greentower.vn'}))">
+            <span>Admin</span>
+            
+          </a>
+        </div>
+  
           <button class="header-icon-btn" aria-label="Thông báo hệ thống">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -172,76 +189,136 @@
             </div>
           </div>
 
-          <!-- Card 3: Hiệu suất năng lượng (EUI) -->
+          <!-- Card 3: Tỷ lệ tiết kiệm -->
           <div class="card kpi-card">
-            <div class="kpi-indicator-bar" style="background-color: #EF4444; display: none;"></div>
+            <div class="kpi-indicator-bar" style="background-color: #F59E0B; display: none;"></div>
             <div class="kpi-card-header">
-              <span class="kpi-label">Chỉ số EUI</span>
-              <div class="kpi-icon-wrap" style="background-color: #FEF2F2;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2">
+              <span class="kpi-label">Tỷ lệ tiết kiệm</span>
+              <div class="kpi-icon-wrap" style="background-color: #FFFBEB;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2">
                   <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                 </svg>
               </div>
             </div>
-            <div class="kpi-val">94,2 kWh/m²</div>
+            <div class="kpi-val">14,8%</div>
             <div class="kpi-card-footer">
-              <span class="kpi-pill" style="background-color: #FEF2F2; color: #DC2626;">
-                <span class="pill-dot" style="background-color: #EF4444;"></span>
-                ↑ 1,8%
+              <span class="kpi-pill" style="background-color: #FFFBEB; color: #F59E0B;">
+                <span class="pill-dot" style="background-color: #F59E0B;"></span>
+                +2,8%
               </span>
-              <span class="kpi-subtext">vượt ngưỡng cảnh báo</span>
+              <span class="kpi-subtext">vượt mục tiêu</span>
             </div>
           </div>
         </div>
 
         <!-- Row 2: 2 Main Widgets (Simulator & Chart) -->
         <div class="widgets-row">
-          <!-- Widget 1: AI-3 What-if Simulator -->
+                    <!-- Widget 1: AI-3 What-if Simulator (6-step UI chuẩn Barem) -->
           <div class="card widget-card simulator-card">
             <div class="widget-title-area">
-              <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
                 <h2 class="widget-title">Mô phỏng Tiết kiệm AI-3 (What-if)</h2>
                 <span class="badge badge-success">AI ACTIVE</span>
               </div>
-              <p class="widget-subtitle">Điều chỉnh phụ tải giờ cao điểm (Peak-shaving)</p>
+              <p class="widget-subtitle">Dự báo cắt giảm chi phí &amp; phát thải CO&#x2082; khi điều chỉnh phụ tải</p>
             </div>
-
-            <!-- Slider Control Row -->
-            <div class="sim-slider-row">
-              <span class="sim-slider-label">Tỷ lệ cắt giảm công suất:</span>
-              <span id="reductionPercentDisplay" class="sim-slider-val">12%</span>
+            <!-- BƯỚC 1: AI Step Indicator -->
+            <div class="ai-step-indicator" id="aiStepIndicator">
+              <div class="ai-step done" id="aiStep1"><span class="ai-step-num">1</span> Nhập liệu</div>
+              <div class="ai-step-sep"></div>
+              <div class="ai-step" id="aiStep2"><span class="ai-step-num">2</span> Xử lý AI</div>
+              <div class="ai-step-sep"></div>
+              <div class="ai-step" id="aiStep3"><span class="ai-step-num">3</span> Kết quả</div>
+              <div class="ai-step-sep"></div>
+              <div class="ai-step" id="aiStep4"><span class="ai-step-num">4</span> Giải thích</div>
+              <div class="ai-step-sep"></div>
+              <div class="ai-step" id="aiStep5"><span class="ai-step-num">5</span> Kiểm soát</div>
+              <div class="ai-step-sep"></div>
+              <div class="ai-step" id="aiStep6"><span class="ai-step-num">6</span> Lưu</div>
             </div>
-
-            <!-- Modern Slider Track -->
-            <div class="range-track-container">
-              <div id="rangeFillBar" class="range-fill-bar" style="width: 15.5%;"></div>
-              <input type="range" id="powerReductionSlider" class="range-slider-native" min="5" max="50" step="1" value="12" aria-label="Điều chỉnh tỷ lệ cắt giảm công suất">
-            </div>
-
-            <!-- Simulator Output Metrics -->
-            <div class="sim-results-grid">
-              <div class="sim-result-box sim-box-green">
-                <span class="sim-box-label">Tiền điện giảm</span>
-                <span id="savedCostVal" class="sim-box-value">−57,9 triệu</span>
-                <span class="sim-box-unit" style="color: var(--primary-green-dark);">VNĐ</span>
+            <!-- Bước 1: Input -->
+            <div id="aiInputSection">
+              <div class="sim-slider-row">
+                <label for="powerReductionSlider" class="sim-slider-label">Tỷ lệ cắt giảm công suất:</label>
+                <span id="reductionPercentDisplay" class="sim-slider-val">12%</span>
               </div>
-
-              <div class="sim-result-box sim-box-blue">
-                <span class="sim-box-label">CO2 giảm</span>
-                <span id="savedCO2Val" class="sim-box-value">−15.408</span>
-                <span class="sim-box-unit" style="color: var(--secondary-blue);">kg</span>
+              <div class="range-track-container">
+                <div id="rangeFillBar" class="range-fill-bar" style="width:15.5%;"></div>
+                <input type="range" id="powerReductionSlider" class="range-slider-native" min="5" max="50" step="1" value="12" aria-label="Điều chỉnh tỷ lệ cắt giảm công suất" aria-valuemin="5" aria-valuemax="50" aria-valuenow="12">
+              </div>
+              <button id="btnRunAI3" class="btn btn-primary" style="width:100%;margin-top:12px;">&#x1F916; Chạy phân tích AI-3</button>
+            </div>
+            <!-- Bước 2: Processing -->
+            <div id="aiLoadingSection" class="ai-loading-spinner d-none">
+              <div class="spinner-ring"></div>
+              <div>
+                <div style="font-weight:600;color:var(--text-dark);font-size:13px;">AI đang phân tích dữ liệu...</div>
+                <div class="ai-progress-bar-wrap" style="margin-top:8px;width:220px;"><div class="ai-progress-bar-fill" id="aiProgressFill" style="width:0%;"></div></div>
+                <div style="font-size:11px;color:var(--text-muted);margin-top:4px;" id="aiProgressLabel">0%</div>
               </div>
             </div>
-
-            <!-- Action Button -->
-            <button id="btnSaveScenario" class="btn-save-scenario">💾 Lưu kịch bản</button>
+            <!-- Bước 3+4+5+6 -->
+            <div id="aiResultSection" class="d-none">
+              <div id="aiFailureCard" class="ai-failure-card d-none">
+                <div style="display:flex;align-items:flex-start;gap:10px;">
+                  <span style="font-size:20px;">&#x26A0;&#xFE0F;</span>
+                  <div>
+                    <div style="font-weight:700;color:#92400E;font-size:13px;" id="aiFailureTitle">Không đủ dữ liệu tin cậy (Độ tin cậy thấp)</div>
+                    <div style="font-size:12px;color:var(--text-dark);margin-top:4px;" id="aiFailureMsg"></div>
+                    <div class="prompt-chips-wrap">
+                      <button class="prompt-chip" onclick="document.getElementById('powerReductionSlider').value=12;document.getElementById('btnRunAI3').click();">Thử với 12%</button>
+                      <button class="prompt-chip" onclick="document.getElementById('aiResultSection').classList.add('d-none');document.getElementById('aiInputSection').classList.remove('d-none');">Cấu hình thủ công</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="aiSuccessCard" class="ai-card d-none">
+                <div class="ai-card-header">
+                  <span style="font-weight:700;font-size:14px;color:var(--text-heading);" id="aiResultTitle">Kết quả mô phỏng AI-3</span>
+                  <span class="ai-badge">&#x1F916; Độ tin cậy: <span id="aiConfidenceVal">91%</span></span>
+                </div>
+                <div class="sim-results-grid">
+                  <div class="sim-result-box sim-box-green">
+                    <span class="sim-box-label">Tiền điện giảm</span>
+                    <span id="savedCostVal" class="sim-box-value">-57,9 triệu</span>
+                    <span class="sim-box-unit" style="color:var(--primary-green-dark);">VNĐ</span>
+                  </div>
+                  <div class="sim-result-box sim-box-blue">
+                    <span class="sim-box-label">CO2 giảm</span>
+                    <span id="savedCO2Val" class="sim-box-value">-15.408</span>
+                    <span class="sim-box-unit" style="color:var(--secondary-blue);">kg</span>
+                  </div>
+                </div>
+                <!-- Bước 4: Explainability -->
+                <div class="ai-explain-box">
+                  <strong style="font-size:12px;color:var(--primary-green-dark);">&#x1F4A1; Tại sao AI đưa ra gợi ý này?</strong>
+                  <p style="margin-top:6px;color:var(--text-dark);" id="aiExplainText">Dự báo dựa trên hệ số tải Chiller (COP 4.8) và biểu giá điện EVN Hà Nội giờ cao điểm.</p>
+                  <ul style="margin-top:8px;padding-left:16px;font-size:12px;color:var(--text-muted);">
+                    <li>Căn cứ: Dữ liệu tiêu thụ 30 ngày gần nhất</li>
+                    <li>Mô hình: Linear regression + time-series decomposition</li>
+                    <li>Biểu giá: EVN Hà Nội giờ cao điểm 7h-22h</li>
+                  </ul>
+                </div>
+                <!-- Bước 5: User Control (4 nút bắt buộc) -->
+                <div class="ai-action-row">
+                  <button class="btn-ai-accept" id="btnAiAccept">&#x2705; Chấp nhận &amp; Lưu</button>
+                  <button class="btn-ai-edit" id="btnAiEdit">&#x270F;&#xFE0F; Chỉnh sửa</button>
+                  <button class="btn-ai-reject" id="btnAiReject">&#x274C; Từ chối</button>
+                  <button class="btn-ai-retry" id="btnAiRetry">&#x1F504; Tạo lại</button>
+                </div>
+              </div>
+              <!-- Bước 6: Saved -->
+              <div id="aiSavedCard" class="d-none" style="background:#ECFDF5;border:1px solid var(--primary-green-border);border-radius:8px;padding:14px 16px;margin-top:12px;">
+                <span style="color:var(--primary-green-dark);font-weight:700;font-size:13px;">&#x2705; Kịch bản đã được lưu vào hệ thống!</span>
+                <p style="font-size:12px;color:var(--text-muted);margin-top:4px;">Dữ liệu đã cập nhật vào LocalStorage (DB.update). Thay đổi phản ánh ngay trên dashboard.</p>
+              </div>
+            </div>
           </div>
-
           <!-- Widget 2: Tiêu thụ theo Zone Bar Chart -->
           <div class="card widget-card">
             <div class="widget-title-area">
               <h2 class="widget-title">Tiêu thụ theo Zone</h2>
-              <p class="widget-subtitle">12 Zone • 24 giờ</p>
+              <p class="widget-subtitle" id="zoneChartSubtitle">12 Zone • 24 giờ</p>
             </div>
 
             <!-- Chart Legend -->
@@ -289,19 +366,19 @@
   <!-- Mobile Bottom Navigation Bar (Figma Standard) -->
   <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
     <a href="manager-energy-kpis.html" class="bottom-nav-item active">
-      <span class="bottom-nav-icon">📊</span>
+      <span class="bottom-nav-icon">ðŸ“Š</span>
       <span class="bottom-nav-label">KPI năng lượng</span>
     </a>
     <a href="manager-zone-comparison.html" class="bottom-nav-item">
-      <span class="bottom-nav-icon">📈</span>
+      <span class="bottom-nav-icon">ðŸ“ˆ</span>
       <span class="bottom-nav-label">So sánh Zone</span>
     </a>
     <a href="manager-monthly-report.html" class="bottom-nav-item">
-      <span class="bottom-nav-icon">📑</span>
+      <span class="bottom-nav-icon">ðŸ“‘</span>
       <span class="bottom-nav-label">Báo cáo tháng</span>
     </a>
     <a href="profile.html?role=manager" class="bottom-nav-item">
-      <span class="bottom-nav-icon">👤</span>
+      <span class="bottom-nav-icon">ðŸ‘¤</span>
       <span class="bottom-nav-label">Hồ sơ</span>
     </a>
   </nav>
@@ -312,5 +389,20 @@
   <!-- Scripts -->
   <script src="../js/main.js" defer></script>
   <script src="../js/manager-kpis.js" defer></script>
+
+  <!-- Semantic Footer -->
+  <footer class="app-footer" style="padding:14px 24px;font-size:12px;color:var(--text-muted);text-align:center;border-top:1px solid var(--border-color);background:var(--bg-white);">
+    Green Tower SmartBuilding &bull; <span style="font-weight:600;color:#10B981;">Nhóm 01 &ndash; CSE122 BTL-36</span> &bull;
+    <span id="footerNetLabel" style="color:#10B981;">&#x25CF; Online</span>
+  </footer>
+
+  
+
+  <!-- Dark Mode Toggle -->
+  <button class="dark-mode-toggle" id="darkModeToggle" title="Dark/Light" aria-label="Toggle dark mode">&#x1F319;</button>
+
+  <!-- Add storage.js and ai-engine.js -->
+  <script src="../js/storage.js"></script>
+  <script src="../js/ai-engine.js"></script>
 </body>
 </html>

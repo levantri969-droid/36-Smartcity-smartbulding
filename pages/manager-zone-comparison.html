@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <script>(function(){try{if(localStorage.getItem('sm_theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>So Sánh Công Suất Zone - SmartBuilding (Team 01)</title>
@@ -96,13 +97,29 @@
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
           </button>
-          <div class="header-location">
-            <span class="location-name">Green Tower • Hà Nội</span>
-            <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+          <div class="header-breadcrumb-wrap">
+            <div class="header-location">
+              <span class="location-name">Green Tower • Hà Nội</span>
+              <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+            </div>
+            <nav class="breadcrumb-nav" aria-label="Đường dẫn điều hướng"><a href="../index.html">Trang chủ</a><span class="breadcrumb-sep">/</span><a href="manager-energy-kpis.html">Quản lý vận hành</a><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">So sánh Zone</span></nav>
           </div>
         </div>
 
         <div class="header-right">
+
+        <!-- Role Switcher (Mục 2.4 Barem - Chuyển đổi vai trò nhanh phục vụ chấm vấn đáp) -->
+        <div class="role-switcher-container" role="group" aria-label="Chuyển đổi vai trò nhanh">
+          <a href="manager-energy-kpis.html" class="role-switch-btn active" title="Chuyển sang vai trò Facility Manager" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'manager',name:'Trần Thu Hà',email:'thuha@greentower.vn'}))">
+            <span>Quản lý</span>
+            <span class="role-switch-badge">Đang chọn</span>
+          </a>
+          <a href="admin-zone-management.html" class="role-switch-btn " title="Chuyển sang vai trò System Admin" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'admin',name:'Nguyễn Minh Anh',email:'minh.anh@greentower.vn'}))">
+            <span>Admin</span>
+            
+          </a>
+        </div>
+  
           <button class="header-icon-btn" aria-label="Thông báo hệ thống">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -130,9 +147,15 @@
 
         <!-- Card 1: Chọn Zone để so sánh -->
         <section class="card" aria-labelledby="zoneSelectTitle">
-          <div class="card-header" style="margin-bottom: 8px;">
+          
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
             <span id="zoneSelectTitle" class="card-title" style="font-size: 13px;">Chọn Zone để so sánh</span>
+            <div style="display:flex;align-items:center;background:var(--bg-light);border:1px solid var(--border-color);border-radius:var(--border-radius-md);padding:4px 10px;width:240px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="zoneSearchInput" placeholder="Tìm kiếm Zone..." style="border:none;background:transparent;outline:none;font-size:12px;padding-left:8px;width:100%;color:var(--text-dark);">
+            </div>
           </div>
+
 
           <!-- Desktop Zone Checkbox List -->
           <div id="zoneSelectorList" class="zone-desktop-list zone-selector-list" role="group" aria-label="Danh sách Zone so sánh">
@@ -141,7 +164,7 @@
 
           <!-- Mobile Compact Selector Dropdown -->
           <div class="zone-mobile-dropdown" style="display: none; width: 100%; flex-direction: column; gap: 6px;">
-            <div id="mobileZoneDropdownBtn" style="height: 44px; padding: 0 12px; background: white; border-radius: 8px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <div id="mobileZoneDropdownBtn" style="height: 44px; padding: 0 12px; background: var(--bg-white); border-radius: 8px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; cursor: pointer;">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2">
                 <path d="M4 6h16M4 12h16M4 18h7"></path>
               </svg>
@@ -246,7 +269,12 @@
   <div id="toastContainer" class="toast-container"></div>
 
   <!-- Scripts -->
+  <script src="../js/storage.js"></script>
   <script src="../js/main.js" defer></script>
   <script src="../js/manager-zone-comparison.js" defer></script>
+
+  <!-- Dark Mode Toggle (Mục 4.2 & Điểm thưởng Bonus) -->
+  <button class="dark-mode-toggle" id="darkModeToggle" title="Chuyển chế độ Sáng / Tối" aria-label="Toggle dark mode">🌙</button>
+
 </body>
 </html>

@@ -1,3 +1,85 @@
+
+/* ==========================================================================
+   ROLE SWITCHER & BREADCRUMB (Mục 2.4 Barem - Fast Role Transition)
+   ========================================================================== */
+.header-breadcrumb-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.breadcrumb-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.breadcrumb-nav a:hover {
+  color: var(--primary-green-dark);
+}
+
+.breadcrumb-sep {
+  color: var(--text-sub);
+  font-size: 10px;
+}
+
+.breadcrumb-current {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.role-switcher-container {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-full);
+  padding: 3px;
+  gap: 2px;
+}
+
+.role-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--border-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-muted);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.role-switch-btn:hover {
+  color: var(--text-dark);
+}
+
+.role-switch-btn.active {
+  background-color: var(--bg-white);
+  color: var(--primary-green-dark);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.role-switch-badge {
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background-color: var(--primary-green-light);
+  color: var(--primary-green-dark);
+}
+
 /* ==========================================================================
    CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
    ADMIN & MANAGER SPECIFIC COMPONENT STYLES (css/admin-manager.css)
@@ -1111,3 +1193,379 @@
 
 /* Responsive profile (≤ 900px) → Đã tách sang css/responsive-admin-manager.css */
 
+
+
+/* ==========================================================================
+   EMPTY STATE & EXPORT DATA STYLES (Mục 2.3 & Điểm thưởng Bonus Barem)
+   ========================================================================== */
+.empty-state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 20px;
+  text-align: center;
+  background-color: var(--bg-white);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius-lg);
+  margin: 12px 0;
+  width: 100%;
+}
+
+.empty-state-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--bg-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  margin-bottom: 12px;
+  color: var(--text-muted);
+}
+
+.empty-state-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.empty-state-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  max-width: 320px;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+
+.btn-reset-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background-color: var(--primary-green-light);
+  color: var(--primary-green-dark);
+  border: 1px solid var(--primary-green-border);
+  border-radius: var(--border-radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-reset-filter:hover {
+  background-color: var(--primary-green);
+  color: #fff;
+}
+
+
+/* ==========================================================================
+   DARK THEME COMPREHENSIVE FIXES (Khắc phục triệt để nền trắng/sáng che chữ)
+   ========================================================================== */
+[data-theme="dark"] .kpi-icon-wrap {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-theme="dark"] .kpi-pill {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .role-switcher-container {
+  background-color: #0B0F17 !important;
+  border-color: #1E293B !important;
+}
+
+[data-theme="dark"] .role-switch-btn {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .role-switch-btn.active {
+  background-color: #1E293B !important;
+  color: var(--primary-green) !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .role-switch-badge {
+  background-color: rgba(16, 185, 129, 0.2) !important;
+  color: var(--primary-green) !important;
+}
+
+/* Zone comparison list items */
+[data-theme="dark"] .zone-check-item {
+  background-color: #151D2A !important;
+  border-color: #1E293B !important;
+  color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .zone-check-item:hover {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .zone-check-name {
+  color: #F1F5F9 !important;
+}
+
+[data-theme="dark"] .zone-check-sub {
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .chart-container-box {
+  background: #0B0F17 !important;
+  border: 1px solid #1E293B !important;
+}
+
+[data-theme="dark"] .chart-container-box svg {
+  background: transparent !important;
+}
+
+/* Summary stat boxes */
+[data-theme="dark"] .summary-stat-box {
+  background-color: #151D2A !important;
+  border-color: #1E293B !important;
+}
+
+[data-theme="dark"] .summary-stat-val {
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .summary-stat-icon {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Monthly report cards & detail blocks */
+[data-theme="dark"] .report-card {
+  background-color: #151D2A !important;
+  border-color: #1E293B !important;
+}
+
+[data-theme="dark"] .report-card:hover {
+  background-color: #1E293B !important;
+}
+
+[data-theme="dark"] .report-card.active {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  border-color: var(--primary-green) !important;
+}
+
+[data-theme="dark"] .report-metric-box {
+  background-color: #0B0F17 !important;
+  border: 1px solid #1E293B !important;
+}
+
+/* Manager report detail metrics */
+[data-theme="dark"] div[style*="background: #F1F5F9"],
+[data-theme="dark"] div[style*="background:#F1F5F9"],
+[data-theme="dark"] div[style*="background: rgb(241, 245, 249)"] {
+  background: #0B0F17 !important;
+  border: 1px solid #1E293B !important;
+}
+
+[data-theme="dark"] div[style*="background: #F8FAFC"],
+[data-theme="dark"] div[style*="background:#F8FAFC"],
+[data-theme="dark"] div[style*="background: rgb(248, 250, 252)"] {
+  background: #151D2A !important;
+  border: 1px solid #1E293B !important;
+}
+
+/* Empty State dark theme */
+[data-theme="dark"] .empty-state-box {
+  background-color: #151D2A !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .empty-state-icon {
+  background-color: #0B0F17 !important;
+}
+
+[data-theme="dark"] .empty-state-title {
+  color: #F1F5F9 !important;
+}
+
+[data-theme="dark"] .empty-state-desc {
+  color: #94A3B8 !important;
+}
+
+/* AI Simulation Cards in Dark Mode */
+[data-theme="dark"] .sim-result-box {
+  border-color: #1E293B !important;
+}
+
+[data-theme="dark"] .sim-box-green {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+[data-theme="dark"] .sim-box-blue {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+}
+
+[data-theme="dark"] .sim-box-value {
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .ai-explain-box {
+  background-color: #0B0F17 !important;
+  border-color: #1E293B !important;
+}
+
+[data-theme="dark"] .ai-step {
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .ai-step.active {
+  color: var(--primary-green) !important;
+}
+
+[data-theme="dark"] .ai-step-num {
+  background-color: #1E293B !important;
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .ai-step.active .ai-step-num {
+  background-color: var(--primary-green) !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .ai-step.done .ai-step-num {
+  background-color: #065F46 !important;
+  color: #A7F3D0 !important;
+}
+
+/* Admin Table & Badges */
+[data-theme="dark"] .filter-bar {
+  background-color: #151D2A !important;
+  border-color: #1E293B !important;
+}
+
+[data-theme="dark"] .table-container,
+[data-theme="dark"] table.data-table {
+  background-color: #151D2A !important;
+}
+
+[data-theme="dark"] table.data-table th {
+  background-color: #0B0F17 !important;
+  color: #94A3B8 !important;
+  border-bottom-color: #1E293B !important;
+}
+
+[data-theme="dark"] table.data-table td {
+  border-bottom-color: #1E293B !important;
+  color: #F1F5F9 !important;
+}
+
+[data-theme="dark"] table.data-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+[data-theme="dark"] .progress-track {
+  background-color: #1E293B !important;
+}
+
+/* Profile page dark cards */
+[data-theme="dark"] .profile-card,
+[data-theme="dark"] .profile-header-card,
+[data-theme="dark"] .profile-nav-card {
+  background-color: #151D2A !important;
+  border-color: #1E293B !important;
+}
+
+[data-theme="dark"] .profile-nav-btn {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .profile-nav-btn:hover {
+  background-color: #1E293B !important;
+  color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .profile-nav-btn.active {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  color: var(--primary-green) !important;
+}
+
+[data-theme="dark"] .security-log-item {
+  background-color: #0B0F17 !important;
+  border-color: #1E293B !important;
+}
+
+
+/* ==========================================================================
+   PROFILE PAGE DARK THEME OVERRIDES (Tối ưu độ tương phản sâu)
+   ========================================================================== */
+[data-theme="dark"] .profile-col-card {
+  background: #111827 !important; /* Màu đen xanh đậm sâu hơn */
+  border-color: #1F2937 !important;
+  outline-color: #1F2937 !important;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .profile-card-title {
+  color: #F9FAFB !important;
+}
+
+[data-theme="dark"] .profile-card-sub {
+  color: #9CA3AF !important;
+}
+
+[data-theme="dark"] .profile-field-label {
+  color: #D1D5DB !important;
+}
+
+[data-theme="dark"] .profile-input-box {
+  background: #0B0F17 !important; /* Đen sẫm làm nổi bật trường nhập */
+  border-color: #1F2937 !important;
+  outline-color: #1F2937 !important;
+}
+
+[data-theme="dark"] .profile-input-box:focus-within {
+  border-color: var(--primary-green) !important;
+  outline-color: var(--primary-green) !important;
+}
+
+[data-theme="dark"] .profile-input-field {
+  color: #F9FAFB !important;
+}
+
+[data-theme="dark"] .profile-btn-upload {
+  background: #0B0F17 !important;
+  border-color: #1F2937 !important;
+  color: #F9FAFB !important;
+}
+
+[data-theme="dark"] .profile-btn-upload:hover {
+  background: #1F2937 !important;
+}
+
+[data-theme="dark"] .profile-activity-item {
+  border-bottom-color: #1F2937 !important;
+}
+
+[data-theme="dark"] .profile-activity-title {
+  color: #F9FAFB !important;
+}
+
+[data-theme="dark"] .profile-activity-time {
+  color: #9CA3AF !important;
+}
+
+[data-theme="dark"] .profile-activity-icon-box {
+  background: #0B0F17 !important;
+  border: 1px solid #1F2937 !important;
+}
+
+[data-theme="dark"] .profile-tabs-mobile {
+  background: #111827 !important;
+  border-color: #1F2937 !important;
+}
+
+[data-theme="dark"] .profile-tab-btn {
+  color: #9CA3AF !important;
+}
+
+[data-theme="dark"] .profile-tab-btn.active {
+  background: #0B0F17 !important;
+  color: var(--primary-green) !important;
+}

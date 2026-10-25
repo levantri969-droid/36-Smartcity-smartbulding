@@ -158,13 +158,3 @@
     font-weight: 700;
   }
 }
-
-
-/* ==========================================================================
-   3. DESKTOP GUARD (≥ 769px) — Đảm bảo bottom-nav ẩn trên desktop
-   ========================================================================== */
-@media (min-width: 769px) {
-  .mobile-bottom-nav {
-    display: none !important;
-  }
-}

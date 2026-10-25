@@ -22,14 +22,13 @@ const DEMO_ACCOUNTS = {
     roleTitle: "Facility Manager (SV3)",
     redirect: "manager-energy-kpis.html"
   },
-  operator: {
-    email: "operator@greentower.vn",
-    password: "operator2026",
-    name: "Lê Văn Hùng",
-    role: "operator",
-    roleTitle: "Building Operator (SV1)",
-    redirect: "",
-    disabled: true
+  engineer: {
+    username: "engineer@smartbuilding.io",
+    password: "password123",
+    name: "Phạm Kỹ Thuật",
+    role: "engineer",
+    roleTitle: "Facility Engineer",
+    redirect: "manager-energy-kpis.html" // fallback for demo
   },
   occupant: {
     email: "occupant@greentower.vn",

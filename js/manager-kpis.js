@@ -46,8 +46,8 @@ function initWhatIfSimulator() {
 
     if (co2Display) {
       // Format with dot thousand separator (e.g., −15.408)
-      const co2DisplayFormat = savedCO2Kg.toLocaleString("vi-VN");
-      co2Display.textContent = `−${co2DisplayFormat}`;
+      costDisplayFormat = savedCO2Kg.toLocaleString("vi-VN");
+      co2Display.textContent = `−${costDisplayFormat}`;
     }
 
     // 3. Update slider track fill percentage

@@ -1,7 +1,7 @@
 # cse122-smartbuilding-team01 - SmartBuilding BTL-36
 
 Dự án Bài tập lớn học phần **CSE122 - Thiết kế và Lập trình Web**  
-Đề tài: **BTL-36: SmartBuilding - Hệ thống Giám sát & Quản trị Tòa nhà Thông minh**
+Đề tài: **BTL-36: SmartBuilding - Hệ thống Giám sát & Quản trị Tòa nhà Thông minh** 
 
 ## 1. Thông tin Nhóm 01
 - **Nhóm thực hiện**: Team 01

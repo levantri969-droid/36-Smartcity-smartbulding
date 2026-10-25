@@ -1,6 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
+  <script>(function(){try{if(localStorage.getItem('sm_theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quản Lý Zone - SmartBuilding Admin</title>
@@ -100,7 +101,7 @@
         <div class="building-badge">
           <span class="building-badge-sub">TRẠNG THÁI HỆ THỐNG</span>
           <div class="building-badge-main">
-            <span class="building-name">Đang ổn định • 248 cảm biến</span>
+            <span class="building-name" id="systemSensorStatus">Đang ổn định • 15 cảm biến</span>
           </div>
         </div>
         <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
@@ -119,13 +120,29 @@
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
           </button>
-          <div class="header-location">
-            <span class="location-name">Green Tower • Hà Nội</span>
-            <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+          <div class="header-breadcrumb-wrap">
+            <div class="header-location">
+              <span class="location-name">Green Tower • Hà Nội</span>
+              <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+            </div>
+            <nav class="breadcrumb-nav" aria-label="Đường dẫn điều hướng"><a href="../index.html">Trang chủ</a><span class="breadcrumb-sep">/</span><a href="admin-zone-management.html">Quản trị hệ thống</a><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">Quản lý Zone</span></nav>
           </div>
         </div>
 
         <div class="header-right">
+
+        <!-- Role Switcher (Mục 2.4 Barem - Chuyển đổi vai trò nhanh phục vụ chấm vấn đáp) -->
+        <div class="role-switcher-container" role="group" aria-label="Chuyển đổi vai trò nhanh">
+          <a href="manager-energy-kpis.html" class="role-switch-btn " title="Chuyển sang vai trò Facility Manager" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'manager',name:'Trần Thu Hà',email:'thuha@greentower.vn'}))">
+            <span>Quản lý</span>
+            
+          </a>
+          <a href="admin-zone-management.html" class="role-switch-btn active" title="Chuyển sang vai trò System Admin" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'admin',name:'Nguyễn Minh Anh',email:'minh.anh@greentower.vn'}))">
+            <span>Admin</span>
+            <span class="role-switch-badge">Đang chọn</span>
+          </a>
+        </div>
+  
           <button class="header-icon-btn" aria-label="Thông báo hệ thống">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -145,11 +162,11 @@
 
       <!-- Main Page Content Body -->
       <main class="content-body">
-        <!-- Title & Action Toolbar (Consistent with Sensor & User pages) -->
+        <!-- Title & Action Toolbar -->
         <div class="page-header-row">
           <div class="page-title-box">
             <h1 class="page-title-text">Quản lý Zone</h1>
-            <p class="page-subtitle-text">18 Zone • 16 hoạt động • 2 bảo trì</p>
+            <p class="page-subtitle-text" id="zoneCountSummary">Đang tải danh sách khu vực...</p>
           </div>
           <div class="page-header-actions">
             <div class="search-box-wrap">
@@ -157,6 +174,7 @@
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
+              <label for="zoneSearchInput" class="visually-hidden" style="display:none;">Tìm kiếm Zone</label>
               <input type="text" id="zoneSearchInput" class="form-input" placeholder="Tìm mã Zone hoặc tên tầng..." aria-label="Tìm mã Zone hoặc tên tầng" style="padding-left: 36px;" />
             </div>
             <button id="btnAddZone" class="btn btn-primary">
@@ -169,11 +187,11 @@
           </div>
         </div>
 
-        <!-- Desktop Data Table -->
+        <!-- Desktop Data Table Card -->
         <div class="card table-card desktop-table-view">
           <div class="table-card-header">
             <span class="card-title" style="font-size: 15px;">Danh sách Zone</span>
-            <div class="badge badge-info">18 Zone</div>
+            <div class="badge badge-info" id="zoneBadgeCount">0 Zone</div>
           </div>
           <div class="table-responsive">
             <table class="data-table">
@@ -188,9 +206,17 @@
                 </tr>
               </thead>
               <tbody id="zoneTableBody">
-                <!-- Rendered dynamically by admin-zone-management.js -->
+                <!-- Dynamic Content -->
               </tbody>
             </table>
+          </div>
+
+          <!-- Empty State Container -->
+          <div id="zoneEmptyState" class="state-container state-empty d-none">
+            <div class="state-icon">🔍</div>
+            <div class="state-title">Không tìm thấy khu vực nào phù hợp</div>
+            <div class="state-desc">Hãy thử thay đổi từ khóa tìm kiếm hoặc bấm nút bên dưới để khôi phục danh sách.</div>
+            <button class="btn btn-outline" id="btnResetZoneSearch">Xóa bộ lọc tìm kiếm</button>
           </div>
         </div>
 
@@ -199,8 +225,66 @@
           <!-- Rendered dynamically by admin-zone-management.js -->
         </div>
       </main>
+
+      <!-- Semantic Footer -->
+      <footer class="app-footer">
+        <span>Green Tower SmartBuilding</span>
+        <span class="footer-version">Nhóm 01 – CSE122 BTL-36</span>
+        <span class="footer-network-status"><span class="dot-online" id="footerNetDot"></span><span id="footerNetLabel">Online</span></span>
+      </footer>
     </div>
   </div>
+
+  <!-- MODAL FORM: THÊM / CHỈNH SỬA ZONE CHUẨN A11Y (Thay thế prompt) -->
+  <div id="zoneModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="zoneModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="zoneModalTitle" class="modal-title">Thêm Khu vực (Zone) Mới</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseZoneModal" aria-label="Đóng">&times;</button>
+      </div>
+      <form id="zoneForm" novalidate>
+        <div class="modal-body">
+          <input type="hidden" id="zoneEditId" value="">
+          <div class="form-group">
+            <label for="zoneCodeInput" class="form-label">Mã Zone <span style="color: var(--alert-red);">*</span></label>
+            <input type="text" id="zoneCodeInput" class="form-input" placeholder="VD: ZN-009" required>
+            <small class="error-feedback" id="zoneCodeError">Vui lòng nhập mã Zone (VD: ZN-009)!</small>
+          </div>
+          <div class="form-group">
+            <label for="zoneNameInput" class="form-label">Tên khu vực / Tầng <span style="color: var(--alert-red);">*</span></label>
+            <input type="text" id="zoneNameInput" class="form-input" placeholder="VD: Tầng 9 - Khối R&D Công nghệ" required>
+            <small class="error-feedback" id="zoneNameError">Tên khu vực phải có ít nhất 4 ký tự!</small>
+          </div>
+          <div class="form-group">
+            <label for="zoneAreaInput" class="form-label">Diện tích sàn (m²) <span style="color: var(--alert-red);">*</span></label>
+            <input type="text" id="zoneAreaInput" class="form-input" placeholder="VD: 2.200 m²" required>
+            <small class="error-feedback" id="zoneAreaError">Vui lòng nhập diện tích hợp lệ!</small>
+          </div>
+          <div class="form-group">
+            <label for="zoneSensorsInput" class="form-label">Số lượng cảm biến dự kiến</label>
+            <input type="number" id="zoneSensorsInput" class="form-input" placeholder="24" value="24" min="1" max="150">
+          </div>
+          <div class="form-group">
+            <label for="zoneStatusSelect" class="form-label">Trạng thái vận hành</label>
+            <select id="zoneStatusSelect" class="form-select">
+              <option value="active">Hoạt động</option>
+              <option value="maintenance">Bảo trì</option>
+              <option value="disabled">Đã khóa</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="btnCancelZoneModal">Hủy bỏ</button>
+          <button type="submit" class="btn btn-primary" id="btnSaveZoneSubmit">Lưu thông tin</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
+
+  <!-- Dark Mode Toggle -->
+  <button class="dark-mode-toggle" id="darkModeToggle" title="Dark/Light" aria-label="Toggle dark mode">&#x1F319;</button>
 
   <!-- Mobile Bottom Navigation (Admin Role) -->
   <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
@@ -226,6 +310,7 @@
   <div id="toastContainer" class="toast-container"></div>
 
   <!-- Scripts -->
+  <script src="../js/storage.js" defer></script>
   <script src="../js/main.js" defer></script>
   <script src="../js/admin-zone-management.js" defer></script>
 </body>

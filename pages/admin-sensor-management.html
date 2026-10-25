@@ -1,6 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
+  <script>(function(){try{if(localStorage.getItem('sm_theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quản Lý Sensors - SmartBuilding Admin</title>git init
@@ -97,7 +98,7 @@
         <div class="building-badge">
           <span class="building-badge-sub">TRẠNG THÁI HỆ THỐNG</span>
           <div class="building-badge-main">
-            <span class="building-name">Đang ổn định • 248 cảm biến</span>
+            <span class="building-name" id="sidebarSensorSummary">Đang tải...</span>
           </div>
         </div>
         <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
@@ -116,13 +117,29 @@
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
           </button>
-          <div class="header-location">
-            <span class="location-name">Green Tower • Hà Nội</span>
-            <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+          <div class="header-breadcrumb-wrap">
+            <div class="header-location">
+              <span class="location-name">Green Tower • Hà Nội</span>
+              <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+            </div>
+            <nav class="breadcrumb-nav" aria-label="Đường dẫn điều hướng"><a href="../index.html">Trang chủ</a><span class="breadcrumb-sep">/</span><a href="admin-zone-management.html">Quản trị hệ thống</a><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">Cảm biến</span></nav>
           </div>
         </div>
 
         <div class="header-right">
+
+        <!-- Role Switcher (Mục 2.4 Barem - Chuyển đổi vai trò nhanh phục vụ chấm vấn đáp) -->
+        <div class="role-switcher-container" role="group" aria-label="Chuyển đổi vai trò nhanh">
+          <a href="manager-energy-kpis.html" class="role-switch-btn " title="Chuyển sang vai trò Facility Manager" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'manager',name:'Trần Thu Hà',email:'thuha@greentower.vn'}))">
+            <span>Quản lý</span>
+            
+          </a>
+          <a href="admin-zone-management.html" class="role-switch-btn active" title="Chuyển sang vai trò System Admin" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'admin',name:'Nguyễn Minh Anh',email:'minh.anh@greentower.vn'}))">
+            <span>Admin</span>
+            <span class="role-switch-badge">Đang chọn</span>
+          </a>
+        </div>
+  
           <button class="header-icon-btn" aria-label="Thông báo hệ thống">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -146,7 +163,7 @@
         <div class="page-header-row">
           <div class="page-title-box">
             <h1 class="page-title-text">Quản lý Cảm biến & Thiết bị</h1>
-            <p class="page-subtitle-text">248 cảm biến • 246 trực tuyến • 2 cảnh báo AI • Đồng bộ 10:32</p>
+            <p class="page-subtitle-text" id="sensorTopSummary">Hệ thống IoT giám sát tiêu thụ điện & chất lượng môi trường</p>
           </div>
           <div class="page-header-actions">
             <div class="search-box-wrap">
@@ -154,11 +171,17 @@
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
+              <label for="sensorSearchInput" class="visually-hidden" style="display:none;">Tìm cảm biến</label>
               <input type="text" id="sensorSearchInput" class="form-input" placeholder="Tìm mã cảm biến, zone..." aria-label="Tìm mã cảm biến, zone" style="padding-left: 36px;" />
             </div>
-            <button class="btn btn-outline" style="min-width: 90px;">
-              Bộ lọc <span style="color: var(--text-muted);">&#9662;</span>
-            </button>
+            <select id="sensorTypeFilter" class="form-select" style="width: auto; min-width: 140px;" aria-label="Lọc theo loại cảm biến">
+              <option value="ALL">Tất cả loại</option>
+              <option value="Đồng hồ điện">Đồng hồ điện</option>
+              <option value="Nhiệt độ">Nhiệt độ</option>
+              <option value="Ánh sáng">Ánh sáng</option>
+              <option value="CO₂">CO₂</option>
+              <option value="Độ ẩm">Độ ẩm</option>
+            </select>
             <button id="btnCreateSensor" class="btn btn-primary">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -169,35 +192,37 @@
           </div>
         </div>
 
-        <!-- AI Alert Banner -->
-        <div class="sensor-alert-banner">
+        <!-- AI Alert Banner (AI-2 IoT Risk) -->
+        <div class="sensor-alert-banner" id="sensorAiBanner">
           <div style="width: 36px; height: 36px; background: var(--warning-amber); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: white; font-size: 16px;">⚠️</div>
           <div style="flex: 1; display: flex; flex-direction: column; gap: 3px;">
             <div style="color: var(--warning-amber-text); font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
-              AI quét cảnh báo cảm biến
-              <span class="alert-badge">AI ALERT</span>
+              AI Quét Cảnh Báo Thiết Bị IoT (AI-2)
+              <span class="alert-badge">AI DETECTOR</span>
             </div>
-            <div style="color: var(--text-dark); font-size: 14px; font-weight: 600; line-height: 1.4;">Phát hiện 2 cảm biến dùng trùng địa chỉ Modbus và 1 cảm biến mất tín hiệu trên 8 phút.</div>
+            <div id="aiBannerText" style="font-size: 14px; font-weight: 600; line-height: 1.4;">
+              Đang phân tích các thông số cảm biến thời gian thực...
+            </div>
           </div>
-          <button id="btnAiDetail" class="btn btn-sm" style="background: var(--warning-amber); color: white; border-color: var(--warning-amber); white-space: nowrap; flex-shrink: 0;">Xem chi tiết</button>
+          <button id="btnAiScanSensors" class="btn btn-sm" style="background: var(--warning-amber); color: white; border-color: var(--warning-amber); white-space: nowrap; flex-shrink: 0;">Quét lại bằng AI</button>
         </div>
 
         <!-- Desktop Sensors Table -->
         <div class="card table-card desktop-table-view">
           <div class="table-card-header">
-            <span class="card-title" style="font-size: 15px;">Danh sách cảm biến</span>
-            <div class="badge badge-warning">2 cảnh báo</div>
+            <span class="card-title" style="font-size: 15px;">Danh sách cảm biến IoT</span>
+            <div class="badge badge-warning" id="sensorAlertBadge">Đang cập nhật...</div>
           </div>
           <div class="table-responsive">
             <table class="data-table">
               <thead>
                 <tr>
                   <th style="width: 16%;">Mã Sensor</th>
-                  <th style="width: 18%;">Loại</th>
+                  <th style="width: 16%;">Loại</th>
                   <th style="width: 18%;">Zone</th>
+                  <th style="width: 16%;">Chỉ số hiện tại</th>
                   <th style="width: 16%;">Trạng thái</th>
-                  <th style="width: 18%;">Cấu hình / Khóa</th>
-                  <th style="width: 14%;">Hành động</th>
+                  <th style="width: 18%;">Hành động</th>
                 </tr>
               </thead>
               <tbody id="sensorTableBody">
@@ -205,13 +230,22 @@
               </tbody>
             </table>
           </div>
+
+          <!-- Empty State -->
+          <div id="sensorEmptyState" class="state-container state-empty d-none">
+            <div class="state-icon">📡</div>
+            <div class="state-title">Không tìm thấy cảm biến nào phù hợp</div>
+            <div class="state-desc">Thử đổi từ khóa tìm kiếm hoặc bấm nút để đặt lại bộ lọc.</div>
+            <button class="btn btn-outline" id="btnResetSensorFilter">Đặt lại bộ lọc</button>
+          </div>
+
           <!-- Pagination Footer -->
           <div style="padding: 12px 18px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color);">
-            <span style="color: var(--text-muted); font-size: 12px;">Hiển thị 6 trên 248 cảm biến</span>
+            <span style="color: var(--text-muted); font-size: 12px;" id="sensorCounter">Đang tải...</span>
             <div style="display: flex; gap: 8px;">
-              <button class="btn btn-outline btn-sm">Trước</button>
+              <button class="btn btn-outline btn-sm" id="btnPrevSensorPage" disabled>Trước</button>
               <div style="height: 32px; padding: 0 12px; background: var(--primary-green); border-radius: 6px; display: flex; align-items: center; color: white; font-size: 12px; font-weight: 700;">1</div>
-              <button class="btn btn-outline btn-sm">Tiếp</button>
+              <button class="btn btn-outline btn-sm" id="btnNextSensorPage" disabled>Tiếp</button>
             </div>
           </div>
         </div>
@@ -221,8 +255,82 @@
           <!-- Rendered dynamically by admin-sensor-management.js -->
         </div>
       </main>
+
+      <!-- Semantic Footer -->
+      <footer class="app-footer">
+        <span>Green Tower SmartBuilding</span>
+        <span class="footer-version">Nhóm 01 – CSE122 BTL-36</span>
+        <span class="footer-network-status"><span class="dot-online" id="footerNetDot"></span><span id="footerNetLabel">Online</span></span>
+      </footer>
     </div>
   </div>
+
+  <!-- MODAL FORM: THÊM / CẬP NHẬT CẢM BIẾN (Thay thế prompt) -->
+  <div id="sensorModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="sensorModalTitle">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="sensorModalTitle" class="modal-title">Thêm Cảm Biến Mới</h3>
+        <button type="button" class="btn-close-modal" id="btnCloseSensorModal" aria-label="Đóng">&times;</button>
+      </div>
+      <form id="sensorForm" novalidate>
+        <div class="modal-body">
+          <input type="hidden" id="sensorEditId" value="">
+          <div class="form-group">
+            <label for="sensorCodeInput" class="form-label">Mã Cảm biến <span style="color: var(--alert-red);">*</span></label>
+            <input type="text" id="sensorCodeInput" class="form-input" placeholder="VD: PWR-T3-099" required>
+            <small class="error-feedback" id="sensorCodeError">Mã cảm biến không được để trống!</small>
+          </div>
+          <div class="form-group">
+            <label for="sensorTypeSelect" class="form-label">Loại cảm biến <span style="color: var(--alert-red);">*</span></label>
+            <select id="sensorTypeSelect" class="form-select" required>
+              <option value="">-- Chọn loại cảm biến --</option>
+              <option value="Đồng hồ điện">Đồng hồ điện (Power Meter)</option>
+              <option value="Nhiệt độ">Nhiệt độ (Temperature Sensor)</option>
+              <option value="Ánh sáng">Ánh sáng (Lux Sensor)</option>
+              <option value="CO₂">Chất lượng không khí (CO₂ Sensor)</option>
+              <option value="Độ ẩm">Độ ẩm (Humidity Sensor)</option>
+            </select>
+            <small class="error-feedback" id="sensorTypeError">Vui lòng chọn loại cảm biến!</small>
+          </div>
+          <div class="form-group">
+            <label for="sensorZoneSelect" class="form-label">Phân khu (Zone) <span style="color: var(--alert-red);">*</span></label>
+            <select id="sensorZoneSelect" class="form-select" required>
+              <option value="">-- Chọn phân khu --</option>
+              <option value="Tầng 1">Tầng 1 - Sảnh chính</option>
+              <option value="Tầng 2">Tầng 2 - Căn tin</option>
+              <option value="Tầng 3">Tầng 3 - Khối R&D</option>
+              <option value="Tầng 4">Tầng 4 - Khối Kỹ thuật</option>
+              <option value="Tầng 5">Tầng 5 - BMS</option>
+              <option value="Tầng 8">Tầng 8 - Hội nghị</option>
+              <option value="Server Room">Tầng 12 - Server Room</option>
+            </select>
+            <small class="error-feedback" id="sensorZoneError">Vui lòng chọn phân khu!</small>
+          </div>
+          <div class="form-group">
+            <label for="sensorThresholdInput" class="form-label">Ngưỡng cảnh báo an toàn</label>
+            <input type="number" id="sensorThresholdInput" class="form-input" placeholder="VD: 60" value="50" step="0.1">
+          </div>
+          <div class="form-group">
+            <label for="sensorStatusSelect" class="form-label">Trạng thái kết nối ban đầu</label>
+            <select id="sensorStatusSelect" class="form-select">
+              <option value="online">Hoạt động (Online)</option>
+              <option value="warning">Cảnh báo (Warning)</option>
+              <option value="disconnected">Mất kết nối (Disconnected)</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="btnCancelSensorModal">Hủy bỏ</button>
+          <button type="submit" class="btn btn-primary" id="btnSaveSensorSubmit">Lưu cảm biến</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  
+
+  <!-- Dark Mode Toggle -->
+  <button class="dark-mode-toggle" id="darkModeToggle" title="Dark/Light" aria-label="Toggle dark mode">&#x1F319;</button>
 
   <!-- Mobile Bottom Navigation (Admin Role) -->
   <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
@@ -248,6 +356,8 @@
   <div id="toastContainer" class="toast-container"></div>
 
   <!-- Scripts -->
+  <script src="../js/storage.js" defer></script>
+  <script src="../js/ai-engine.js" defer></script>
   <script src="../js/main.js" defer></script>
   <script src="../js/admin-sensor-management.js" defer></script>
 </body>

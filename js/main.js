@@ -4,6 +4,7 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+  initGlobalDarkMode();
   syncCurrentRoleSession();
   initMobileDrawer();
   highlightActiveNavigation();
@@ -145,3 +146,61 @@ function showToast(message, type = "success") {
   }, 3200);
 }
 window.showToast = showToast;
+
+
+// 5. Global Theme Management (Dark / Light Mode)
+function initGlobalDarkMode() {
+  const THEME_KEY = "sm_theme";
+  
+  function applyTheme(theme) {
+    if (theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+    updateIcon();
+  }
+
+  function updateIcon() {
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    const btns = document.querySelectorAll("#darkModeToggle, .dark-mode-toggle");
+    btns.forEach(b => {
+      b.innerHTML = isDark ? "&#x2600;&#xFE0F;" : "&#x1F319;";
+      b.setAttribute("title", isDark ? "Chuyển sang giao diện Sáng" : "Chuyển sang giao diện Tối");
+    });
+  }
+
+  // Ensure button exists on the page
+  let btn = document.getElementById("darkModeToggle");
+  if (!btn) {
+    btn = document.createElement("button");
+    btn.id = "darkModeToggle";
+    btn.className = "dark-mode-toggle";
+    btn.setAttribute("aria-label", "Chuyển chế độ sáng / tối");
+    document.body.appendChild(btn);
+  }
+
+  // Apply saved theme
+  const saved = localStorage.getItem(THEME_KEY) || "light";
+  applyTheme(saved);
+
+  // Attach click handler cleanly without conflict
+  btn.onclick = function(e) {
+    if (e) e.preventDefault();
+    const currentTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    localStorage.setItem(THEME_KEY, newTheme);
+    applyTheme(newTheme);
+    if (typeof showToast === "function") {
+      showToast(newTheme === "dark" ? "Đã bật giao diện Tối" : "Đã chuyển sang giao diện Sáng", "info");
+    }
+  };
+
+  // Sync across open tabs in real-time
+  window.addEventListener("storage", (e) => {
+    if (e.key === THEME_KEY) {
+      applyTheme(e.newValue || "light");
+    }
+  });
+}
+window.initGlobalDarkMode = initGlobalDarkMode;

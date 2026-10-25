@@ -21,15 +21,14 @@
 .login-container {
   display: flex;
   width: 100%;
-  max-width: 1440px;
+  max-width: 100vw;
   min-height: 100vh;
   margin: 0 auto;
 }
 
 /* Left Hero Banner (Figma 724px) */
 .login-banner {
-  width: 724px;
-  flex: 0 0 724px;
+  width: 50%; flex: 1 1 50%;
   padding: 64px;
   background: linear-gradient(180deg, rgba(15, 23, 42, 0.13) 0%, rgba(15, 23, 42, 0.80) 100%),
               url('../assets/images/smartbuilding.jpg') center/cover no-repeat;
@@ -103,8 +102,7 @@
 
 /* Right Panel & Card (Figma 716px + 520px Card) */
 .login-panel {
-  width: 716px;
-  flex: 1 1 716px;
+  width: 50%; flex: 1 1 50%;
   padding: 80px 48px;
   display: flex;
   flex-direction: column;
@@ -362,7 +360,7 @@
 
 .notfound-container {
   width: 100%;
-  max-width: 1440px;
+  max-width: 100vw;
   min-height: 100vh;
   padding: 48px;
   background: #F8FAFC;
@@ -505,3 +503,82 @@
 }
 
 /* Responsive 404 (≤ 850px) → Đã tách sang css/responsive-login-404.css */
+
+
+/* ==========================================================================
+   DARK MODE FOR LOGIN & 404
+   ========================================================================== */
+[data-theme="dark"] body.login-body,
+[data-theme="dark"] .login-container {
+  background-color: #0B0F17 !important;
+}
+
+[data-theme="dark"] .login-panel {
+  background-color: #0B0F17 !important;
+}
+
+[data-theme="dark"] .login-card {
+  background-color: #151D2A !important;
+  border-color: #1E293B !important;
+  outline-color: #1E293B !important;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme="dark"] .login-card-title,
+[data-theme="dark"] .login-field-label,
+[data-theme="dark"] .role-tab {
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .login-card-sub,
+[data-theme="dark"] .login-remember-text,
+[data-theme="dark"] .role-tabs-hint,
+[data-theme="dark"] .login-card-footer {
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .login-input-box {
+  background-color: #1E293B !important;
+  border-color: #334155 !important;
+  outline-color: #334155 !important;
+}
+
+[data-theme="dark"] .login-input-field {
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .login-input-field::placeholder {
+  color: #64748B !important;
+}
+
+[data-theme="dark"] .role-tabs-row {
+  background-color: #1E293B !important;
+}
+
+[data-theme="dark"] .role-tab {
+  background-color: transparent !important;
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .role-tab.active {
+  background-color: #10B981 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .notfound-container,
+[data-theme="dark"] body.notfound-body {
+  background-color: #0B0F17 !important;
+}
+
+[data-theme="dark"] .notfound-card {
+  background-color: #151D2A !important;
+  border-color: #1E293B !important;
+}
+
+[data-theme="dark"] .notfound-heading {
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .notfound-desc {
+  color: #94A3B8 !important;
+}

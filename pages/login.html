@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+  <script>(function(){try{if(localStorage.getItem('sm_theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Đăng nhập - SmartBuilding (BTL-36)</title>
@@ -157,7 +158,7 @@
           <div class="demo-grid">
 
             <!-- Occupant (Vô hiệu hóa - SV2 đang phát triển) -->
-            <button type="button" class="demo-role-btn" onclick="demoFastLogin('occupant')" style="opacity: 0.65; cursor: not-allowed;" title="Chức năng Occupant đang được phát triển (chưa tích hợp)">
+            <button type="button" class="demo-role-btn" onclick="demoFastLogin('occupant')" title="Vai trò Occupant (Cư dân - SV2 đảm nhiệm)">
               <span class="demo-role-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -168,7 +169,7 @@
             </button>
 
             <!-- Operator (Vô hiệu hóa - SV1 đang phát triển) -->
-            <button type="button" class="demo-role-btn" onclick="demoFastLogin('operator')" style="opacity: 0.65; cursor: not-allowed;" title="Chức năng Operator đang được phát triển (chưa tích hợp)">
+            <button type="button" class="demo-role-btn" onclick="demoFastLogin('operator')" title="Vai trò Operator (Kỹ sư - SV1 đảm nhiệm)">
               <span class="demo-role-icon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -214,5 +215,8 @@
 
   <!-- Scripts -->
   <script src="../js/login.js" defer></script>
+  <script src="../js/main.js" defer></script>
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container" style="position:fixed;top:20px;right:20px;z-index:9999;"></div>
 </body>
 </html>

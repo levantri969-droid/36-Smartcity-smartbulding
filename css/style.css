@@ -675,6 +675,7 @@ button {
 .range-slider-native {
   width: 100%;
   -webkit-appearance: none;
+  appearance: none;
   background: transparent;
   height: 8px;
   cursor: pointer;
@@ -689,6 +690,7 @@ button {
 
 .range-slider-native::-webkit-slider-thumb {
   -webkit-appearance: none;
+  appearance: none;
   height: 18px;
   width: 18px;
   border-radius: 50%;

@@ -53,3 +53,15 @@ cse122-smartbuilding-team01/
 ## 4. Hướng dẫn khởi chạy
 1. Mở trực tiếp file `index.html` hoặc `pages/login.html` trên trình duyệt web.
 2. Hoặc sử dụng extension **Live Server** trên VS Code để trải nghiệm tốt nhất các tính năng tải dữ liệu qua Fetch API.
+
+## 5. Link figma
+https://www.figma.com/design/GxyxWCHGyobvm2KCDMrdoJ/H%25C3%25ACnh-%25E1%25BA%25A3nh-tr%25E1%25BB%25B1c-quan?node-id=0-1&p=f&t=DneHZK8jYEBvCjtd-0
+
+## 6. Link Youtube
+https://youtu.be/eNDMW9z6fJY
+
+## 7. Link github
+
+- Cá nhân: https://github.com/hanhhong2208-gif/BaiGiuaKy_ToHongAnh_67CNTT1
+
+- Nhóm: https://github.com/levantri969-droid/36-Smartcity-smartbulding

@@ -3,108 +3,216 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đăng nhập - SmartBuilding Team 01</title>
+  <title>Đăng nhập - SmartBuilding (BTL-36)</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/login-404.css">
+  <link rel="stylesheet" href="../css/responsive-login-404.css">
   <link rel="stylesheet" href="../css/responsive.css">
-  <style>
-    .login-container {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top right, #E2E8F0, #F8FAFC);
-      padding: 24px;
-    }
-    .login-card {
-      background: #FFFFFF;
-      width: 100%;
-      max-width: 440px;
-      border-radius: var(--border-radius-lg);
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-      border: 1px solid var(--border-color);
-      padding: 36px;
-    }
-    .login-brand {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-    .brand-icon {
-      font-size: 2.5rem;
-      margin-bottom: 8px;
-    }
-    .demo-box {
-      margin-top: 24px;
-      padding-top: 20px;
-      border-top: 1px dashed var(--border-color);
-    }
-    .demo-title {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 12px;
-      text-align: center;
-    }
-    .demo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-  </style>
 </head>
-<body>
+<body class="login-body">
 
+  <!-- Desktop: Split Layout (724px banner + 716px panel) -->
+  <!-- Mobile: Single column card -->
   <div class="login-container">
-    <div class="login-card">
-      <div class="login-brand">
-        <div class="brand-icon">🏢</div>
-        <h2 style="font-size: 1.5rem; font-weight: 700;">SmartBuilding</h2>
-        <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 4px;">Hệ thống Quản lý Vận hành & Năng lượng (Team 01)</p>
+
+    <!-- ========================================================
+         LEFT: Hero Banner (Figma 724px spec)
+         ======================================================== -->
+    <div class="login-banner" role="complementary" aria-label="Giới thiệu SmartBuilding">
+
+      <!-- Banner Brand Logo -->
+      <div class="login-banner-brand">
+        <div class="login-banner-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
+        <div>
+          <div class="login-banner-brand-title">SmartBuilding</div>
+          <div class="login-banner-brand-sub">BTL-36</div>
+        </div>
       </div>
 
-      <form id="loginForm">
-        <div class="form-group">
-          <label class="form-label" for="emailInput">Địa chỉ Email</label>
-          <input type="email" id="emailInput" class="form-control" placeholder="name@smartbuilding.io" required value="manager@smartbuilding.io">
-        </div>
+      <!-- Banner Hero Text -->
+      <div class="login-banner-hero">
+        <h1 class="login-banner-heading">SmartBuilding - Điều phối năng lượng hiệu quả</h1>
+        <p class="login-banner-desc">Kết nối con người, dữ liệu và AI để mỗi tòa nhà vận hành bền vững hơn.</p>
+      </div>
+    </div>
 
-        <div class="form-group">
-          <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-            <label class="form-label" for="passwordInput" style="margin-bottom: 0;">Mật khẩu</label>
-            <a href="#" style="font-size: 0.78rem; color: var(--secondary-blue);">Quên mật khẩu?</a>
+    <!-- ========================================================
+         RIGHT: Login Panel (Figma 716px spec)
+         ======================================================== -->
+    <div class="login-panel">
+
+      <!-- Mobile only header (hidden on desktop) -->
+      <div class="login-mobile-header">
+        <!-- Mobile Brand -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div class="brand-logo" style="width: 36px; height: 36px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
           </div>
-          <input type="password" id="passwordInput" class="form-control" placeholder="••••••••" required value="password123">
+          <div>
+            <div style="color: var(--text-dark); font-size: 16px; font-weight: 700; line-height: 1.2;">SmartBuilding</div>
+            <div style="color: var(--text-muted); font-size: 11px; font-weight: 600;">BTL-36</div>
+          </div>
         </div>
-
-        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; margin-top: 8px;">Đăng Nhập Ngay</button>
-      </form>
-
-      <!-- Fast Demo Role Login -->
-      <div class="demo-box">
-        <div class="demo-title">⚡ Đăng nhập nhanh kiểm thử (Demo Fast-Login)</div>
-        <div class="demo-grid">
-          <button type="button" class="btn btn-outline btn-sm" onclick="demoFastLogin('manager')">
-            🎯 Manager (SV3)
-          </button>
-          <button type="button" class="btn btn-outline btn-sm" onclick="demoFastLogin('admin')">
-            ⚙️ Admin (SV3)
-          </button>
-          <button type="button" class="btn btn-outline btn-sm" onclick="demoFastLogin('engineer')">
-            🔧 Engineer (SV1)
-          </button>
-          <button type="button" class="btn btn-outline btn-sm" onclick="demoFastLogin('occupant')">
-            🌱 Occupant (SV2)
-          </button>
+        <!-- Mobile Title -->
+        <div style="width: 100%; text-align: left;">
+          <h1 style="color: var(--text-dark); font-size: 28px; font-weight: 700; margin-bottom: 4px;">Chào mừng trở lại</h1>
+          <p style="color: var(--text-muted); font-size: 14px; line-height: 1.5;">Đăng nhập để quản lý năng lượng và vận hành tòa nhà.</p>
         </div>
       </div>
 
-      <div style="text-align: center; margin-top: 24px;">
-        <a href="../index.html" style="font-size: 0.85rem; color: var(--text-muted);">&larr; Quay lại Trang chủ</a>
+      <!-- Login Card (Figma 520px width) -->
+      <div class="login-card">
+
+        <!-- Card Header (hidden on mobile, shown in mobile-header above) -->
+        <div class="login-card-header">
+          <h1 class="login-card-title">Chào mừng trở lại</h1>
+          <p class="login-card-sub">Đăng nhập để quản lý năng lượng và vận hành tòa nhà.</p>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" novalidate>
+
+          <!-- Email Field -->
+          <div class="login-field" style="margin-bottom: 16px;">
+            <label class="login-field-label" for="emailInput">Email</label>
+            <div class="login-input-box">
+              <span class="login-input-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </span>
+              <input
+                type="email"
+                id="emailInput"
+                class="login-input-field"
+                placeholder="tenban@greentower.vn"
+                autocomplete="email"
+                required
+              />
+            </div>
+            <div id="emailError" style="color: var(--alert-red-text); font-size: 12px; display: none; margin-top: 4px;">Vui lòng nhập địa chỉ email hợp lệ.</div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="login-field" style="margin-bottom: 16px;">
+            <label class="login-field-label" for="passwordInput">Mật khẩu</label>
+            <div class="login-input-box">
+              <span class="login-input-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </span>
+              <input
+                type="password"
+                id="passwordInput"
+                class="login-input-field"
+                placeholder="••••••••••"
+                autocomplete="current-password"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Remember & Forgot -->
+          <div class="login-aux-row" style="margin-bottom: 20px;">
+            <label class="login-remember">
+              <input type="checkbox" id="rememberCheck" checked />
+              Ghi nhớ đăng nhập
+            </label>
+            <a href="#" class="login-forgot-link">Quên mật khẩu?</a>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="login-submit-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+              <polyline points="10 17 15 12 10 7"></polyline>
+              <line x1="15" y1="12" x2="3" y2="12"></line>
+            </svg>
+            Đăng nhập
+          </button>
+
+        </form>
+
+        <!-- Demo Role Login Section -->
+        <div class="demo-section">
+          <div class="demo-title">Đăng nhập nhanh Demo</div>
+          <div class="demo-grid">
+
+            <!-- Occupant (Vô hiệu hóa - SV2 đang phát triển) -->
+            <button type="button" class="demo-role-btn" onclick="demoFastLogin('occupant')" style="opacity: 0.65; cursor: not-allowed;" title="Chức năng Occupant đang được phát triển (chưa tích hợp)">
+              <span class="demo-role-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </span>
+              Occupant
+            </button>
+
+            <!-- Operator (SV1) -->
+            <button type="button" class="demo-role-btn" onclick="demoFastLogin('operator')" title="Đăng nhập nhanh vai trò Operator (Lê Quốc Bảo)">
+              <span class="demo-role-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+              </span>
+              Operator
+            </button>
+
+            <!-- Manager -->
+            <button type="button" class="demo-role-btn" onclick="demoFastLogin('manager')">
+              <span class="demo-role-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                </svg>
+              </span>
+              Manager
+            </button>
+
+            <!-- Admin -->
+            <button type="button" class="demo-role-btn" onclick="demoFastLogin('admin')">
+              <span class="demo-role-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </span>
+              Admin
+            </button>
+
+          </div>
+        </div>
+
       </div>
+
+      <!-- Footer text (outside card) -->
+      <div class="login-footer-text">Bảo mật bởi SmartBuilding ID · v2.4</div>
     </div>
   </div>
 
-  <script src="../js/login.js"></script>
+  <!-- Scripts -->
+  <script src="../js/login.js" defer></script>
 </body>
 </html>

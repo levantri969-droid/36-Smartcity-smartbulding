@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Zone - SmartBuilding Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin-manager.css">
+  <link rel="stylesheet" href="../css/responsive-admin-manager.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+
+  <!-- Mobile Overlay Backdrop -->
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <div class="app-layout">
+    <!-- Sidebar Navigation (Admin Role) -->
+    <aside id="appSidebar" class="app-sidebar">
+
+      <!-- Brand Logo Header -->
+      <div class="sidebar-brand">
+        <div class="brand-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SmartBuilding</span>
+          <span class="brand-sub">BTL-36</span>
+        </div>
+        <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">&times;</button>
+      </div>
+
+      <!-- User Profile Box (Admin) -->
+      <div class="sidebar-profile">
+        <div class="profile-avatar">NA</div>
+        <div class="profile-info">
+          <div class="profile-name">Nguyễn Minh Anh</div>
+          <div class="profile-role">Admin • minh.anh@greentower.vn</div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="sidebar-section-title">QUẢN TRỊ HỆ THỐNG</div>
+      <nav class="sidebar-nav" aria-label="Điều hướng quản trị">
+        <a href="admin-zone-management.html" class="nav-item active">
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+          </span>
+          <span class="nav-label">Quản lý Zone</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+        <a href="admin-sensor-management.html" class="nav-item">
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </span>
+          <span class="nav-label">Cảm biến</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+        <a href="admin-user-management.html" class="nav-item">
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </span>
+          <span class="nav-label">Người dùng</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+        <a href="profile.html?role=admin" class="nav-item">
+          <span class="nav-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </span>
+          <span class="nav-label">Hồ sơ</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-bottom">
+        <div class="building-badge">
+          <span class="building-badge-sub">TRẠNG THÁI HỆ THỐNG</span>
+          <div class="building-badge-main">
+            <span class="building-name">Đang ổn định • 248 cảm biến</span>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Master Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu điều hướng">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="header-location">
+            <span class="location-name">Green Tower • Hà Nội</span>
+            <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <button class="header-icon-btn" aria-label="Thông báo hệ thống">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+          <div class="header-user" onclick="location.href='profile.html?role=admin'">
+            <img src="../assets/images/profilepic.webp" alt="Nguyễn Minh Anh" class="user-avatar-img">
+            <div class="user-text">
+              <span class="user-name">Nguyễn Minh Anh</span>
+              <span class="user-role">System Admin (SV3)</span>
+            </div>
+            <span class="user-chevron">&#9662;</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Page Content Body -->
+      <main class="content-body">
+        <!-- Title & Action Toolbar (Consistent with Sensor & User pages) -->
+        <div class="page-header-row">
+          <div class="page-title-box">
+            <h1 class="page-title-text">Quản lý Zone</h1>
+            <p class="page-subtitle-text">18 Zone • 16 hoạt động • 2 bảo trì</p>
+          </div>
+          <div class="page-header-actions">
+            <div class="search-box-wrap">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="zoneSearchInput" class="form-input" placeholder="Tìm mã Zone hoặc tên tầng..." aria-label="Tìm mã Zone hoặc tên tầng" style="padding-left: 36px;" />
+            </div>
+            <button id="btnAddZone" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Thêm Zone mới
+            </button>
+          </div>
+        </div>
+
+        <!-- Desktop Data Table -->
+        <div class="card table-card desktop-table-view">
+          <div class="table-card-header">
+            <span class="card-title" style="font-size: 15px;">Danh sách Zone</span>
+            <div class="badge badge-info">18 Zone</div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width: 14%;">Mã Zone</th>
+                  <th style="width: 26%;">Tên Tầng</th>
+                  <th style="width: 16%;">Diện tích (m²)</th>
+                  <th style="width: 16%;">Số cảm biến</th>
+                  <th style="width: 14%;">Trạng thái</th>
+                  <th style="width: 14%;">Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="zoneTableBody">
+                <!-- Rendered dynamically by admin-zone-management.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Mobile Cards Container -->
+        <div id="zoneCardsListMobile" class="mobile-card-list">
+          <!-- Rendered dynamically by admin-zone-management.js -->
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Navigation (Admin Role) -->
+  <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
+    <a href="admin-zone-management.html" class="bottom-nav-item active">
+      <span class="bottom-nav-icon">🏢</span>
+      <span class="bottom-nav-label">Quản lý Zone</span>
+    </a>
+    <a href="admin-sensor-management.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">📡</span>
+      <span class="bottom-nav-label">Cảm biến</span>
+    </a>
+    <a href="admin-user-management.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon">👥</span>
+      <span class="bottom-nav-label">Người dùng</span>
+    </a>
+    <a href="profile.html?role=admin" class="bottom-nav-item">
+      <span class="bottom-nav-icon">👤</span>
+      <span class="bottom-nav-label">Hồ sơ</span>
+    </a>
+  </nav>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="../js/main.js" defer></script>
+  <script src="../js/admin-zone-management.js" defer></script>
+</body>
+</html>

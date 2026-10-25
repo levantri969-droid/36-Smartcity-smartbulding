@@ -112,10 +112,6 @@ body.op-energy-page .chart-bar-btn.bar-peak {
   opacity: 1;
 }
 
-/* [OP-LEGEND] Mau chu thich (tach tu style inline) */
-body.op-energy-page .legend-color-box.legend-green { background-color: #10B981; }
-body.op-energy-page .legend-color-box.legend-red { background-color: #EF4444; }
-body.op-energy-page .legend-color-box.legend-blue { background-color: #3B82F6; }
 /* [OP-ALERT] Banner canh bao AI */
 body.op-energy-page .anom {
   display: flex;

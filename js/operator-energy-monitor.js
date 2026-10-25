@@ -7,7 +7,7 @@
  * 1. Bieu do 24 gio tuong tac (mock co dinh, khong random)
  * 2. Xem chi tiet khu vuc qua Modal (dong bang nut + Escape)
  * 3. Phat hien vuot nguong bang quy tac don gian 
- * 4. Xu ly banner canh bao + nut "Da tiep nhan" + dieu huong Alert Center
+ * 4. Xu ly banner canh bao + nut "Da tiep nhan"
  * 5. Luu trang thai tiep nhan vao localStorage (co fallback)
  */
 
@@ -102,7 +102,10 @@
   function renderChart() {
     const chartBox = $('powerChart');
     const infoBox = $('chartInfo');
-    if (!chartBox) return;
+    if (!chartBox) {
+      if (infoBox) infoBox.textContent = 'Không tìm thấy phần tử biểu đồ (#powerChart).';
+      return;
+    }
 
     chartBox.innerHTML = '';
     chartBox.setAttribute('role', 'list');
@@ -244,8 +247,6 @@
           openZoneModal(zone);
         }
       });
-      card.setAttribute('tabindex', '0');
-      card.setAttribute('role', 'button');
     });
 
     const overlay = $('zoneModal');
@@ -324,7 +325,7 @@
     }
     if (ackBtn) {
       ackBtn.disabled = state.acked;
-      ackBtn.textContent = state.acked ? 'Đã tiếp nhận' : 'Tiếp nhận';
+      ackBtn.textContent = state.acked ? 'Đã tiếp nhận' : 'Đã tiếp nhận';
     }
     if (detailBox && !detailBox.dataset.filled) {
       detailBox.dataset.filled = '1';
@@ -367,27 +368,6 @@
         showToast('Đã ghi nhận tiếp nhận cảnh báo ' + ALERT.id + '.', 'ok');
       });
     }
-
-    // Nut Alert Center: kiem tra file that truoc khi dieu huong.
-    const centerLinks = document.querySelectorAll('[data-alert-center]');
-    centerLinks.forEach(function (a) {
-      if (a.dataset.bound === '1') return;
-      a.dataset.bound = '1';
-      a.addEventListener('click', function (e) {
-        e.preventDefault();
-        const url = a.getAttribute('href');
-        fetch(url, { method: 'HEAD' }).then(function (res) {
-          if (res.ok) {
-            window.location.href = url;
-          } else {
-            showToast('Trang Alert Center chưa tồn tại (' + url + ').', 'error');
-          }
-        }).catch(function () {
-          // file:// khong fetch duoc -> van dieu huong, neu loi trinh duyet se bao.
-          window.location.href = url;
-        });
-      });
-    });
   }
 
   // ------------------------------------------------------------

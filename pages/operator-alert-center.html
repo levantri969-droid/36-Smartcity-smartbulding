@@ -1,69 +1,198 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Trung tâm cảnh báo - SmartBuilding</title>
-<link rel="stylesheet" href="../css/style.css" />
-<link rel="stylesheet" href="../css/responsive.css" />
-<link rel="stylesheet" href="../css/operator-alert-center.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trung tâm cảnh báo - SmartBuilding</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/responsive.css" />
+  <link rel="stylesheet" href="../css/operator-alert-center.css" />
 </head>
+
 <body class="op-alert-page">
-<div id="sidebarOverlay" class="sidebar-overlay"></div>
-<div class="app-layout">
-<aside id="appSidebar" class="app-sidebar">
-  <div class="sidebar-brand">
-    <div class="brand-logo">▥</div>
-    <div class="brand-text"><span class="brand-title">SmartBuilding</span><span class="brand-sub">BTL-36</span></div>
-    <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">×</button>
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+  <div class="app-layout">
+    <aside id="appSidebar" class="app-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo">▥</div>
+        <div class="brand-text"><span class="brand-title">SmartBuilding</span><span class="brand-sub">BTL-36</span>
+        </div>
+        <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">×</button>
+      </div>
+      <div class="sidebar-profile">
+        <div class="profile-avatar">LB</div>
+        <div class="profile-info">
+          <div class="profile-name">Lê Quốc Bảo</div>
+          <div class="profile-role">Operator • operator@greentower.vn</div>
+        </div>
+      </div>
+      <div class="sidebar-section-title">ĐIỀU HƯỚNG</div>
+      <nav class="sidebar-nav">
+        <a href="operator-energy-monitor.html" class="nav-item"><span class="nav-num">01</span><span
+            class="nav-label">Giám sát năng lượng</span><span class="nav-arrow">›</span></a>
+        <a href="operator-alert-center.html" class="nav-item active"><span class="nav-num">02</span><span
+            class="nav-label">Trung tâm cảnh báo</span><span class="nav-arrow">›</span></a>
+        <a href="operator-saving-actions.html" class="nav-item"><span class="nav-num">03</span><span
+            class="nav-label">Điều phối tiết kiệm</span><span class="nav-arrow">›</span></a>
+        <a href="profile.html?role=operator" class="nav-item"><span class="nav-num">04</span><span class="nav-label">Hồ
+            sơ</span><span class="nav-arrow">›</span></a>
+      </nav>
+      <div class="sidebar-divider"></div>
+      <nav class="sidebar-nav secondary-nav">
+        <a href="profile.html?role=operator" class="nav-item"><span class="nav-icon">⚙</span><span class="nav-label">Cài
+            đặt tài khoản</span><span class="nav-arrow">›</span></a>
+        <a href="404.html" class="nav-item"><span class="nav-icon">?</span><span class="nav-label">Trợ giúp & hỗ
+            trợ</span><span class="nav-arrow">›</span></a>
+      </nav>
+      <div class="op-status">
+        <div class="ok-row"><i></i>Hệ thống ổn định</div>
+        <div class="sub">Đồng bộ 10:32 • 248 cảm biến</div>
+      </div>
+      <div class="sidebar-bottom">
+        <div class="building-badge"><span class="building-badge-sub">TÒA NHÀ HIỆN TẠI</span>
+          <div class="building-badge-main"><span class="building-name">Green Tower • BTL-36</span><span
+              class="nav-arrow">›</span></div>
+        </div>
+        <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
+      </div>
+    </aside>
+    <div class="main-wrapper">
+      <header class="app-header">
+        <div class="header-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu"><svg width="22" height="22"
+              viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg></button>
+          <div class="header-location"><span class="location-name">Green Tower • Hà Nội</span><span
+              class="status-online"><span class="dot"></span>Trực tuyến</span></div>
+        </div>
+        <div class="header-right">
+          <button class="header-icon-btn" aria-label="Thông báo"
+            onclick="location.href='operator-alert-center.html'"><svg width="18" height="18" viewBox="0 0 24 24"
+              fill="none" stroke="#1E293B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg></button>
+          <div class="header-user" onclick="location.href='profile.html?role=operator'" style="cursor: pointer;"
+            title="Xem hồ sơ Operator"><img src="https://i.pravatar.cc/68?img=12" class="user-avatar-img"
+              alt="Lê Quốc Bảo" />
+            <div class="user-text"><span class="user-name">Lê Quốc Bảo</span><span class="user-role">Operator</span>
+            </div><span class="user-chevron">›</span>
+          </div>
+        </div>
+      </header>
+      <main class="content-body">
+        <div class="pg-head">
+          <div class="page-title-box">
+            <h1 class="page-title-text">Trung tâm cảnh báo</h1>
+            <p class="page-subtitle-text" id="alertSubtitle">3 cảnh báo mở • 1 cảnh báo khẩn cấp</p>
+          </div>
+        </div>
+        <div class="filter-row" role="group" aria-label="Lọc theo mức độ">
+          <button class="filter-pill is-on" data-filter="critical" type="button" aria-pressed="true"><i></i>Khẩn
+            cấp</button>
+          <button class="filter-pill is-on" data-filter="medium" type="button" aria-pressed="true"><i></i>Trung
+            bình</button>
+          <button class="filter-pill is-on" data-filter="low" type="button" aria-pressed="true"><i></i>Thấp</button>
+        </div>
+        <div class="card alert-table-card">
+          <table class="alert-table">
+            <thead>
+              <tr>
+                <th>Mã Alert</th>
+                <th>Zone</th>
+                <th>Loại sự cố</th>
+                <th>Mức độ</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="alertTableBody">
+              <tr data-sev="critical" data-id="ALT-0284">
+                <td class="mono">ALT-0284</td>
+                <td class="zone-cell">Tầng 2</td>
+                <td class="issue-cell">Công suất tăng 150%</td>
+                <td><span class="sev sev-critical"><i></i>Khẩn cấp</span></td>
+                <td><span class="st st-pending"><i></i>Chờ xử lý</span></td>
+                <td>
+                  <div class="row-actions"><button class="btn-ack" type="button">✓ Tiếp nhận</button><button
+                      class="btn-skip" type="button">Bỏ qua</button></div>
+                </td>
+              </tr>
+              <tr data-sev="medium" data-id="ALT-0281">
+                <td class="mono">ALT-0281</td>
+                <td class="zone-cell">Server Room</td>
+                <td class="issue-cell">Nhiệt độ 31°C</td>
+                <td><span class="sev sev-medium"><i></i>Trung bình</span></td>
+                <td><span class="st st-processing"><i></i>Đang xử lý</span></td>
+                <td>
+                  <div class="row-actions"><button class="btn-ack" type="button">✓ Tiếp nhận</button><button
+                      class="btn-skip" type="button">Bỏ qua</button></div>
+                </td>
+              </tr>
+              <tr data-sev="low" data-id="ALT-0278">
+                <td class="mono">ALT-0278</td>
+                <td class="zone-cell">Tầng 8</td>
+                <td class="issue-cell">Sensor chập chờn</td>
+                <td><span class="sev sev-low"><i></i>Thấp</span></td>
+                <td><span class="st st-pending"><i></i>Chờ xử lý</span></td>
+                <td>
+                  <div class="row-actions"><button class="btn-ack" type="button">✓ Tiếp nhận</button><button
+                      class="btn-skip" type="button">Bỏ qua</button></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert-cards" id="alertCards">
+          <article class="alert-card sev-border-critical" data-sev="critical" data-id="ALT-0284">
+            <div class="ac-top"><span class="ac-id">ALT-0284</span><span class="sev sev-critical"><i></i>Khẩn
+                cấp</span><span class="st st-pending"><i></i>Chờ xử lý</span></div>
+            <div class="ac-zone">Tầng 2</div>
+            <div class="ac-title">Công suất tăng 150%</div>
+            <div class="ac-meta">Loại: Năng lượng • 10:18 • PWR-T2-014 • Giá trị 96 kW</div>
+            <div class="ac-actions"><button class="btn-ack" type="button">Tiếp nhận</button><button class="btn-skip"
+                type="button">Bỏ qua</button></div>
+          </article>
+          <article class="alert-card sev-border-medium" data-sev="medium" data-id="ALT-0281">
+            <div class="ac-top"><span class="ac-id">ALT-0281</span><span class="sev sev-medium"><i></i>Trung
+                bình</span><span class="st st-processing"><i></i>Đang xử lý</span></div>
+            <div class="ac-zone">Server Room</div>
+            <div class="ac-title">Nhiệt độ 31°C</div>
+            <div class="ac-meta">Loại: Điều hòa / HVAC • 10:15 • TMP-SR-003 • Giá trị 31°C</div>
+            <div class="ac-actions"><button class="btn-ack" type="button">Tiếp nhận</button><button class="btn-skip"
+                type="button">Bỏ qua</button></div>
+          </article>
+          <article class="alert-card" data-sev="low" data-id="ALT-0278">
+            <div class="ac-top"><span class="ac-id">ALT-0278</span><span class="sev sev-low"><i></i>Thấp</span><span
+                class="st st-pending"><i></i>Chờ xử lý</span></div>
+            <div class="ac-zone">Tầng 8</div>
+            <div class="ac-title">Sensor chập chờn</div>
+            <div class="ac-meta">Loại: Cảm biến IoT • 09:45 • SN-T8-022 • Mất tín hiệu 15p</div>
+            <div class="ac-actions"><button class="btn-ack" type="button">Tiếp nhận</button><button class="btn-skip"
+                type="button">Bỏ qua</button></div>
+          </article>
+        </div>
+        <div class="alert-empty" id="alertEmpty">Không có cảnh báo nào khớp bộ lọc hiện tại.</div>
+        <div class="bulk-bar"><button class="btn-bulk-ack" id="bulkAckBtn" type="button">✓ Tiếp nhận tất cả cảnh
+            báo</button><button class="btn-bulk-skip" id="bulkSkipBtn" type="button">Bỏ qua tất cả</button></div>
+      </main>
+    </div>
   </div>
-  <div class="sidebar-profile">
-    <div class="profile-avatar">LB</div>
-    <div class="profile-info"><div class="profile-name">Lê Quốc Bảo</div><div class="profile-role">Operator • operator@greentower.vn</div></div>
-  </div>
-  <div class="sidebar-section-title">ĐIỀU HƯỚNG</div>
-  <nav class="sidebar-nav">
-    <a href="operator-energy-monitor.html" class="nav-item"><span class="nav-num">01</span><span class="nav-label">Giám sát năng lượng</span><span class="nav-arrow">›</span></a>
-    <a href="operator-alert-center.html" class="nav-item active"><span class="nav-num">02</span><span class="nav-label">Trung tâm cảnh báo</span><span class="nav-arrow">›</span></a>
-    <a href="operator-saving-actions.html" class="nav-item"><span class="nav-num">03</span><span class="nav-label">Điều phối tiết kiệm</span><span class="nav-arrow">›</span></a>
-    <a href="#" class="nav-item"><span class="nav-num">04</span><span class="nav-label">Hồ sơ</span><span class="nav-arrow">›</span></a>
-  </nav>
-  <div class="sidebar-divider"></div>
-  <nav class="sidebar-nav secondary-nav">
-    <a href="#" class="nav-item"><span class="nav-icon">⚙</span><span class="nav-label">Cài đặt tài khoản</span><span class="nav-arrow">›</span></a>
-    <a href="#" class="nav-item"><span class="nav-icon">?</span><span class="nav-label">Trợ giúp & hỗ trợ</span><span class="nav-arrow">›</span></a>
-  </nav>
-  <div class="op-status"><div class="ok-row"><i></i>Hệ thống ổn định</div><div class="sub">Đồng bộ 10:32 • 248 cảm biến</div></div>
-  <div class="sidebar-bottom">
-    <div class="building-badge"><span class="building-badge-sub">TÒA NHÀ HIỆN TẠI</span><div class="building-badge-main"><span class="building-name">Green Tower • BTL-36</span><span class="nav-arrow">›</span></div></div>
-    <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
-  </div>
-</aside>
-<div class="main-wrapper">
-<header class="app-header">
-<div class="header-left">
-<button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
-<div class="header-location"><span class="location-name">Green Tower • Hà Nội</span><span class="status-online"><span class="dot"></span>Trực tuyến</span></div>
-</div>
-<div class="header-right">
-<button class="header-icon-btn" aria-label="Thông báo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></button>
-<div class="header-user"><img src="https://i.pravatar.cc/68?img=12" class="user-avatar-img" alt="Lê Quốc Bảo" /><div class="user-text"><span class="user-name">Lê Quốc Bảo</span><span class="user-role">Operator</span></div><span class="user-chevron">›</span></div>
-</div>
-</header>
-<main class="content-body">
-<div class="pg-head"><div class="page-title-box"><h1 class="page-title-text">Trung tâm cảnh báo</h1><p class="page-subtitle-text" id="alertSubtitle">3 cảnh báo mở • 1 cảnh báo khẩn cấp</p></div></div>
-<div class="filter-row" role="group" aria-label="Lọc theo mức độ">
-<button class="filter-pill is-on" data-filter="critical" type="button" aria-pressed="true"><i></i>Khẩn cấp</button>
-<button class="filter-pill is-on" data-filter="medium" type="button" aria-pressed="true"><i></i>Trung bình</button>
-<button class="filter-pill is-on" data-filter="low" type="button" aria-pressed="true"><i></i>Thấp</button>
-</div>
-<div class="card alert-table-card"><table class="alert-table"><thead><tr><th>Mã Alert</th><th>Zone</th><th>Loại sự cố</th><th>Mức độ</th><th>Trạng thái</th><th>Hành động</th></tr></thead><tbody id="alertTableBody"><tr data-sev="critical" data-id="ALT-0284"><td class="mono">ALT-0284</td><td class="zone-cell">Tầng 2</td><td class="issue-cell">Công suất tăng 150%</td><td><span class="sev sev-critical"><i></i>Khẩn cấp</span></td><td><span class="st st-pending"><i></i>Chờ xử lý</span></td><td><div class="row-actions"><button class="btn-ack" type="button">✓ Tiếp nhận</button><button class="btn-skip" type="button">Bỏ qua</button></div></td></tr><tr data-sev="medium" data-id="ALT-0281"><td class="mono">ALT-0281</td><td class="zone-cell">Server Room</td><td class="issue-cell">Nhiệt độ 31°C</td><td><span class="sev sev-medium"><i></i>Trung bình</span></td><td><span class="st st-processing"><i></i>Đang xử lý</span></td><td><div class="row-actions"><button class="btn-ack" type="button">✓ Tiếp nhận</button><button class="btn-skip" type="button">Bỏ qua</button></div></td></tr><tr data-sev="low" data-id="ALT-0278"><td class="mono">ALT-0278</td><td class="zone-cell">Tầng 8</td><td class="issue-cell">Sensor chập chờn</td><td><span class="sev sev-low"><i></i>Thấp</span></td><td><span class="st st-pending"><i></i>Chờ xử lý</span></td><td><div class="row-actions"><button class="btn-ack" type="button">✓ Tiếp nhận</button><button class="btn-skip" type="button">Bỏ qua</button></div></td></tr></tbody></table></div>
-<div class="alert-cards" id="alertCards"><article class="alert-card sev-border-critical" data-sev="critical" data-id="ALT-0284"><div class="ac-top"><span class="ac-id">ALT-0284</span><span class="sev sev-critical"><i></i>Khẩn cấp</span></div><div class="ac-zone">Tầng 2</div><div class="ac-title">Công suất tăng 150%</div><div class="ac-meta">Loại: Năng lượng • 10:18 • PWR-T2-014 • Giá trị 96 kW</div><div class="ac-actions"><button class="btn-ack" type="button">Tiếp nhận</button><button class="btn-skip" type="button">Bỏ qua</button></div></article><article class="alert-card sev-border-medium" data-sev="medium" data-id="ALT-0281"><div class="ac-top"><span class="ac-id">ALT-0281</span><span class="sev sev-medium"><i></i>Trung bình</span></div><div class="ac-zone">Server Room</div><div class="ac-title">Nhiệt độ 31°C</div><div class="ac-meta">Loại: Điều hòa • 10:18 • PWR-T2-014 • Giá trị 96 kW</div><div class="ac-actions"><button class="btn-ack" type="button">Tiếp nhận</button><button class="btn-skip" type="button">Bỏ qua</button></div></article><article class="alert-card" data-sev="low" data-id="ALT-0278"><div class="ac-top"><span class="ac-id">ALT-0278</span><span class="sev sev-low"><i></i>Thấp</span></div><div class="ac-zone">Tầng 8</div><div class="ac-title">Sensor chập chờn</div><div class="ac-meta">Loại: Cảm biến • 10:18 • PWR-T2-014 • Giá trị 96 kW</div><div class="ac-actions"><button class="btn-ack" type="button">Tiếp nhận</button><button class="btn-skip" type="button">Bỏ qua</button></div></article></div>
-<div class="alert-empty" id="alertEmpty">Không có cảnh báo nào khớp bộ lọc hiện tại.</div>
-<div class="bulk-bar"><button class="btn-bulk-ack" id="bulkAckBtn" type="button">✓ Tiếp nhận cảnh báo đã chọn</button><button class="btn-bulk-skip" id="bulkSkipBtn" type="button">Bỏ qua</button></div>
-</main></div></div>
-<nav class="mobile-bottom-nav"><a href="operator-energy-monitor.html" class="bottom-nav-item"><span class="bottom-nav-icon">📊</span><span class="bottom-nav-label">Giám sát</span></a><a href="operator-alert-center.html" class="bottom-nav-item active"><span class="bottom-nav-icon">🔔</span><span class="bottom-nav-label">Cảnh báo</span></a><a href="operator-saving-actions.html" class="bottom-nav-item"><span class="bottom-nav-icon">💡</span><span class="bottom-nav-label">Điều phối</span></a><a href="#" class="bottom-nav-item"><span class="bottom-nav-icon">👤</span><span class="bottom-nav-label">Hồ sơ</span></a></nav>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-<script src="../js/main.js"></script>
-<script src="../js/operator-alert-center.js"></script>
-</body></html>
+  <nav class="mobile-bottom-nav"><a href="operator-energy-monitor.html" class="bottom-nav-item"><span
+        class="bottom-nav-icon">📊</span><span class="bottom-nav-label">Giám sát</span></a><a
+      href="operator-alert-center.html" class="bottom-nav-item active"><span class="bottom-nav-icon">🔔</span><span
+        class="bottom-nav-label">Cảnh báo</span></a><a href="operator-saving-actions.html" class="bottom-nav-item"><span
+        class="bottom-nav-icon">💡</span><span class="bottom-nav-label">Điều phối</span></a><a
+      href="profile.html?role=operator" class="bottom-nav-item"><span class="bottom-nav-icon">👤</span><span
+        class="bottom-nav-label">Hồ sơ</span></a></nav>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="../js/main.js"></script>
+  <script src="../js/operator-alert-center.js"></script>
+</body>
+
+</html>

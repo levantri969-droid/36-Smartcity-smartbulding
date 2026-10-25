@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Giám sát năng lượng - SmartBuilding </title>
+<title>Giám sát năng lượng - SmartBuilding</title>
 <link rel="stylesheet" href="../css/style.css" />
 <link rel="stylesheet" href="../css/responsive.css" />
 <link rel="stylesheet" href="../css/operator-energy-monitor.css" />
@@ -46,7 +46,7 @@
       <span class="nav-label">Điều phối tiết kiệm</span>
       <span class="nav-arrow">›</span>
     </a>
-    <a href="#" class="nav-item">
+    <a href="profile.html?role=operator" class="nav-item">
       <span class="nav-num">04</span>
       <span class="nav-label">Hồ sơ</span>
       <span class="nav-arrow">›</span>
@@ -56,12 +56,12 @@
   <div class="sidebar-divider"></div>
 
   <nav class="sidebar-nav secondary-nav">
-    <a href="#" class="nav-item">
+    <a href="profile.html?role=operator" class="nav-item">
       <span class="nav-icon">⚙</span>
       <span class="nav-label">Cài đặt tài khoản</span>
       <span class="nav-arrow">›</span>
     </a>
-    <a href="#" class="nav-item">
+    <a href="404.html" class="nav-item">
       <span class="nav-icon">?</span>
       <span class="nav-label">Trợ giúp &amp; hỗ trợ</span>
       <span class="nav-arrow">›</span>
@@ -101,13 +101,13 @@
         </div>
       </div>
       <div class="header-right">
-        <button class="header-icon-btn" aria-label="Thông báo">
+        <button class="header-icon-btn" aria-label="Thông báo" onclick="location.href='operator-alert-center.html'" title="Xem thông báo cảnh báo">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
             <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
           </svg>
         </button>
-        <div class="header-user">
+        <div class="header-user" onclick="location.href='profile.html?role=operator'" style="cursor: pointer;" title="Xem hồ sơ Operator">
           <img src="https://i.pravatar.cc/68?img=12" class="user-avatar-img" alt="Lê Quốc Bảo" />
           <div class="user-text">
             <span class="user-name">Lê Quốc Bảo</span>
@@ -132,7 +132,7 @@
       <div class="card chart-card">
         <div class="chart-head">
           <span class="chart-title">Công suất toàn tòa nhà - 24 giờ</span>
-          <span class="chart-now">Hiện tại 218 kW</span>
+          <span class="chart-now" id="chartNowPower">Hiện tại 82 kW</span>
         </div>
         <div class="bars-container" id="powerChart"></div>
         <div class="chart-timeline-labels">
@@ -155,7 +155,8 @@
         </div>
         <div class="anom-actions">
           <button class="btn-ghost" id="alertDetailBtn" type="button" aria-expanded="false">Chi tiết</button>
-          <button class="btn-alert" id="alertAckBtn" type="button">Đã tiếp nhận</button>
+          <a href="operator-alert-center.html" class="btn-ghost btn-center">Trung tâm cảnh báo</a>
+          <button class="btn-alert" id="alertAckBtn" type="button">Tiếp nhận</button>
         </div>
       </section>
 
@@ -212,7 +213,7 @@
     <span class="bottom-nav-icon">💡</span>
     <span class="bottom-nav-label">Điều phối</span>
   </a>
-  <a href="#" class="bottom-nav-item">
+  <a href="profile.html?role=operator" class="bottom-nav-item">
     <span class="bottom-nav-icon">👤</span>
     <span class="bottom-nav-label">Hồ sơ</span>
   </a>

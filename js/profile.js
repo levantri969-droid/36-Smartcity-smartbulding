@@ -147,6 +147,66 @@ const ROLE_PRESETS = {
         <span class="bottom-nav-label">Hồ sơ</span>
       </a>
     `
+  },
+  operator: {
+    role: "operator",
+    name: "Lê Quốc Bảo",
+    email: "operator@greentower.vn",
+    roleTitle: "Operator (SV1)",
+    roleShort: "Operator",
+    initials: "LB",
+    phone: "0901 234 567",
+    dept: "Ban Vận hành Kỹ thuật • P. B1-02",
+    sidebarTitle: "ĐIỀU HƯỚNG",
+    sidebarNavHtml: `
+      <a href="operator-energy-monitor.html" class="nav-item">
+        <span class="nav-num">01</span>
+        <span class="nav-label">Giám sát năng lượng</span>
+        <span class="nav-arrow">&rsaquo;</span>
+      </a>
+      <a href="operator-alert-center.html" class="nav-item">
+        <span class="nav-num">02</span>
+        <span class="nav-label">Trung tâm cảnh báo</span>
+        <span class="nav-arrow">&rsaquo;</span>
+      </a>
+      <a href="operator-saving-actions.html" class="nav-item">
+        <span class="nav-num">03</span>
+        <span class="nav-label">Điều phối tiết kiệm</span>
+        <span class="nav-arrow">&rsaquo;</span>
+      </a>
+      <a href="profile.html?role=operator" class="nav-item active">
+        <span class="nav-num">04</span>
+        <span class="nav-label">Hồ sơ</span>
+        <span class="nav-arrow">&rsaquo;</span>
+      </a>
+    `,
+    sidebarBadgeHtml: `
+      <div class="building-badge">
+        <span class="building-badge-sub">TÒA NHÀ HIỆN TẠI</span>
+        <div class="building-badge-main">
+          <span class="building-name">Green Tower • BTL-36</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </div>
+      </div>
+    `,
+    bottomNavHtml: `
+      <a href="operator-energy-monitor.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon">📊</span>
+        <span class="bottom-nav-label">Giám sát</span>
+      </a>
+      <a href="operator-alert-center.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon">🔔</span>
+        <span class="bottom-nav-label">Cảnh báo</span>
+      </a>
+      <a href="operator-saving-actions.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon">💡</span>
+        <span class="bottom-nav-label">Điều phối</span>
+      </a>
+      <a href="profile.html?role=operator" class="bottom-nav-item active">
+        <span class="bottom-nav-icon">👤</span>
+        <span class="bottom-nav-label">Hồ sơ</span>
+      </a>
+    `
   }
 };
 
@@ -163,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /**
  * Determine active role safely:
- * 1. Query parameter ?role=manager or ?role=admin
+ * 1. Query parameter ?role=manager, ?role=admin or ?role=operator
  * 2. Stored user session in localStorage
  * 3. Document referrer URL
  * 4. Fallback to admin
@@ -185,6 +245,7 @@ function determineActiveRole() {
     }
   } catch (err) {}
 
+  if (document.referrer.includes("operator-")) return "operator";
   if (document.referrer.includes("manager-")) return "manager";
   if (document.referrer.includes("admin-")) return "admin";
 

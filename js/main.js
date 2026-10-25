@@ -37,6 +37,15 @@ function syncCurrentRoleSession() {
         phone: "0988 246 810",
         dept: "Ban Vận hành • P. B2-04"
       }));
+    } else if (currentPath.startsWith("operator-")) {
+      localStorage.setItem("smartbuilding_user", JSON.stringify({
+        email: "operator@greentower.vn",
+        name: "Lê Quốc Bảo",
+        role: "operator",
+        roleTitle: "Operator • Kỹ thuật vận hành (SV1)",
+        phone: "0901 234 567",
+        dept: "Ban Vận hành Kỹ thuật • P. B1-02"
+      }));
     }
   }
 }
@@ -44,9 +53,9 @@ function syncCurrentRoleSession() {
 // 1. Mobile Off-Canvas Drawer Toggle
 function initMobileDrawer() {
   const toggleBtn = document.getElementById("menuToggleBtn");
-  const closeBtn = document.getElementById("closeSidebarBtn");
-  const overlay = document.getElementById("sidebarOverlay");
-  const sidebar = document.getElementById("appSidebar");
+  const closeBtn  = document.getElementById("closeSidebarBtn");
+  const overlay   = document.getElementById("sidebarOverlay");
+  const sidebar   = document.getElementById("appSidebar");
 
   function openDrawer() {
     if (sidebar) sidebar.classList.add("show-mobile");
@@ -87,7 +96,7 @@ function highlightActiveNavigation() {
   // Sidebar items
   const sidebarNavItems = document.querySelectorAll(".sidebar-nav .nav-item");
   sidebarNavItems.forEach((item) => {
-    const rawHref = item.getAttribute("href") || "";
+    const rawHref  = item.getAttribute("href") || "";
     const cleanHref = rawHref.split("?")[0].split("#")[0];
     if (cleanHref && (cleanHref === currentPath || (currentPath === "index.html" && cleanHref.includes("manager-energy-kpis.html")))) {
       item.classList.add("active");
@@ -99,7 +108,7 @@ function highlightActiveNavigation() {
   // Mobile bottom nav items
   const bottomNavItems = document.querySelectorAll(".bottom-nav-item");
   bottomNavItems.forEach((item) => {
-    const rawHref = item.getAttribute("href") || "";
+    const rawHref  = item.getAttribute("href") || "";
     const cleanHref = rawHref.split("?")[0].split("#")[0];
     if (cleanHref && cleanHref === currentPath) {
       item.classList.add("active");

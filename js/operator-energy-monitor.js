@@ -41,33 +41,33 @@
   // thresholdKW la NGUONG MINH HOA de demo quy tac vuot nguong.
   const ZONES = [
     {
-      id: 'tang-1', name: 'Tầng 1', currentKW: 42, avg7dKW: 44,
-      thresholdKW: 60, cause: ''
+      id:        'tang-1', name: 'Tầng 1',      currentKW: 42, avg7dKW: 44,
+      thresholdKW: 60,     cause: ''
     },
     {
-      id: 'tang-2', name: 'Tầng 2', currentKW: 96, avg7dKW: 38,
-      thresholdKW: 55, cause: 'HVAC tầng 2 chạy liên tục sau 22:00, nghi quên tắt + phụ tải tăng đột biến lúc 02:00.'
+      id:        'tang-2', name: 'Tầng 2',      currentKW: 96, avg7dKW: 38,
+      thresholdKW: 55,     cause: 'HVAC tầng 2 chạy liên tục sau 22:00, nghi quên tắt + phụ tải tăng đột biến lúc 02:00.'
     },
     {
-      id: 'server-room', name: 'Server Room', currentKW: 68, avg7dKW: 65,
-      thresholdKW: 90, cause: ''
+      id:        'server-room', name: 'Server Room', currentKW: 68, avg7dKW: 65,
+      thresholdKW: 90,          cause: ''
     },
     {
-      id: 'office', name: 'Khối văn phòng', currentKW: 54, avg7dKW: 52,
-      thresholdKW: 70, cause: ''
+      id:        'office', name: 'Khối văn phòng', currentKW: 54, avg7dKW: 52,
+      thresholdKW: 70,          cause: ''
     }
   ];
 
   // Canh bao gan voi banner tren trang (mo phong quy tac).
   const ALERT = {
-    id: 'ALT-T2-0200', zoneId: 'tang-2', zoneName: 'Tầng 2',
-    time: '02:00 AM', measuredKW: 96, thresholdKW: 55,
-    reason: 'Công suất vượt +74% so với ngưỡng minh họa (96/55 kW). Quy tắc mô phỏng, không phải AI thật.'
+    id:        'ALT-T2-0200', zoneId: 'tang-2', zoneName: 'Tầng 2',
+    time:      '02:00 AM',    measuredKW: 96, thresholdKW: 55,
+    reason:    'Công suất vượt +74% so với ngưỡng minh họa (96/55 kW). Quy tắc mô phỏng, không phải AI thật.'
   };
 
-  const STORAGE_KEY = 'smartbuilding_operator_alert_ALT-T2-0200';
-  const CHART_MAX_PX = 112;
-  const EVENING_START_HOUR = 18;
+  const STORAGE_KEY             = 'smartbuilding_operator_alert_ALT-T2-0200';
+  const CHART_MAX_PX            = 112;
+  const EVENING_START_HOUR      = 18;
 
   // ------------------------------------------------------------
   // 2. TIEN ICH NHO (giu code gon, de bao tri)
@@ -101,7 +101,7 @@
   // ------------------------------------------------------------
   function renderChart() {
     const chartBox = $('powerChart');
-    const infoBox = $('chartInfo');
+    const infoBox  = $('chartInfo');
     if (!chartBox) {
       if (infoBox) infoBox.textContent = 'Không tìm thấy phần tử biểu đồ (#powerChart).';
       return;
@@ -142,6 +142,10 @@
             + (isOver ? ' — VƯỢT ngưỡng ' + BUILDING_THRESHOLD_KW + ' kW.'
                       : ' — trong ngưỡng ' + BUILDING_THRESHOLD_KW + ' kW.');
         }
+        const nowPower = $('chartNowPower') || document.querySelector('.chart-now');
+        if (nowPower) {
+          nowPower.textContent = point.hour + ': ' + point.kw + ' kW';
+        }
       });
 
       chartBox.appendChild(bar);
@@ -175,7 +179,7 @@
     $('zoneModalTitle').textContent = zone.name;
     $('zoneModalPower').textContent = zone.currentKW + ' kW';
     $('zoneModalAvg').textContent = zone.avg7dKW + ' kW';
-    $('zoneModalThreshold').textContent = zone.thresholdKW + ' kW (minh hoa)';
+    $('zoneModalThreshold').textContent = zone.thresholdKW + ' kW (minh họa)';
 
     const statusEl = $('zoneModalStatus');
     statusEl.textContent = status;
@@ -228,7 +232,7 @@
       }
       if (!card.hasAttribute('tabindex')) card.setAttribute('tabindex', '0');
       if (!card.hasAttribute('role')) card.setAttribute('role', 'button');
-      card.setAttribute('aria-label', 'Xem chi tiet ' + zone.name);
+      card.setAttribute('aria-label', 'Xem chi tiết ' + zone.name);
     });
   }
 
@@ -249,7 +253,7 @@
       });
     });
 
-    const overlay = $('zoneModal');
+    const overlay  = $('zoneModal');
     const closeBtn = $('zoneModalClose');
     if (closeBtn && !closeBtn.dataset.bound) {
       closeBtn.dataset.bound = '1';
@@ -273,9 +277,19 @@
   // 5. CHUC NANG 4 + 5: BANNER CANH BAO + LOCALSTORAGE
   // ------------------------------------------------------------
 
-  // Doc trang thai tiep nhan, co fallback khi JSON loi.
+  const ALERT_CENTER_STORE = 'smartbuilding_alert_center_v1';
+
+  // Doc trang thai tiep nhan, co fallback khi JSON loi va dong bo voi Alert Center.
   function readAckState() {
     try {
+      // 1. Kiem tra Alert Center dong bo (ALT-0284 tuong ung canh bao Tang 2)
+      const acRaw = localStorage.getItem(ALERT_CENTER_STORE);
+      if (acRaw) {
+        const acParsed = JSON.parse(acRaw);
+        if (acParsed && (acParsed['ALT-0284'] === 'done' || acParsed[ALERT.id] === 'done')) {
+          return { acked: true, at: '' };
+        }
+      }
       const raw = localStorage.getItem(STORAGE_KEY);
       if (!raw) return { acked: false };
       const parsed = JSON.parse(raw);
@@ -294,6 +308,16 @@
         acked: acked,
         at: new Date().toISOString()
       }));
+      // Dong bo sang Alert Center
+      try {
+        const acRaw = localStorage.getItem(ALERT_CENTER_STORE);
+        const acParsed = acRaw ? JSON.parse(acRaw) : {};
+        if (acked) {
+          acParsed['ALT-0284'] = 'done';
+          acParsed[ALERT.id] = 'done';
+        }
+        localStorage.setItem(ALERT_CENTER_STORE, JSON.stringify(acParsed));
+      } catch (e) {}
       return true;
     } catch (err) {
       showToast('Không lưu được trạng thái (bộ nhớ đầy hoặc bị chặn).', 'error');
@@ -302,16 +326,16 @@
   }
 
   function renderAlert() {
-    const detailBtn = $('alertDetailBtn');
-    const ackBtn = $('alertAckBtn');
-    const statusEl = $('alertStatus');
-    const detailBox = $('alertDetail');
+    const detailBtn  = $('alertDetailBtn');
+    const ackBtn     = $('alertAckBtn');
+    const statusEl   = $('alertStatus');
+    const detailBox  = $('alertDetail');
     const state = readAckState();
 
     // Dien thong tin mo phong vao banner (khong cung HTML).
     const zoneEl = $('alertZone');
     const timeEl = $('alertTime');
-    const msgEl = $('alertMsg');
+    const msgEl  = $('alertMsg');
     if (zoneEl) zoneEl.textContent = ALERT.zoneName;
     if (timeEl) timeEl.textContent = ALERT.time;
     if (msgEl) {
@@ -325,7 +349,7 @@
     }
     if (ackBtn) {
       ackBtn.disabled = state.acked;
-      ackBtn.textContent = state.acked ? 'Đã tiếp nhận' : 'Đã tiếp nhận';
+      ackBtn.textContent = state.acked ? 'Đã tiếp nhận' : 'Tiếp nhận';
     }
     if (detailBox && !detailBox.dataset.filled) {
       detailBox.dataset.filled = '1';

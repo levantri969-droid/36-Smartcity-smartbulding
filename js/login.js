@@ -30,6 +30,14 @@ const DEMO_ACCOUNTS = {
     roleTitle: "Facility Engineer",
     redirect: "manager-energy-kpis.html" // fallback for demo
   },
+  operator: {
+    email: "operator@greentower.vn",
+    password: "operator2026",
+    name: "Lê Quốc Bảo",
+    role: "operator",
+    roleTitle: "Operator • Kỹ thuật vận hành (SV1)",
+    redirect: "operator-energy-monitor.html"
+  },
   occupant: {
     email: "occupant@greentower.vn",
     password: "occupant2026",
@@ -70,20 +78,27 @@ document.addEventListener("DOMContentLoaded", () => {
         acc => acc.email.toLowerCase() === email.toLowerCase()
       );
 
-      // Nếu là vai trò Occupant hoặc Operator (chưa tích hợp) -> vô hiệu hóa, không xảy ra gì hết
-      if (matched && (matched.role === "occupant" || matched.role === "operator" || matched.disabled)) {
+      // Nếu là vai trò Occupant (chưa tích hợp) -> vô hiệu hóa, không xảy ra gì hết
+      if (matched && (matched.role === "occupant" || matched.disabled)) {
         return;
       }
 
-      // If no exact match, handle admin vs manager
+      // If no exact match, handle admin vs manager vs operator
       if (!matched) {
         const lowerEmail = email.toLowerCase();
-        // Nếu nhập email có từ khóa occupant hoặc operator -> vô hiệu hóa, không xảy ra gì hết
-        if (lowerEmail.includes("occupant") || lowerEmail.includes("operator") || lowerEmail.includes("engineer")) {
+        if (lowerEmail.includes("occupant")) {
           return;
         }
 
-        if (lowerEmail.includes("admin")) {
+        if (lowerEmail.includes("operator")) {
+          matched = {
+            email: email,
+            name: email.split("@")[0] || "Lê Quốc Bảo",
+            role: "operator",
+            roleTitle: "Operator • Kỹ thuật vận hành",
+            redirect: "operator-energy-monitor.html"
+          };
+        } else if (lowerEmail.includes("admin")) {
           matched = {
             email: email,
             name: email.split("@")[0] || "Quản trị viên",
@@ -144,9 +159,8 @@ function showFieldError(elementId, show) {
 // Called from onclick="demoFastLogin('role')" on demo buttons
 // ============================================================
 function demoFastLogin(roleKey) {
-  // 2 vai trò Occupant và Operator đang được thành viên khác làm, chưa tích hợp:
-  // Vô hiệu hóa: bấm vào không xảy ra gì hết
-  if (roleKey === "occupant" || roleKey === "operator") {
+  // Vai trò Occupant đang được thành viên khác làm, chưa tích hợp:
+  if (roleKey === "occupant") {
     return;
   }
 

@@ -139,7 +139,7 @@ cse122-smartbuilding-team01/
    - Chuyển **Manager**: `manager-energy-kpis.html`
    - Chuyển **Operator**: `operator-energy-monitor.html`
    - Chuyển **Occupant**: `occupant-dashboard.html`
-
+5. Chạy thẳng trên gitpage: https://levantri969-droid.github.io/36-Smartcity-smartbulding/pages/admin-zone-management.html
 ---
 
 ## 5. Liên kết Minh chứng Dự án & Báo vệ

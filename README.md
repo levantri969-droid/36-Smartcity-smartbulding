@@ -148,3 +148,5 @@ cse122-smartbuilding-team01/
   - Danh mục Video OBS chi tiết từng màn hình: [docs/obs-evidence.md](docs/obs-evidence.md)
 - **Kho lưu trữ GitHub Repository**:
   - Kho chính thức Nhóm 01: [https://github.com/levantri969-droid/36-Smartcity-smartbulding](https://github.com/levantri969-droid/36-Smartcity-smartbulding)
+- **Link trello**:
+  - Đường dẫn tới trello :https://trello.com/b/j9NlOSjE/baitaplon

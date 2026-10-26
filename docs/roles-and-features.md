@@ -10,14 +10,14 @@
    - Tương tác với mô hình **AI-3 What-if Simulator**: dự báo lượng điện và chi phí tiết kiệm khi thay đổi nhiệt độ hoặc công suất chiếu sáng.
    - So sánh trực quan tiêu thụ năng lượng giữa các Zone để phát hiện lãng phí.
    - Xuất và xem báo cáo tháng.
-3. **Kỹ sư vận hành (Engineer - SV1 phụ trách)**
+3. **Kỹ sư vận hành (Operator - SV1 phụ trách)**
    - Theo dõi trạng thái cảm biến thời gian thực, bảng điều khiển HVAC, xử lý cảnh báo quá tải/sự cố.
 4. **Cư dân / Nhân viên văn phòng (Occupant - SV2 phụ trách)**
    - Giám sát chất lượng không khí, nhiệt độ phòng làm việc, tham gia phong trào giảm phát thải.
 
 ## 2. Ma trận phân quyền tính năng (RBAC Matrix)
 
-| Chức năng | Admin | Manager | Engineer | Occupant |
+| Chức năng | Admin | Manager | Operator | Occupant |
 |:---|:---:|:---:|:---:|:---:|
 | Đăng nhập & Đổi mật khẩu | Có | Có | Có | Có |
 | Xem KPI Năng lượng & AI What-if Simulator | Có | **Chính** | Xem | Không |

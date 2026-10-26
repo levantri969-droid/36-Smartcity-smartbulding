@@ -1,4 +1,4 @@
-/* ===========================================================================
+﻿/* ===========================================================================
    OPERATOR ENERGY MONITOR (pages/operator-energy-monitor.html)
    =========================================================================== */
 
@@ -753,4 +753,45 @@ body.op-energy-page .toast-error { background: var(--alert-red); }
   body.op-energy-page .chart-card { padding: 14px; }
   body.op-energy-page #powerChart.bars-container { height: 120px; gap: 4px; }
   body.op-energy-page .modal-overlay { padding: 12px; }
+}
+
+/* Dark Mode Support for Operator Pages */
+[data-theme="dark"] body.op-energy-page,
+[data-theme="dark"] body.op-alert-page,
+[data-theme="dark"] body.op-saving-page {
+  background-color: #0B0F17 !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .chart-card,
+[data-theme="dark"] .zone-card,
+[data-theme="dark"] .alert-card,
+[data-theme="dark"] .saving-card,
+[data-theme="dark"] .filter-bar,
+[data-theme="dark"] .summary-card {
+  background-color: #151D2A !important;
+  border-color: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .page-title-text,
+[data-theme="dark"] .chart-title,
+[data-theme="dark"] .ac-title,
+[data-theme="dark"] .card-title {
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .page-subtitle-text,
+[data-theme="dark"] .chart-info,
+[data-theme="dark"] .ac-meta {
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .modal,
+[data-theme="dark"] .modal-head,
+[data-theme="dark"] .modal-body {
+  background-color: #151D2A !important;
+  color: #F8FAFC !important;
+  border-color: #1E293B !important;
 }

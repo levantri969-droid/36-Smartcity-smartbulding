@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <script>(function(){try{if(localStorage.getItem('sm_theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
@@ -42,7 +42,7 @@
       <div class="sidebar-profile">
         <div class="profile-avatar">TH</div>
         <div class="profile-info">
-          <div class="profile-name">Trần Thu Hà</div>
+          <div class="profile-name">Tô Hồng Anh</div>
           <div class="profile-role">Facility Manager • thuha@greentower.vn</div>
         </div>
       </div>
@@ -110,12 +110,20 @@
 
         <!-- Role Switcher (Mục 2.4 Barem - Chuyển đổi vai trò nhanh phục vụ chấm vấn đáp) -->
         <div class="role-switcher-container" role="group" aria-label="Chuyển đổi vai trò nhanh">
-          <a href="manager-energy-kpis.html" class="role-switch-btn active" title="Chuyển sang vai trò Facility Manager" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'manager',name:'Trần Thu Hà',email:'thuha@greentower.vn'}))">
-            <span>Quản lý</span>
+          <a href="admin-zone-management.html" class="role-switch-btn " title="Chuyển sang vai trò System Admin (SV3)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'admin',name:'Tô Hồng Anh',email:'honganh.admin@greentower.vn'}))">
+            <span>Admin</span>
+            
+          </a>
+          <a href="manager-energy-kpis.html" class="role-switch-btn active" title="Chuyển sang vai trò Facility Manager (SV3)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'manager',name:'Tô Hồng Anh',email:'honganh.to@greentower.vn'}))">
+            <span>Manager</span>
             <span class="role-switch-badge">Đang chọn</span>
           </a>
-          <a href="admin-zone-management.html" class="role-switch-btn " title="Chuyển sang vai trò System Admin" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'admin',name:'Nguyễn Minh Anh',email:'minh.anh@greentower.vn'}))">
-            <span>Admin</span>
+          <a href="operator-energy-monitor.html" class="role-switch-btn " title="Chuyển sang vai trò Building Operator (SV1 - La Ngọc Quang)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'operator',name:'La Ngọc Quang',email:'ngocquang.la@greentower.vn'}))">
+            <span>Operator</span>
+            
+          </a>
+          <a href="occupant-dashboard.html" class="role-switch-btn " title="Chuyển sang vai trò Office Occupant (SV2 - Lê Văn Trí)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'occupant',name:'Lê Văn Trí',email:'vantri.le@greentower.vn'}))">
+            <span>Occupant</span>
             
           </a>
         </div>
@@ -127,10 +135,10 @@
             </svg>
           </button>
           <div class="header-user" onclick="location.href='profile.html?role=manager'">
-            <img src="../assets/images/profilepic.webp" alt="Trần Thu Hà" class="user-avatar-img">
+            <img src="../assets/images/profilepic.webp" alt="Tô Hồng Anh" class="user-avatar-img">
             <div class="user-text">
-              <span class="user-name">Trần Thu Hà</span>
-              <span class="user-role">Facility Manager (SV3)</span>
+              <span class="user-name">Tô Hồng Anh</span>
+              <span class="user-role">Manager</span>
             </div>
             <span class="user-chevron">&#9662;</span>
           </div>
@@ -246,6 +254,12 @@
           </button>
         </div>
       </main>
+
+            <footer class="app-footer">
+        <span>Green Tower SmartBuilding</span>
+        <span class="footer-version">Nhóm 01 - CSE122 BTL-36</span>
+        <span class="footer-network-status"><span class="dot-online" id="footerNetDot"></span><span id="footerNetLabel">Online</span></span>
+      </footer>
     </div>
   </div>
 

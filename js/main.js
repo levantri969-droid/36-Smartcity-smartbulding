@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CSE122 - SMARTBUILDING TEAM 01
  * main.js - Master Navigation, Mobile Drawer Toggle, Logout & Global Toast
  */
@@ -22,8 +22,8 @@ function syncCurrentRoleSession() {
   if (!savedUser) {
     if (currentPath.startsWith("manager-")) {
       localStorage.setItem("smartbuilding_user", JSON.stringify({
-        email: "thuha@greentower.vn",
-        name: "Trần Thu Hà",
+        email: "honganh.to@greentower.vn",
+        name: "Tô Hồng Anh",
         role: "manager",
         roleTitle: "Facility Manager (SV3)",
         phone: "0912 345 678",
@@ -31,8 +31,8 @@ function syncCurrentRoleSession() {
       }));
     } else if (currentPath.startsWith("admin-")) {
       localStorage.setItem("smartbuilding_user", JSON.stringify({
-        email: "minh.anh@greentower.vn",
-        name: "Nguyễn Minh Anh",
+        email: "honganh.admin@greentower.vn",
+        name: "Tô Hồng Anh",
         role: "admin",
         roleTitle: "System Administrator (SV3)",
         phone: "0988 246 810",
@@ -40,8 +40,8 @@ function syncCurrentRoleSession() {
       }));
     } else if (currentPath.startsWith("operator-")) {
       localStorage.setItem("smartbuilding_user", JSON.stringify({
-        email: "operator@greentower.vn",
-        name: "Lê Quốc Bảo",
+        email: "ngocquang.la@greentower.vn",
+        name: "La Ngọc Quang",
         role: "operator",
         roleTitle: "Operator • Kỹ thuật vận hành (SV1)",
         phone: "0901 234 567",
@@ -213,3 +213,45 @@ function initGlobalDarkMode() {
   });
 }
 window.initGlobalDarkMode = initGlobalDarkMode;
+
+// 6. Global Profile & Header Sync Helper
+function syncHeaderUserInfo() {
+  try {
+    const saved = localStorage.getItem("smartbuilding_user");
+    if (!saved) return;
+    const user = JSON.parse(saved);
+    if (!user || !user.name) return;
+
+    const currentPath = window.location.pathname.split("/").pop() || "";
+    // Chỉ đồng bộ nếu vai trò phiên trùng khớp với trang hiện tại
+    if (user.role) {
+      if (currentPath.startsWith("admin-") && user.role !== "admin") return;
+      if (currentPath.startsWith("manager-") && user.role !== "manager") return;
+      if (currentPath.startsWith("operator-") && user.role !== "operator") return;
+      if (currentPath.startsWith("occupant-") && user.role !== "occupant") return;
+    }
+
+    const userNameEls = document.querySelectorAll(".header-user .user-name, #headerUserName, .sidebar-profile .profile-name, #sidebarName");
+    userNameEls.forEach(el => {
+      el.textContent = user.name;
+    });
+
+    const initials = user.name.trim().split(/\s+/).map(w => w[0]).slice(-2).join("").toUpperCase();
+    const avatarBoxes = document.querySelectorAll(".profile-avatar, #sidebarAvatar");
+    avatarBoxes.forEach(box => {
+      if (!box.querySelector("img") && !box.style.backgroundImage) {
+        box.textContent = initials;
+      }
+    });
+  } catch (e) {}
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  syncHeaderUserInfo();
+});
+window.addEventListener("smartbuilding_db_sync", syncHeaderUserInfo);
+window.addEventListener("storage", (e) => {
+  if (e.key === "smartbuilding_user" || e.key === "SMART_BUILDING_DB_V2") {
+    syncHeaderUserInfo();
+  }
+});

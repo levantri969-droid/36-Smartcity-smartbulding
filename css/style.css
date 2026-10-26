@@ -32,7 +32,7 @@
   --bg-light: #F8FAFC;
   --bg-white: #FFFFFF;
   --text-dark: #1E293B;
-  --text-heading: #0F172A;
+  --text-heading: #0B0F17;
   --text-muted: #64748B;
   --text-sub: #94A3B8;
   --border-color: #E2E8F0;
@@ -1050,3 +1050,1388 @@ body.op-saving-page.is-dragging-progress {
 }
 
 
+
+/* ==========================================================================
+   ROLE SWITCHER COMPONENT (CHUẨN HÓA TOÀN HỆ THỐNG - BAREM 2.4)
+   ========================================================================== */
+.role-switcher-container {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--bg-light, #F8FAFC);
+  border: 1px solid var(--border-color, #E2E8F0);
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 3px;
+}
+
+.role-switch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-muted, #64748B);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.role-switch-btn:hover {
+  color: var(--text-dark, #1E293B);
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.role-switch-btn.active {
+  background-color: var(--bg-white, #FFFFFF);
+  color: var(--primary-green-dark, #047857);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.role-switch-badge {
+  font-size: 9.5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background-color: var(--primary-green-light, #ECFDF5);
+  color: var(--primary-green-dark, #047857);
+}
+
+/* Dark Mode cho Role Switcher */
+[data-theme="dark"] .role-switcher-container {
+  background-color: #0B0F17 !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .role-switch-btn {
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .role-switch-btn:hover {
+  color: #F8FAFC !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+[data-theme="dark"] .role-switch-btn.active {
+  background-color: #1E293B !important;
+  color: #10B981 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-theme="dark"] .role-switch-badge {
+  background-color: rgba(16, 185, 129, 0.2) !important;
+  color: #10B981 !important;
+}
+
+/* ==========================================================================
+   APP FOOTER (CHUẨN HÓA ĐỒNG BỘ CHO ADMIN / MANAGER / TOÀN BỘ CÁC TRANG)
+   ========================================================================== */
+.app-footer {
+  margin-top: auto;
+  padding: 14px 24px;
+  background-color: var(--bg-white, #FFFFFF);
+  border-top: 1px solid var(--border-color, #E2E8F0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--text-muted, #64748B);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-network-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted, #64748B);
+}
+
+.dot-online {
+  width: 8px;
+  height: 8px;
+  background-color: #10B981;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+[data-theme="dark"] .app-footer {
+  background-color: #0B0F17 !important;
+  border-color: #1E293B !important;
+  color: #94A3B8 !important;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-white, #ffffff);
+  border: 1px solid var(--border-color, #E2E8F0);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 1050;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.08);
+}
+
+[data-theme="dark"] .dark-mode-toggle {
+  background: #1E293B;
+  border-color: #334155;
+  color: #F8FAFC;
+}
+
+/* Responsive Hide Floating Elements over Mobile Nav */
+@media (max-width: 768px) {
+  .app-footer {
+    padding-bottom: 84px; /* Tránh bị che bởi mobile-bottom-nav */
+  }
+  .dark-mode-toggle {
+    bottom: 80px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+  .role-switcher-container {
+    display: none !important; /* Ẩn trên mobile để tối ưu khoảng trống header */
+  }
+}
+
+/* ==========================================================================
+   GLOBAL DARK THEME ENHANCEMENTS FOR ALL 4 ROLES & INTERFACES
+   ========================================================================== */
+[data-theme="dark"] {
+  --bg-light: #0B0F17;
+  --bg-white: #111827;
+  --text-dark: #F3F4F6;
+  --text-heading: #F9FAFB;
+  --text-muted: #9CA3AF;
+  --text-sub: #6B7280;
+  --border-color: #1F2937;
+  --border-soft: #273549;
+
+  --primary-green-light: rgba(16, 185, 129, 0.15);
+  --primary-green-border: rgba(16, 185, 129, 0.3);
+  --secondary-blue-light: rgba(59, 130, 246, 0.15);
+  --alert-red-light: rgba(239, 68, 68, 0.15);
+  --alert-red-border: rgba(239, 68, 68, 0.3);
+  --warning-amber-light: rgba(245, 158, 11, 0.15);
+}
+
+[data-theme="dark"] body {
+  background-color: var(--bg-light) !important;
+  color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .app-layout {
+  background-color: var(--bg-light) !important;
+}
+
+[data-theme="dark"] .app-sidebar {
+  background-color: var(--bg-white) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .app-header {
+  background-color: var(--bg-white) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .app-header svg line,
+[data-theme="dark"] .app-header svg path {
+  stroke: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .data-card,
+[data-theme="dark"] .widget-card,
+[data-theme="dark"] .user-stat-card,
+[data-theme="dark"] .user-panel,
+[data-theme="dark"] .user-highlight-card,
+[data-theme="dark"] .op-card,
+[data-theme="dark"] .alert-card,
+[data-theme="dark"] .action-card,
+[data-theme="dark"] .modal-card,
+[data-theme="dark"] .modal,
+[data-theme="dark"] .modal-dialog,
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] .building-badge,
+[data-theme="dark"] .comfort-card,
+[data-theme="dark"] .challenge-card,
+[data-theme="dark"] .history-item,
+[data-theme="dark"] .filter-bar,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .panel-box {
+  background-color: var(--bg-white) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="email"],
+[data-theme="dark"] input[type="password"],
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+  background-color: #1F2937 !important;
+  border-color: #374151 !important;
+  color: #F9FAFB !important;
+}
+
+[data-theme="dark"] .mobile-bottom-nav {
+  background-color: var(--bg-white) !important;
+  border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .bottom-nav-item {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .bottom-nav-item.active {
+  color: var(--primary-green) !important;
+}
+
+[data-theme="dark"] .nav-item {
+  color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .nav-item:hover,
+[data-theme="dark"] .nav-item.active {
+  background-color: rgba(16, 185, 129, 0.12) !important;
+  color: var(--primary-green) !important;
+}
+
+[data-theme="dark"] .user-stat-value,
+[data-theme="dark"] .widget-title,
+[data-theme="dark"] .card-title,
+[data-theme="dark"] .stat-value,
+[data-theme="dark"] .modal-title,
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4 {
+  color: #F9FAFB !important;
+}
+
+[data-theme="dark"] .table,
+[data-theme="dark"] .data-table {
+  background-color: var(--bg-white) !important;
+  color: var(--text-dark) !important;
+}
+
+[data-theme="dark"] .table th,
+[data-theme="dark"] .data-table th {
+  background-color: #1F2937 !important;
+  color: #E5E7EB !important;
+  border-color: #374151 !important;
+}
+
+[data-theme="dark"] .table td,
+[data-theme="dark"] .data-table td {
+  border-color: #1F2937 !important;
+  color: var(--text-dark) !important;
+}
+
+/* Fix mobile bottom navigation z-index and spacing */
+.mobile-bottom-nav {
+  z-index: 950 !important;
+}
+
+.dark-mode-toggle {
+  z-index: 1050 !important;
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    padding-bottom: 20px;
+  }
+  .content-body {
+    padding-bottom: 84px !important;
+  }
+}
+
+
+/* ==========================================================================
+   ENHANCED DARK THEME: MATCH SYSTEM STATUS BADGE TONE (#042f2e / #064e3b)
+   Loại bỏ hoàn toàn các nền trắng chói mắt, biến thành tông xanh đen / ngọc thẫm
+   êm dịu và sang trọng như ô Trạng thái hệ thống (System Status Badge) của Admin
+   ========================================================================== */
+[data-theme="dark"] {
+  --bg-light: #070d12 !important;
+  --bg-white: #0f1923 !important;
+  --text-dark: #ecfdf5 !important;
+  --text-heading: #f0fdf4 !important;
+  --text-muted: #94a3b8 !important;
+  --text-sub: #64748b !important;
+  --border-color: #164e63 !important;
+  --border-soft: #133948 !important;
+
+  --primary-green-light: #064e3b !important;
+  --primary-green-border: #047857 !important;
+  --primary-green-darker: #34d399 !important;
+}
+
+[data-theme="dark"] body {
+  background-color: #070d12 !important;
+  color: #ecfdf5 !important;
+}
+
+[data-theme="dark"] .app-layout {
+  background-color: #070d12 !important;
+}
+
+[data-theme="dark"] .app-sidebar {
+  background-color: #0c151d !important;
+  border-right-color: #162c3d !important;
+}
+
+[data-theme="dark"] .app-header {
+  background-color: #0c151d !important;
+  border-bottom-color: #162c3d !important;
+}
+
+[data-theme="dark"] .app-header svg line,
+[data-theme="dark"] .app-header svg path,
+[data-theme="dark"] .app-header svg circle {
+  stroke: #a7f3d0 !important;
+}
+
+/* Card, Panel, Modal: Style giống System Status Badge (#064e3b / #042f2e tông ngọc thẫm) */
+[data-theme="dark"] .card,
+[data-theme="dark"] .data-card,
+[data-theme="dark"] .table-card,
+[data-theme="dark"] .widget-card,
+[data-theme="dark"] .user-stat-card,
+[data-theme="dark"] .user-panel,
+[data-theme="dark"] .user-highlight-card,
+[data-theme="dark"] .op-card,
+[data-theme="dark"] .alert-card,
+[data-theme="dark"] .action-card,
+[data-theme="dark"] .modal-card,
+[data-theme="dark"] .modal,
+[data-theme="dark"] .modal-dialog,
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] .building-badge,
+[data-theme="dark"] .comfort-card,
+[data-theme="dark"] .challenge-card,
+[data-theme="dark"] .history-item,
+[data-theme="dark"] .profile-col-card,
+[data-theme="dark"] .mobile-data-card,
+[data-theme="dark"] .summary-stat-box,
+[data-theme="dark"] .report-card,
+[data-theme="dark"] .zone-box {
+  background: #092621 !important;
+  background-color: #092621 !important;
+  border: 1px solid #065f46 !important;
+  border-color: #065f46 !important;
+  outline: none !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  color: #ecfdf5 !important;
+}
+
+/* Inputs, Selects, Search Boxes */
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .search-box-wrap input,
+[data-theme="dark"] .profile-input-box,
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="email"],
+[data-theme="dark"] input[type="password"],
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+  background: #061b17 !important;
+  background-color: #061b17 !important;
+  border: 1px solid #047857 !important;
+  border-color: #047857 !important;
+  color: #f0fdf4 !important;
+  outline: none !important;
+}
+
+[data-theme="dark"] .form-input::placeholder,
+[data-theme="dark"] .search-box-wrap input::placeholder,
+[data-theme="dark"] input::placeholder {
+  color: #6ee7b7 !important;
+  opacity: 0.6;
+}
+
+[data-theme="dark"] .role-tab-btn {
+  background-color: #061b17 !important;
+  border-color: #047857 !important;
+  color: #a7f3d0 !important;
+}
+
+[data-theme="dark"] .role-tab-btn.active {
+  background-color: #047857 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .table,
+[data-theme="dark"] .data-table {
+  background-color: #092621 !important;
+  color: #ecfdf5 !important;
+}
+
+[data-theme="dark"] .table th,
+[data-theme="dark"] .data-table th,
+[data-theme="dark"] .table-card-header {
+  background-color: #061b17 !important;
+  color: #6ee7b7 !important;
+  border-bottom: 1px solid #065f46 !important;
+}
+
+[data-theme="dark"] .table td,
+[data-theme="dark"] .data-table td {
+  border-bottom: 1px solid #0b3831 !important;
+  color: #ecfdf5 !important;
+}
+
+[data-theme="dark"] .table tbody tr:hover,
+[data-theme="dark"] .data-table tbody tr:hover {
+  background-color: rgba(16, 185, 129, 0.1) !important;
+}
+
+[data-theme="dark"] .app-footer {
+  background-color: #0c151d !important;
+  border-top-color: #162c3d !important;
+  color: #6ee7b7 !important;
+}
+
+[data-theme="dark"] .dark-mode-toggle {
+  background: #092621 !important;
+  border-color: #047857 !important;
+  color: #34d399 !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ==========================================================================
+   YÊU CẦU CỦA NGƯỜI DÙNG: DARK MODE CHO SIDEBAR PROFILE & ICONS & OP-STATUS
+   Nền tối tương tự main nội dung chính (#0c151d / #111827 / #0b0f17),
+   không còn viền xanh của trạng thái hệ thống, chữ và icon sáng nổi bật.
+   ========================================================================== */
+[data-theme="dark"] .building-badge,
+[data-theme="dark"] .op-status {
+  background: #0B0F17 !important;
+  background-color: #0B0F17 !important;
+  border: 1px solid #1e293b !important;
+  border-color: #1e293b !important;
+  box-shadow: none !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .building-badge-sub {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .building-name {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .op-status .ok-row {
+  color: #34d399 !important;
+}
+
+[data-theme="dark"] .op-status .ok-row i {
+  background: #10b981 !important;
+}
+
+[data-theme="dark"] .op-status .sub {
+  color: #94a3b8 !important;
+}
+
+/* Sidebar Profile Card: Khử nền trắng/sáng, đồng bộ màu nội dung chính */
+[data-theme="dark"] .sidebar-profile {
+  background: #0B0F17 !important;
+  background-color: #0B0F17 !important;
+  border: 1px solid #1e293b !important;
+}
+
+[data-theme="dark"] .sidebar-profile .profile-name {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .sidebar-profile .profile-role {
+  color: #94a3b8 !important;
+}
+
+/* Sidebar Navigation Items & Icons: Khử màu trắng xám nhạt, làm nổi bật */
+[data-theme="dark"] .nav-num,
+[data-theme="dark"] .nav-icon {
+  background-color: #1e293b !important;
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .nav-item:hover .nav-num,
+[data-theme="dark"] .nav-item:hover .nav-icon,
+[data-theme="dark"] .nav-item.active .nav-num,
+[data-theme="dark"] .nav-item.active .nav-icon {
+  background-color: var(--primary-green) !important;
+  color: #ffffff !important;
+}
+
+[data-theme="dark"] .nav-item {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .nav-item.active {
+  background-color: rgba(16, 185, 129, 0.15) !important;
+  color: #34d399 !important;
+}
+
+[data-theme="dark"] .sidebar-section-title {
+  color: #64748b !important;
+}
+
+/* Khắc phục font size và responsive chữ trên header để co giãn tự nhiên theo màn hình */
+@media (max-width: 1024px) {
+  .location-name {
+    font-size: 13px !important;
+  }
+  .role-switch-btn {
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title-text {
+    font-size: 18px !important;
+  }
+  .page-subtitle-text {
+    font-size: 12px !important;
+  }
+  .app-header {
+    padding: 0 12px !important;
+  }
+}
+/* ==========================================================================
+   MODAL DIALOG DIỀU KHIỂN & VALIDATION (CHUẨN FORM & A11Y)
+   Mặc định ẩn, chỉ hiển thị khi có class .show từ Javascript.
+   ========================================================================== */
+.modal-backdrop {
+  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.modal-backdrop.show {
+  display: flex !important;
+}
+
+.modal-card {
+  background: var(--bg-white, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: var(--border-radius-lg, 12px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 520px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalScaleUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalScaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+}
+
+.modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-dark, #0B0F17);
+  margin: 0;
+}
+
+.btn-close-modal {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--text-muted, #64748b);
+  cursor: pointer;
+  padding: 0 4px;
+  transition: color 0.15s ease;
+}
+
+.btn-close-modal:hover {
+  color: var(--alert-red, #ef4444);
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--border-color, #e2e8f0);
+  background-color: var(--bg-light, #f8fafc);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-dark, #1e293b);
+}
+
+.error-feedback {
+  display: none;
+  font-size: 11.5px;
+  color: var(--alert-red, #ef4444);
+  font-weight: 500;
+}
+
+.error-feedback.show {
+  display: block;
+}
+
+.form-input.is-invalid,
+.form-select.is-invalid {
+  border-color: var(--alert-red, #ef4444) !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+}
+
+/* Dark theme cho modal-card và modal-footer */
+[data-theme="dark"] .modal-card {
+  background: #0B0F17 !important;
+  border-color: #1e293b !important;
+}
+
+[data-theme="dark"] .modal-header {
+  border-bottom-color: #1e293b !important;
+}
+
+[data-theme="dark"] .modal-title {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .btn-close-modal {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .btn-close-modal:hover {
+  color: #f87171 !important;
+}
+
+[data-theme="dark"] .modal-footer {
+  background-color: #0b0f17 !important;
+  border-top-color: #1e293b !important;
+}
+
+[data-theme="dark"] .form-label {
+  color: #cbd5e1 !important;
+}
+/* ==========================================================================
+   FIX D-NONE & EMPTY STATE CONTAINER (KHẮC PHỤC LỖI TÌM KIẾM Ở GÓC DƯỚI 3 TRANG ADMIN)
+   ========================================================================== */
+.d-none {
+  display: none !important;
+}
+
+.state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.state-container.d-none {
+  display: none !important;
+}
+
+.state-icon {
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.state-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark, #0B0F17);
+  margin-bottom: 6px;
+}
+
+.state-desc {
+  font-size: 12.5px;
+  color: var(--text-muted, #64748B);
+  max-width: 380px;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+[data-theme="dark"] .state-title {
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .state-desc {
+  color: #94A3B8 !important;
+}
+/* ==========================================================================
+   TÁCH RIÊNG CHIỀU CAO CỦA AI WHAT-IF SIMULATOR VÀ BIỂU ĐỒ ZONE TIÊU THỤ
+   Khi ô AI mở rộng kết quả, ô biểu đồ Zone tiêu thụ giữ nguyên kích thước tự nhiên
+   ========================================================================== */
+.widgets-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  align-items: flex-start !important; /* Không kéo giãn (stretch) đồng bộ */
+}
+
+.widgets-row > .widget-card {
+  flex: 1;
+  min-width: 0;
+  align-self: flex-start !important;
+  height: auto;
+}
+
+/* AI Step indicator styling */
+.ai-step-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  background: var(--bg-light, #F8FAFC);
+  border: 1px solid var(--border-color, #E2E8F0);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 14px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-muted, #64748B);
+  overflow-x: auto;
+}
+
+.ai-step {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.ai-step-num {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #E2E8F0;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.ai-step.active {
+  color: var(--primary-green, #10B981);
+}
+
+.ai-step.active .ai-step-num {
+  background: var(--primary-green, #10B981);
+  color: #FFFFFF;
+}
+
+.ai-step.done {
+  color: #047857;
+}
+
+.ai-step.done .ai-step-num {
+  background: #047857;
+  color: #FFFFFF;
+}
+
+.ai-step-sep {
+  flex: 1;
+  height: 1px;
+  min-width: 8px;
+  background: var(--border-color, #E2E8F0);
+}
+
+/* AI Action Row & Buttons */
+.ai-action-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.btn-ai-accept, .btn-ai-edit, .btn-ai-reject, .btn-ai-retry {
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-ai-accept {
+  background: #10B981;
+  color: #FFFFFF;
+}
+.btn-ai-accept:hover {
+  background: #059669;
+}
+
+.btn-ai-edit {
+  background: #3B82F6;
+  color: #FFFFFF;
+}
+.btn-ai-edit:hover {
+  background: #2563EB;
+}
+
+.btn-ai-reject {
+  background: #EF4444;
+  color: #FFFFFF;
+}
+.btn-ai-reject:hover {
+  background: #DC2626;
+}
+
+.btn-ai-retry {
+  background: #64748B;
+  color: #FFFFFF;
+}
+.btn-ai-retry:hover {
+  background: #475569;
+}
+
+.ai-explain-box {
+  background: #F8FAFC;
+  border-left: 3px solid #10B981;
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  margin-top: 12px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.prompt-chips-wrap {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.prompt-chip {
+  padding: 5px 10px;
+  border-radius: 6px;
+  background: #FEF3C7;
+  border: 1px solid #F59E0B;
+  color: #92400E;
+  font-size: 11.5px;
+  cursor: pointer;
+}
+.prompt-chip:hover {
+  background: #FDE68A;
+}
+
+/* Dark mode for AI components */
+[data-theme="dark"] .ai-step-indicator {
+  background: #0B0F17 !important;
+  border-color: #1E293B !important;
+}
+
+[data-theme="dark"] .ai-step-sep {
+  background: #1E293B !important;
+}
+
+[data-theme="dark"] .ai-explain-box {
+  background: #0B0F17 !important;
+  border-color: #1E293B !important;
+  color: #E2E8F0 !important;
+}
+
+[data-theme="dark"] .prompt-chip {
+  background: #1E293B !important;
+  border-color: #F59E0B !important;
+  color: #FBBF24 !important;
+}
+/* ==========================================================================
+   FIX CHỮ ĐÈ NHAU TẠI TRANG TIỆN NGHI & PHẢN HỒI (OCCUPANT COMFORT FEEDBACK)
+   ========================================================================== */
+.user-range-scale {
+  margin-top: 4px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  line-height: 1.4 !important;
+}
+
+.ocf-control-group {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  margin-bottom: 12px !important;
+}
+
+.user-range-label {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  line-height: 1.4 !important;
+  margin-bottom: 2px !important;
+}
+
+.comfort-toggle-row {
+  margin-top: 8px !important;
+  padding: 10px 0 !important;
+}
+
+.ocf-two-column {
+  gap: 20px !important;
+}
+
+.ocf-two-column > article {
+  overflow: visible !important;
+}
+
+.ocf-metric {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  line-height: 1.3 !important;
+}
+
+.ocf-metric-label {
+  display: block !important;
+  margin-bottom: 2px !important;
+}
+
+.comfort-good, .comfort-warn, .comfort-bad {
+  white-space: nowrap !important;
+}
+
+/* ==========================================================================
+   USER-REQUESTED DARK THEME REFINEMENTS & COMPREHENSIVE OVERRIDES:
+   - Match exact avatar background tone (#0B0F17 / #1e293b)
+   - Eliminate green borders on cards, tables, inputs across ALL roles
+   - Fix Admin sensor AI alert banner text contrast (dark bg, dark text in light/dark)
+   - Fix Manager monthly report bright white containers
+   - Fix Operator monitor AI-1 alert text visibility
+   - Fix Occupant AI optimizer preset cards, select options, and smooth rounded inputs (border-radius: 8px)
+   ========================================================================== */
+
+/* 1. Global Card & Container Background + Non-green Border */
+[data-theme="dark"] .card,
+[data-theme="dark"] .data-card,
+[data-theme="dark"] .table-card,
+[data-theme="dark"] .widget-card,
+[data-theme="dark"] .user-stat-card,
+[data-theme="dark"] .user-panel,
+[data-theme="dark"] .user-highlight-card,
+[data-theme="dark"] .op-card,
+[data-theme="dark"] .alert-card,
+[data-theme="dark"] .action-card,
+[data-theme="dark"] .modal-card,
+[data-theme="dark"] .modal,
+[data-theme="dark"] .modal-dialog,
+[data-theme="dark"] .modal-content,
+[data-theme="dark"] .building-badge,
+[data-theme="dark"] .comfort-card,
+[data-theme="dark"] .challenge-card,
+[data-theme="dark"] .history-item,
+[data-theme="dark"] .profile-col-card,
+[data-theme="dark"] .mobile-data-card,
+[data-theme="dark"] .summary-stat-box,
+[data-theme="dark"] .report-card,
+[data-theme="dark"] .zone-box,
+[data-theme="dark"] .task-table-card,
+[data-theme="dark"] .alert-toolbar-card,
+[data-theme="dark"] .alert-table-card,
+[data-theme="dark"] .ai-recommend-card,
+[data-theme="dark"] .ocf-section,
+[data-theme="dark"] .ocf-ai-panel,
+[data-theme="dark"] .ocf-history-card,
+[data-theme="dark"] .desktop-table-view {
+  background: #0B0F17 !important;
+  background-color: #0B0F17 !important;
+  border: 1px solid #1e293b !important;
+  border-color: #1e293b !important;
+  outline: none !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+  color: #f1f5f9 !important;
+}
+
+/* 2. Global Table & Data-Table Border & Header Overrides (No Green Borders) */
+[data-theme="dark"] .table,
+[data-theme="dark"] .data-table,
+[data-theme="dark"] .alert-table,
+[data-theme="dark"] .task-table,
+[data-theme="dark"] .table-container {
+  background: #0B0F17 !important;
+  background-color: #0B0F17 !important;
+  border: none !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .table th,
+[data-theme="dark"] .data-table th,
+[data-theme="dark"] .alert-table th,
+[data-theme="dark"] .task-table th,
+[data-theme="dark"] .table-card-header {
+  background-color: #151D2A !important;
+  color: #94a3b8 !important;
+  border-bottom: 1px solid #1e293b !important;
+}
+
+[data-theme="dark"] .table td,
+[data-theme="dark"] .data-table td,
+[data-theme="dark"] .alert-table td,
+[data-theme="dark"] .task-table td {
+  border-bottom: 1px solid #1e293b !important;
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] .table tbody tr:hover,
+[data-theme="dark"] .data-table tbody tr:hover,
+[data-theme="dark"] .alert-table tbody tr:hover,
+[data-theme="dark"] .task-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* 3. Global Form Inputs, Selects, and Textareas: Dark & Rounded (No Green Borders) */
+.form-input,
+.form-select,
+.form-control,
+.user-textarea,
+.profile-input-box,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+select,
+textarea {
+  border-radius: 8px !important;
+}
+
+[data-theme="dark"] .form-input,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .user-textarea,
+[data-theme="dark"] .search-box-wrap input,
+[data-theme="dark"] .profile-input-box,
+[data-theme="dark"] .ocf-select,
+[data-theme="dark"] .ocf-filter-select,
+[data-theme="dark"] .ocf-filter-input,
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] input[type="email"],
+[data-theme="dark"] input[type="password"],
+[data-theme="dark"] input[type="number"],
+[data-theme="dark"] input[type="search"],
+[data-theme="dark"] select,
+[data-theme="dark"] textarea {
+  background: #151D2A !important;
+  background-color: #151D2A !important;
+  border: 1px solid #334155 !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+  border-radius: 8px !important;
+  outline: none !important;
+}
+
+[data-theme="dark"] .form-input:focus,
+[data-theme="dark"] .form-select:focus,
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] select:focus,
+[data-theme="dark"] textarea:focus {
+  border-color: #64748b !important;
+  box-shadow: 0 0 0 2px rgba(100, 116, 139, 0.25) !important;
+}
+
+/* 4. Fix Admin Sensor Management AI Scan Banner (Dark tone, clear text) */
+[data-theme="dark"] .sensor-alert-banner {
+  background: #172554 !important;
+  background-color: #172554 !important;
+  border: 1px solid #1e3a8a !important;
+  border-color: #1e3a8a !important;
+  border-radius: 8px !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] #aiBannerText {
+  color: #e2e8f0 !important;
+}
+
+[data-theme="dark"] #sensorAiBanner div[style*="color: var(--warning-amber-text)"] {
+  color: #93c5fd !important;
+}
+
+/* 5. Fix Manager Monthly Report Bright Blocks & Cards */
+[data-theme="dark"] div[style*="background: #F1F5F9"],
+[data-theme="dark"] div[style*="background:#F1F5F9"],
+[data-theme="dark"] div[style*="background: rgb(241, 245, 249)"] {
+  background: #151D2A !important;
+  background-color: #151D2A !important;
+  border: 1px solid #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] div[style*="background: #F8FAFC"],
+[data-theme="dark"] div[style*="background:#F8FAFC"],
+[data-theme="dark"] div[style*="background: rgb(248, 250, 252)"] {
+  background: #151D2A !important;
+  background-color: #151D2A !important;
+  border: 1px solid #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] div[style*="background: var(--primary-green-light)"] {
+  background: #151D2A !important;
+  border: 1px solid #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .report-list-item {
+  background: #151D2A !important;
+  border-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+[data-theme="dark"] .report-list-item:hover {
+  background: #1e293b !important;
+}
+
+[data-theme="dark"] #btnExportCSV {
+  background: #151D2A !important;
+  border-color: #1e293b !important;
+  color: #f1f5f9 !important;
+}
+
+/* 6. Fix Operator Energy Monitor: AI-1 Detail Box & Anomaly Banner */
+[data-theme="dark"] body.op-energy-page .anom {
+  background: #1e1b4b !important;
+  border: 1px solid #312e81 !important;
+}
+
+[data-theme="dark"] body.op-energy-page .anom-brand {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] body.op-energy-page .anom-msg {
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] body.op-energy-page .alert-detail {
+  background: #0B0F17 !important;
+  border: 1px solid #334155 !important;
+  color: #e2e8f0 !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+}
+
+[data-theme="dark"] body.op-energy-page .alert-detail .alert-row {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] body.op-energy-page .alert-detail b {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] body.op-energy-page .btn-ghost {
+  background: #151D2A !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+  border-radius: 8px !important;
+}
+
+[data-theme="dark"] body.op-energy-page .btn-ghost:hover {
+  background: #1e293b !important;
+}
+
+[data-theme="dark"] body.op-energy-page .btn-center {
+  background: transparent !important;
+  border-color: #475569 !important;
+  color: #cbd5e1 !important;
+}
+
+/* 7. Fix Operator Alert Center & Saving Actions (Turn white backgrounds into dark, remove green borders) */
+[data-theme="dark"] .alert-toolbar-card,
+[data-theme="dark"] .alert-table-card,
+[data-theme="dark"] .task-table-card,
+[data-theme="dark"] .filter-bar,
+[data-theme="dark"] .summary-card,
+[data-theme="dark"] .task-card,
+[data-theme="dark"] .task-empty,
+[data-theme="dark"] .alert-empty-card {
+  background: #0B0F17 !important;
+  background-color: #0B0F17 !important;
+  border: 1px solid #1e293b !important;
+  border-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] body.op-saving-page .ai-recommend-card {
+  background: #0B0F17 !important;
+  background-color: #0B0F17 !important;
+  border: 1px solid #1e293b !important;
+  border-color: #1e293b !important;
+}
+
+[data-theme="dark"] body.op-saving-page .ai-card-header {
+  border-bottom: 1px solid #1e293b !important;
+}
+
+[data-theme="dark"] body.op-saving-page .ai-status-pill {
+  background: #151D2A !important;
+  border-color: #334155 !important;
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] body.op-saving-page .ai-demo-controls {
+  background: #151D2A !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] body.op-saving-page .ai-scen-btn {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] body.op-saving-page .ai-scen-btn.active {
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  border-color: #475569 !important;
+}
+
+[data-theme="dark"] body.op-saving-page .ai-input-group {
+  background: #151D2A !important;
+  border: 1px solid #1e293b !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] body.op-saving-page .ai-stepper input {
+  background: #0B0F17 !important;
+  border-color: #334155 !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] body.op-saving-page .btn-ai-calc {
+  background: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* 8. Fix Occupant Pages (Comfort Feedback, Dashboard, Energy Challenge): Remove white backgrounds, remove green borders */
+[data-theme="dark"] .ocf-scenario-box {
+  background: #151D2A !important;
+  background-color: #151D2A !important;
+  border: 1px solid #1e293b !important;
+  border-color: #1e293b !important;
+  border-radius: 8px !important;
+}
+
+[data-theme="dark"] .ocf-scenario-box div,
+[data-theme="dark"] .ocf-scenario-box span {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .ocf-preset-scenario {
+  background: #0B0F17 !important;
+  background-color: #0B0F17 !important;
+  border: 1px solid #334155 !important;
+  border-color: #334155 !important;
+  border-radius: 8px !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .ocf-preset-scenario:hover {
+  background: #1e293b !important;
+  border-color: #475569 !important;
+}
+
+[data-theme="dark"] .ocf-preset-scenario span {
+  color: #94a3b8 !important;
+}
+
+[data-theme="dark"] .ocf-ai-result-card,
+[data-theme="dark"] .ocf-result-header,
+[data-theme="dark"] .ocf-explain-block,
+[data-theme="dark"] .ocf-feedback-item,
+[data-theme="dark"] .challenge-card,
+[data-theme="dark"] .comfort-card {
+  background: #151D2A !important;
+  background-color: #151D2A !important;
+  border: 1px solid #1e293b !important;
+  border-color: #1e293b !important;
+  border-radius: 8px !important;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .ocf-chip {
+  background: #151D2A !important;
+  border: 1px solid #334155 !important;
+  color: #f8fafc !important;
+  border-radius: 8px !important;
+}
+
+[data-theme="dark"] .ocf-chip:hover {
+  background: #1e293b !important;
+}
+
+[data-theme="dark"] select option {
+  background: #0B0F17 !important;
+  color: #f8fafc !important;
+}

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <script>(function(){try{if(localStorage.getItem('sm_theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
@@ -42,7 +42,7 @@
       <div class="sidebar-profile">
         <div class="profile-avatar" id="sidebarAvatar">NA</div>
         <div class="profile-info">
-          <div class="profile-name" id="sidebarName">Nguyễn Minh Anh</div>
+          <div class="profile-name" id="sidebarName">Tô Hồng Anh</div>
           <div class="profile-role" id="sidebarRole">Admin • minh.anh@greentower.vn</div>
         </div>
       </div>
@@ -135,12 +135,20 @@
 
         <!-- Role Switcher (Mục 2.4 Barem - Chuyển đổi vai trò nhanh phục vụ chấm vấn đáp) -->
         <div class="role-switcher-container" role="group" aria-label="Chuyển đổi vai trò nhanh">
-          <a href="manager-energy-kpis.html" class="role-switch-btn " title="Chuyển sang vai trò Facility Manager" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'manager',name:'Trần Thu Hà',email:'thuha@greentower.vn'}))">
-            <span>Quản lý</span>
+          <a href="admin-zone-management.html" class="role-switch-btn " title="Chuyển sang vai trò System Admin (SV3)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'admin',name:'Tô Hồng Anh',email:'honganh.admin@greentower.vn'}))">
+            <span>Admin</span>
             
           </a>
-          <a href="admin-zone-management.html" class="role-switch-btn " title="Chuyển sang vai trò System Admin" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'admin',name:'Nguyễn Minh Anh',email:'minh.anh@greentower.vn'}))">
-            <span>Admin</span>
+          <a href="manager-energy-kpis.html" class="role-switch-btn active" title="Chuyển sang vai trò Facility Manager (SV3)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'manager',name:'Tô Hồng Anh',email:'honganh.to@greentower.vn'}))">
+            <span>Manager</span>
+            <span class="role-switch-badge">Đang chọn</span>
+          </a>
+          <a href="operator-energy-monitor.html" class="role-switch-btn " title="Chuyển sang vai trò Building Operator (SV1 - La Ngọc Quang)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'operator',name:'La Ngọc Quang',email:'ngocquang.la@greentower.vn'}))">
+            <span>Operator</span>
+            
+          </a>
+          <a href="occupant-dashboard.html" class="role-switch-btn " title="Chuyển sang vai trò Office Occupant (SV2 - Lê Văn Trí)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'occupant',name:'Lê Văn Trí',email:'vantri.le@greentower.vn'}))">
+            <span>Occupant</span>
             
           </a>
         </div>
@@ -154,8 +162,8 @@
           <div class="header-user" id="headerUserBox">
             <img src="../assets/images/profilepic.webp" alt="User Avatar" class="user-avatar-img">
             <div class="user-text">
-              <span class="user-name" id="headerUserName">Nguyễn Minh Anh</span>
-              <span class="user-role" id="headerUserRole">System Admin (SV3)</span>
+              <span class="user-name" id="headerUserName">Tô Hồng Anh</span>
+              <span class="user-role" id="headerUserRole">Admin</span>
             </div>
             <span class="user-chevron">&#9662;</span>
           </div>
@@ -211,7 +219,7 @@
               <div class="profile-field">
                 <label class="profile-field-label" for="profileNameInput">Họ và tên</label>
                 <div class="profile-input-box">
-                  <input type="text" id="profileNameInput" class="profile-input-field" value="Nguyễn Minh Anh" required>
+                  <input type="text" id="profileNameInput" class="profile-input-field" value="Tô Hồng Anh" required>
                 </div>
               </div>
 
@@ -318,7 +326,7 @@
                 </div>
                 <div class="profile-activity-info">
                   <span class="profile-activity-title">Cập nhật hồ sơ cá nhân</span>
-                  <span class="profile-activity-time">10:32 • Nguyễn Minh Anh</span>
+                  <span class="profile-activity-time">10:32 • Tô Hồng Anh</span>
                 </div>
                 <span class="badge badge-success">Thành công</span>
               </div>
@@ -374,6 +382,12 @@
 
         </div>
       </main>
+
+            <footer class="app-footer">
+        <span>Green Tower SmartBuilding</span>
+        <span class="footer-version">Nhóm 01 - CSE122 BTL-36</span>
+        <span class="footer-network-status"><span class="dot-online" id="footerNetDot"></span><span id="footerNetLabel">Online</span></span>
+      </footer>
     </div>
   </div>
 

@@ -2,7 +2,16 @@
 
 **Đề tài**: SmartBuilding - Green Tower • BTL-36  
 
-**Vai trò**: Tô Hồng Anh (Manager & Admin) : 
+**Vai trò**: 
+
+La Ngọc Quang (Operator) :
+
+
+Lê Văn Trí (Occupant) :
+
+
+
+Tô Hồng Anh (Manager & Admin) : 
 manager-energy-kpis: https://youtu.be/eNDMW9z6fJY?si=HZKXte0f2nHJowxN
 manager-zone-comparison:
 manager-monthly-report:

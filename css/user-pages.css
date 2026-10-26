@@ -330,3 +330,249 @@
     gap: 5px;
   }
 }
+
+/* ==========================================================================
+   OCCUPANT PAGES (DASHBOARD, COMFORT FEEDBACK, ENERGY CHALLENGE) DARK MODE
+   ĐỒNG BỘ 100% MÀU TỐI GIỐNG 3 VAI TRÒ CÒN LẠI:
+   - Nền trang (body, content, table): #0B0F17
+   - Thẻ card, widget, bảng, modal, stat-card: #151D2A
+   - Viền: #1E293B / #334155
+   - Chữ sáng chính: #F8FAFC, chữ phụ: #94A3B8, điểm nhấn xanh: #10B981
+   ========================================================================== */
+[data-theme="dark"] body[data-user-page],
+[data-theme="dark"] .user-content,
+[data-theme="dark"] .odb-card,
+[data-theme="dark"] .odb-stat-card,
+[data-theme="dark"] .odb-ai-banner,
+[data-theme="dark"] .oec-goal-card,
+[data-theme="dark"] .oec-ai-card,
+[data-theme="dark"] .oec-challenges-card,
+[data-theme="dark"] .oec-timeline-card,
+[data-theme="dark"] .oec-kpi-card,
+[data-theme="dark"] .oec-ch-card,
+[data-theme="dark"] .ocf-section,
+[data-theme="dark"] .user-panel,
+[data-theme="dark"] .user-stat-card,
+[data-theme="dark"] .ocf-card,
+[data-theme="dark"] .ocf-feedback-card,
+[data-theme="dark"] .ocf-feedback-item,
+[data-theme="dark"] .ocf-ai-panel,
+[data-theme="dark"] .ocf-scenario-box,
+[data-theme="dark"] .ocf-history-card {
+  background: #151D2A !important;
+  background-color: #151D2A !important;
+  border-color: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] body[data-user-page],
+[data-theme="dark"] .user-content {
+  background: #0B0F17 !important;
+  background-color: #0B0F17 !important;
+}
+
+[data-theme="dark"] .odb-stat-card,
+[data-theme="dark"] .oec-kpi-card,
+[data-theme="dark"] .user-stat-card,
+[data-theme="dark"] .oec-ch-card,
+[data-theme="dark"] .ocf-feedback-card,
+[data-theme="dark"] .oec-goal-card,
+[data-theme="dark"] .oec-timeline-item,
+[data-theme="dark"] .ocf-scenario-box {
+  background: #151D2A !important;
+  background-color: #151D2A !important;
+  border: 1px solid #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .odb-rank-item,
+[data-theme="dark"] .odb-badge-item,
+[data-theme="dark"] .oec-ai-form,
+[data-theme="dark"] .oec-ai-level-card,
+[data-theme="dark"] .oec-ai-explain,
+[data-theme="dark"] .oec-ai-actions-list li,
+[data-theme="dark"] .ocf-scenario-box {
+  background: #0B0F17 !important;
+  border-color: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .oec-ai-card {
+  background: #151D2A !important;
+  border: 1px solid #1E293B !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+}
+
+[data-theme="dark"] .oec-ai-header {
+  border-bottom: 1px solid #1E293B !important;
+}
+
+[data-theme="dark"] .oec-tab-btn {
+  background: #0B0F17 !important;
+  border-color: #334155 !important;
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .oec-tab-btn:hover {
+  background: #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .oec-tab-btn.active {
+  background: #059669 !important;
+  border-color: #059669 !important;
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .oec-ch-title,
+[data-theme="dark"] .oec-section-title,
+[data-theme="dark"] .odb-card-title,
+[data-theme="dark"] .widget-title,
+[data-theme="dark"] .oec-kpi-value,
+[data-theme="dark"] .odb-stat-value {
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .oec-ch-desc,
+[data-theme="dark"] .oec-section-sub,
+[data-theme="dark"] .odb-card-sub,
+[data-theme="dark"] .widget-subtitle,
+[data-theme="dark"] .oec-kpi-label,
+[data-theme="dark"] .odb-stat-label {
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .oec-ch-footer {
+  border-top: 1px solid #1E293B !important;
+}
+
+[data-theme="dark"] .oec-join-btn.btn-join {
+  background: #059669 !important;
+  color: #FFFFFF !important;
+  border-color: #059669 !important;
+}
+
+[data-theme="dark"] .oec-join-btn.btn-done {
+  background: #1E293B !important;
+  color: #34D399 !important;
+  border-color: #334155 !important;
+}
+
+/* Comfort Feedback History Cards & Lists */
+[data-theme="dark"] .ocf-feedback-list {
+  background: transparent !important;
+}
+
+[data-theme="dark"] .ocf-feedback-card {
+  background: #151D2A !important;
+  border: 1px solid #1E293B !important;
+  color: #F8FAFC !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+[data-theme="dark"] .ocf-feedback-card:hover {
+  background: #1E293B !important;
+  border-color: #334155 !important;
+}
+
+[data-theme="dark"] .ocf-fb-title,
+[data-theme="dark"] .ocf-fb-room {
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .ocf-fb-desc,
+[data-theme="dark"] .ocf-fb-id,
+[data-theme="dark"] .ocf-fb-time,
+[data-theme="dark"] .ocf-fb-meta {
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .ocf-filter-bar {
+  background: #151D2A !important;
+  border: 1px solid #1E293B !important;
+  border-radius: 8px !important;
+}
+
+[data-theme="dark"] .ocf-filter-select,
+[data-theme="dark"] .ocf-filter-input,
+[data-theme="dark"] .ocf-select,
+[data-theme="dark"] input.form-control,
+[data-theme="dark"] .odb-search-input,
+[data-theme="dark"] .odb-select-filter {
+  background: #0B0F17 !important;
+  border-color: #334155 !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .ocf-empty-state,
+[data-theme="dark"] .oec-empty-state {
+  background: #151D2A !important;
+  border: 1px dashed #334155 !important;
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .ocf-modal {
+  background: #151D2A !important;
+  border: 1px solid #1E293B !important;
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .ocf-modal-header {
+  border-bottom: 1px solid #1E293B !important;
+}
+
+/* Occupant Dashboard Table Dark Styling */
+[data-theme="dark"] .odb-table-responsive {
+  border-color: #1E293B !important;
+  background: #151D2A !important;
+}
+
+[data-theme="dark"] .odb-table thead th {
+  background: #0B0F17 !important;
+  color: #94A3B8 !important;
+  border-bottom: 1px solid #1E293B !important;
+}
+
+[data-theme="dark"] .odb-table tbody tr {
+  border-bottom: 1px solid #1E293B !important;
+}
+
+[data-theme="dark"] .odb-table tbody tr:hover {
+  background: #1E293B !important;
+}
+
+[data-theme="dark"] .odb-table tbody tr.is-current-user {
+  background: rgba(16, 185, 129, 0.12) !important;
+}
+
+[data-theme="dark"] .odb-table tbody tr.is-current-user td:first-child {
+  border-left: 3px solid #10B981 !important;
+}
+
+[data-theme="dark"] .odb-table td {
+  color: #F8FAFC !important;
+}
+
+[data-theme="dark"] .rank-other {
+  background: #0B0F17 !important;
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .odb-ai-banner {
+  background: #151D2A !important;
+  border-color: #1E293B !important;
+}
+
+[data-theme="dark"] .odb-ai-heading {
+  color: #34D399 !important;
+}
+
+[data-theme="dark"] .odb-ai-desc {
+  color: #94A3B8 !important;
+}
+
+[data-theme="dark"] .odb-my-rank {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #34D399 !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}

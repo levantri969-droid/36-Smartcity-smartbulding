@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
  * profile.js - Profile management, Role Adaptability (Manager vs Admin),
  * Password change & Activity history matching Figma specification.
@@ -7,11 +7,11 @@
 const ROLE_PRESETS = {
   manager: {
     role: "manager",
-    name: "Trần Thu Hà",
-    email: "thuha@greentower.vn",
-    roleTitle: "Facility Manager (SV3)",
+    name: "Tô Hồng Anh",
+    email: "honganh.to@greentower.vn",
+    roleTitle: "Manager",
     roleShort: "Facility Manager",
-    initials: "TH",
+    initials: "HA",
     phone: "0912 345 678",
     dept: "Ban Quản lý Năng lượng • P. 12-01",
     sidebarTitle: "ĐIỀU HƯỚNG",
@@ -67,11 +67,11 @@ const ROLE_PRESETS = {
   },
   admin: {
     role: "admin",
-    name: "Nguyễn Minh Anh",
-    email: "minh.anh@greentower.vn",
-    roleTitle: "System Admin (SV3)",
+    name: "Tô Hồng Anh",
+    email: "honganh.admin@greentower.vn",
+    roleTitle: "Admin",
     roleShort: "Admin",
-    initials: "NA",
+    initials: "HA",
     phone: "0988 246 810",
     dept: "Ban Vận hành • P. B2-04",
     sidebarTitle: "QUẢN TRỊ HỆ THỐNG",
@@ -150,11 +150,11 @@ const ROLE_PRESETS = {
   },
   operator: {
     role: "operator",
-    name: "Lê Quốc Bảo",
-    email: "operator@greentower.vn",
-    roleTitle: "Operator (SV1)",
+    name: "La Ngọc Quang",
+    email: "ngocquang.la@greentower.vn",
+    roleTitle: "Operator",
     roleShort: "Operator",
-    initials: "LB",
+    initials: "NQ",
     phone: "0901 234 567",
     dept: "Ban Vận hành Kỹ thuật • P. B1-02",
     sidebarTitle: "ĐIỀU HƯỚNG",
@@ -207,7 +207,67 @@ const ROLE_PRESETS = {
         <span class="bottom-nav-label">Hồ sơ</span>
       </a>
     `
-  }
+  },
+  occupant: {
+    role: "occupant",
+    name: "Lê Văn Trí",
+    email: "vantri.le@greentower.vn",
+    roleTitle: "Occupant",
+    roleShort: "Occupant",
+    initials: "VT",
+    phone: "0902 345 678",
+    dept: "Tầng 5 - Khu Căn hộ & VP",
+    sidebarTitle: "MENU OCCUPANT",
+    sidebarNavHtml: `
+      <a href="occupant-dashboard.html" class="nav-item">
+        <span class="nav-num">01</span>
+        <span class="nav-label">Tổng quan căn hộ</span>
+        <span class="nav-arrow">&rsaquo;</span>
+      </a>
+      <a href="occupant-energy-challenge.html" class="nav-item">
+        <span class="nav-num">02</span>
+        <span class="nav-label">Thử thách Eco</span>
+        <span class="nav-arrow">&rsaquo;</span>
+      </a>
+      <a href="occupant-comfort-feedback.html" class="nav-item">
+        <span class="nav-num">03</span>
+        <span class="nav-label">Phản hồi tiện nghi</span>
+        <span class="nav-arrow">&rsaquo;</span>
+      </a>
+      <a href="profile.html?role=occupant" class="nav-item active">
+        <span class="nav-num">04</span>
+        <span class="nav-label">Hồ sơ</span>
+        <span class="nav-arrow">&rsaquo;</span>
+      </a>
+    `,
+    sidebarBadgeHtml: `
+      <div class="building-badge">
+        <span class="building-badge-sub">TÒA NHÀ HIỆN TẠI</span>
+        <div class="building-badge-main">
+          <span class="building-name">Green Tower • BTL-36</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </div>
+      </div>
+    `,
+    bottomNavHtml: `
+      <a href="occupant-dashboard.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon">🏠</span>
+        <span class="bottom-nav-label">Tổng quan</span>
+      </a>
+      <a href="occupant-energy-challenge.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon">🌱</span>
+        <span class="bottom-nav-label">Thử thách</span>
+      </a>
+      <a href="occupant-comfort-feedback.html" class="bottom-nav-item">
+        <span class="bottom-nav-icon">😊</span>
+        <span class="bottom-nav-label">Tiện nghi</span>
+      </a>
+      <a href="profile.html?role=occupant" class="bottom-nav-item active">
+        <span class="bottom-nav-icon">👤</span>
+        <span class="bottom-nav-label">Hồ sơ</span>
+      </a>
+    `
+  },
 };
 
 let currentActiveRole = "admin";
@@ -320,7 +380,43 @@ function applyRoleLayout(role) {
   if (actAuthor) {
     actAuthor.textContent = `10:32 • ${preset.name}`;
   }
+
+  // 8. Update Header Role Switcher to highlight the current active profile role
+  updateHeaderRoleSwitcher(role);
 }
+/**
+ * Update Header Role Switcher to highlight the active role
+ */
+function updateHeaderRoleSwitcher(activeRole) {
+  const container = document.querySelector(".role-switcher-container");
+  if (!container) return;
+
+  const roleMap = {
+    "admin": "admin-zone-management.html",
+    "manager": "manager-energy-kpis.html",
+    "operator": "operator-energy-monitor.html",
+    "occupant": "occupant-dashboard.html"
+  };
+
+  const buttons = container.querySelectorAll(".role-switch-btn");
+  buttons.forEach(btn => {
+    btn.classList.remove("active");
+    const badge = btn.querySelector(".role-switch-badge");
+    if (badge) badge.remove();
+
+    const href = btn.getAttribute("href") || "";
+    const isCurrent = (activeRole && roleMap[activeRole] && href.includes(roleMap[activeRole].split(".")[0]));
+
+    if (isCurrent) {
+      btn.classList.add("active");
+      const newBadge = document.createElement("span");
+      newBadge.className = "role-switch-badge";
+      newBadge.textContent = "Đang chọn";
+      btn.appendChild(newBadge);
+    }
+  });
+}
+
 
 /**
  * Load customized user session if saved by user earlier
@@ -415,6 +511,36 @@ function initForms() {
       };
 
       localStorage.setItem("smartbuilding_user", JSON.stringify(userObj));
+
+      // Synchronize with SMART_BUILDING_DB_V2 across all 4 roles (SV1, SV2, SV3)
+      try {
+        if (typeof DB !== "undefined") {
+          const allUsers = DB.get("users");
+          // Match by ID, email, or role (Engineer/Operator, Occupant, Manager, Admin)
+          const target = allUsers.find(u => {
+            if (u.email && u.email.toLowerCase() === userObj.email.toLowerCase()) return true;
+            if (currentActiveRole === "operator" && (u.role === "Engineer" || u.role === "Operator")) return true;
+            if (currentActiveRole === "occupant" && u.role === "Occupant" && (u.name === "Lê Văn Trí" || u.id === "USR-003")) return true;
+            if (currentActiveRole === "manager" && u.role === "Manager") return true;
+            if (currentActiveRole === "admin" && u.role === "Admin") return true;
+            return false;
+          });
+
+          if (target) {
+            DB.update("users", target.id, {
+              name: userObj.name,
+              email: userObj.email,
+              phone: userObj.phone,
+              zone: userObj.dept
+            });
+            console.log("✓ [DB Sync] Đã cập nhật người dùng trong DB:", target.id, userObj.name);
+          }
+        }
+      } catch (errDb) {
+        console.warn("Lỗi đồng bộ DB từ Profile:", errDb);
+      }
+      window.dispatchEvent(new CustomEvent("smartbuilding_db_sync"));
+      window.dispatchEvent(new CustomEvent("smartbuilding_user_updated", { detail: userObj }));
 
       // Update UI displays immediately
       const headerUserName = document.getElementById("headerUserName");

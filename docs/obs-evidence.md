@@ -5,7 +5,9 @@
 **Vai trò**: 
 
 La Ngọc Quang (Operator) :
-
+operator-energy-monitor: https://youtu.be/NAf-IjFkc-o?si=u9IAkNgI-k65IZmM
+operator-alert-center: https://youtu.be/HnPL2TqDJ5k?si=o5GVopCjdpZuSTB9
+operator-saving-actions: https://youtu.be/jPO_XLac1f0?si=a5q-GD4SAc3CjQmz
 
 Lê Văn Trí (Occupant) :
 

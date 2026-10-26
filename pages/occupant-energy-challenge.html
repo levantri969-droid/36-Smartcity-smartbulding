@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thử thách xanh - SmartBuilding</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/user-pages.css">
+  <link rel="stylesheet" href="../css/occupant-energy-challenge.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body data-user-page="occupant-energy-challenge">
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+  <div class="app-layout">
+    <aside id="appSidebar" class="app-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SmartBuilding</span>
+          <span class="brand-sub">BTL-36</span>
+        </div>
+        <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">&times;</button>
+      </div>
+      <div class="sidebar-profile">
+        <div class="profile-avatar">NL</div>
+        <div class="profile-info">
+          <div class="profile-name">Nguyễn Thúy Linh</div>
+          <div class="profile-role">Tiện nghi &amp; cộng đồng</div>
+        </div>
+      </div>
+            <!-- Main Navigation -->
+      <div class="sidebar-section-title">MENU OCCUPANT</div>
+      <nav class="sidebar-nav" aria-label="Điều hướng tiện nghi">
+        <a href="occupant-comfort-feedback.html" class="nav-item">
+          <span class="nav-num">01</span>
+          <span class="nav-label">Tiện nghi & phản hồi</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+        <a href="occupant-energy-challenge.html" class="nav-item active">
+          <span class="nav-num">02</span>
+          <span class="nav-label">Thử thách xanh</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+        <a href="profile.html?role=occupant" class="nav-item">
+          <span class="nav-num">03</span>
+          <span class="nav-label">Hồ sơ cá nhân</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="building-badge">
+          <span class="building-badge-sub">TÒA NHÀ HIỆN TẠI</span>
+          <div class="building-badge-main">
+            <span class="building-name">Green Tower · BTL-36</span>
+            <span class="nav-arrow">›</span>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <div class="main-wrapper">
+      <header class="app-header">
+        <div class="header-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="header-location">
+            <span class="location-name">Green Tower · Hà Nội</span>
+            <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="header-icon-btn" aria-label="Thông báo hệ thống">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+          <div class="header-user" onclick="location.href='profile.html?role=occupant'" role="link" tabindex="0" aria-label="Mở hồ sơ Nguyễn Thúy Linh" style="cursor: pointer;">
+            <div class="profile-avatar">NL</div>
+            <div class="user-text">
+              <span class="user-name">Nguyễn Thúy Linh</span>
+              <span class="user-role">Office Occupant (SV2)</span>
+            </div>
+            <span class="user-chevron">&#9662;</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content-body user-content" id="mainContent">
+
+        <!-- ── 1. PAGE HEADER ── -->
+        <section class="page-heading-row" aria-labelledby="pageHeading">
+          <div class="page-title-box">
+            <h1 class="page-title-text" id="pageHeading">Thử thách xanh</h1>
+            <p class="page-subtitle-text">Cùng tiết kiệm năng lượng và xây dựng thói quen sống xanh mỗi ngày.</p>
+          </div>
+          <span class="user-live-badge" aria-label="Đang diễn ra"><span></span> Đang diễn ra</span>
+        </section>
+
+        <!-- ── 2. KPI SUMMARY BAR ── -->
+        <section aria-label="Thành tích của bạn">
+          <div class="oec-kpi-row" id="kpiRow">
+            <article class="oec-kpi-card">
+              <span class="oec-kpi-label">Điểm xanh tích lũy</span>
+              <strong class="oec-kpi-value" id="kpiPoints">0 <small>điểm</small></strong>
+              <span class="oec-kpi-note" id="kpiPointsNote">Bắt đầu tham gia thử thách!</span>
+            </article>
+            <article class="oec-kpi-card">
+              <span class="oec-kpi-label">Năng lượng đã tiết kiệm</span>
+              <strong class="oec-kpi-value" id="kpiKwh">0 <small>kWh</small></strong>
+              <span class="oec-kpi-note" id="kpiKwhNote">≈ 0 kg CO₂ giảm phát thải</span>
+            </article>
+            <article class="oec-kpi-card">
+              <span class="oec-kpi-label">Thử thách hoàn thành</span>
+              <strong class="oec-kpi-value" id="kpiDone">0 <small>/ 6</small></strong>
+              <span class="oec-kpi-note" id="kpiDoneNote">Tiếp tục để lên hạng!</span>
+            </article>
+          </div>
+        </section>
+
+        <!-- ── 3. PROGRESS GOAL ── -->
+        <section class="oec-goal-card" aria-labelledby="goalHeading">
+          <div class="oec-goal-header">
+            <div>
+              <span class="oec-goal-eyebrow">Mục tiêu tháng 10</span>
+              <h2 class="oec-goal-title" id="goalHeading">Tiết kiệm 100 kWh trong tháng</h2>
+              <p class="oec-goal-desc">Mỗi hành động nhỏ giúp tòa nhà vận hành hiệu quả hơn.</p>
+            </div>
+          </div>
+          <div
+            class="oec-progress-bar-wrap"
+            role="progressbar"
+            aria-label="Tiến độ tiết kiệm năng lượng tháng 10"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            id="goalProgressBar"
+          >
+            <div class="oec-progress-bar-fill" id="goalProgressFill" style="width:0%"></div>
+          </div>
+          <div class="oec-progress-meta">
+            <span id="goalProgressLeft">Còn 100 kWh để đạt mục tiêu</span>
+            <strong id="goalProgressPct">0 / 100 kWh</strong>
+          </div>
+        </section>
+
+        <!-- ── 4. AI SECTION (6 STEPS) ── -->
+        <section class="oec-ai-card" aria-labelledby="aiHeading">
+          <div class="oec-ai-header">
+            <span class="oec-ai-badge" aria-label="Tính năng AI">🤖 AI-2</span>
+            <div>
+              <h2 class="oec-ai-title" id="aiHeading">AI Phân tích hành vi tiết kiệm năng lượng</h2>
+              <p class="oec-ai-subtitle">Cảnh báo rủi ro &amp; Gợi ý hành động cá nhân hóa theo mức tiêu thụ của bạn.</p>
+            </div>
+          </div>
+
+          <!-- Step 1: Input -->
+          <div id="aiInputStep">
+            <form class="oec-ai-form" id="aiForm" novalidate>
+              <div class="oec-form-row">
+                <div class="oec-form-group">
+                  <label for="aiKwhInput">Mức tiêu thụ điện hôm nay (kWh)</label>
+                  <input
+                    type="number"
+                    id="aiKwhInput"
+                    name="kwh"
+                    placeholder="Ví dụ: 7.5"
+                    min="0"
+                    step="0.1"
+                    aria-required="true"
+                    aria-describedby="aiKwhHint"
+                  >
+                  <span id="aiKwhHint" style="font-size:11px;color:var(--text-muted);">Nhập số kWh bạn đã dùng trong ngày hôm nay</span>
+                </div>
+                <div class="oec-form-group">
+                  <label for="aiDeviceSelect">Thiết bị sử dụng nhiều nhất</label>
+                  <select id="aiDeviceSelect" name="device" aria-required="true">
+                    <option value="">-- Chọn thiết bị --</option>
+                    <option value="Điều hòa">Điều hòa</option>
+                    <option value="Máy tính">Máy tính</option>
+                    <option value="Đèn">Đèn chiếu sáng</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="oec-ai-analyze-btn" id="aiAnalyzeBtn">
+                🔍 Phân tích AI
+              </button>
+            </form>
+          </div>
+
+          <!-- Step 2: Spinner -->
+          <div class="oec-ai-spinner" id="aiSpinner" role="status" aria-live="polite" aria-label="Đang phân tích...">
+            <div class="spin-ring" aria-hidden="true"></div>
+            <p>AI đang phân tích dữ liệu tiêu thụ của bạn…</p>
+          </div>
+
+          <!-- AI Failure UX -->
+          <div class="oec-ai-fail" id="aiFailState" role="alert">
+            <p class="oec-ai-fail-msg">⚠️ Chưa đủ dữ liệu — Vui lòng nhập mức tiêu thụ điện hôm nay.</p>
+            <div class="oec-prompt-chips" aria-label="Gợi ý nhập nhanh">
+              <button type="button" class="oec-chip" data-kwh="5.2">Nhập 5.2 kWh</button>
+              <button type="button" class="oec-chip" data-kwh="8.0">Nhập 8.0 kWh</button>
+              <button type="button" class="oec-chip" data-kwh="12.5">Nhập 12.5 kWh</button>
+            </div>
+          </div>
+
+          <!-- Steps 3-6: Result -->
+          <div class="oec-ai-result" id="aiResult" aria-live="polite">
+            <!-- Step 3: Output card -->
+            <div class="oec-ai-level-card" id="aiLevelCard">
+              <span class="oec-ai-level-icon" id="aiLevelIcon" aria-hidden="true">✅</span>
+              <div>
+                <div class="oec-ai-level-label">Xếp loại tiêu thụ</div>
+                <div class="oec-ai-level-name" id="aiLevelName"></div>
+                <div class="oec-ai-level-detail" id="aiLevelDetail"></div>
+              </div>
+            </div>
+
+            <div>
+              <p class="oec-ai-actions-title">🎯 3 hành động gợi ý cho bạn hôm nay:</p>
+              <ul class="oec-ai-actions-list" id="aiActionsList" aria-label="Danh sách hành động gợi ý"></ul>
+            </div>
+
+            <!-- Step 4: Explainability -->
+            <div class="oec-ai-explain" role="note">
+              <div class="oec-ai-explain-title">💡 Vì sao AI gợi ý điều này?</div>
+              <p id="aiExplainText"></p>
+              <div class="oec-ai-confidence">
+                <label for="aiConfidenceBar">Độ tin cậy: <strong id="aiConfidencePct"></strong></label>
+                <div class="oec-confidence-bar">
+                  <div
+                    class="oec-confidence-fill"
+                    id="aiConfidenceBar"
+                    role="progressbar"
+                    aria-label="Độ tin cậy AI"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    aria-valuenow="0"
+                    style="width:0%"
+                  ></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5: User Controls -->
+            <div class="oec-ai-controls" role="group" aria-label="Hành động sau phân tích">
+              <button type="button" class="oec-ai-ctrl-btn oec-ctrl-commit" id="aiCommitBtn" aria-label="Cam kết thực hiện gợi ý AI">✅ Cam kết thực hiện</button>
+              <button type="button" class="oec-ai-ctrl-btn oec-ctrl-edit"   id="aiEditBtn"   aria-label="Chỉnh sửa đầu vào">✏️ Chỉnh sửa</button>
+              <button type="button" class="oec-ai-ctrl-btn oec-ctrl-skip"   id="aiSkipBtn"   aria-label="Bỏ qua gợi ý">✕ Bỏ qua</button>
+              <button type="button" class="oec-ai-ctrl-btn oec-ctrl-retry"  id="aiRetryBtn"  aria-label="Phân tích lại">🔄 Phân tích lại</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ── 5. CHALLENGES LIST ── -->
+        <section class="oec-challenges-card" aria-labelledby="challengesHeading">
+          <div class="oec-section-head">
+            <div>
+              <h2 class="oec-section-title" id="challengesHeading">Thử thách dành cho bạn</h2>
+              <p class="oec-section-sub">Tham gia các hoạt động tiết kiệm năng lượng trong tháng này.</p>
+            </div>
+            <button type="button" class="oec-reset-btn" id="resetProgressBtn" aria-label="Xóa toàn bộ tiến độ thử thách">
+              🔄 Reset tiến độ
+            </button>
+          </div>
+
+          <!-- Filter tabs -->
+          <div class="oec-filter-bar">
+            <div class="oec-tabs" role="tablist" aria-label="Lọc thử thách theo trạng thái">
+              <button type="button" class="oec-tab-btn active" data-filter="all"        role="tab" aria-selected="true"  aria-controls="challengeGrid">Tất cả</button>
+              <button type="button" class="oec-tab-btn"        data-filter="none"       role="tab" aria-selected="false" aria-controls="challengeGrid">Chưa tham gia</button>
+              <button type="button" class="oec-tab-btn"        data-filter="inprogress" role="tab" aria-selected="false" aria-controls="challengeGrid">Đang thực hiện</button>
+              <button type="button" class="oec-tab-btn"        data-filter="done"       role="tab" aria-selected="false" aria-controls="challengeGrid">Hoàn thành</button>
+            </div>
+            <span class="oec-counter" id="challengeCounter" aria-live="polite"><strong>0</strong> / 0 thử thách</span>
+          </div>
+
+          <!-- Loading skeleton -->
+          <div id="challengeSkeleton" class="oec-skeleton-grid" aria-busy="true" aria-label="Đang tải danh sách thử thách">
+            <div class="oec-skeleton-card"><div class="skeleton-line h20 w-60"></div><div class="skeleton-line w-100"></div><div class="skeleton-line w-80"></div><div class="skeleton-line w-40"></div></div>
+            <div class="oec-skeleton-card"><div class="skeleton-line h20 w-60"></div><div class="skeleton-line w-100"></div><div class="skeleton-line w-80"></div><div class="skeleton-line w-40"></div></div>
+            <div class="oec-skeleton-card"><div class="skeleton-line h20 w-60"></div><div class="skeleton-line w-100"></div><div class="skeleton-line w-80"></div><div class="skeleton-line w-40"></div></div>
+          </div>
+
+          <!-- Challenge grid (populated by JS) -->
+          <div id="challengeGrid" class="oec-challenge-grid" role="tabpanel" aria-label="Danh sách thử thách" style="display:none;"></div>
+
+          <!-- Empty state -->
+          <div id="challengeEmpty" class="oec-empty-state" style="display:none;" role="status">
+            <span class="oec-empty-icon" aria-hidden="true">🌿</span>
+            <p class="oec-empty-title">Không có thử thách nào ở bộ lọc này</p>
+            <p class="oec-empty-sub">Hãy thử chọn bộ lọc khác hoặc tham gia thêm thử thách mới!</p>
+          </div>
+
+          <!-- Error state -->
+          <div id="challengeError" class="oec-error-state" style="display:none;" role="alert">
+            <span class="oec-error-icon" aria-hidden="true">⚠️</span>
+            <p class="oec-error-title">Không tải được danh sách thử thách</p>
+            <p class="oec-error-sub">Vui lòng kiểm tra kết nối và thử lại.</p>
+            <button type="button" class="oec-retry-btn" id="retryLoadBtn">Thử lại</button>
+          </div>
+        </section>
+
+        <!-- ── 6. ACTIVITY TIMELINE ── -->
+        <section class="oec-timeline-card" aria-labelledby="timelineHeading">
+          <div class="oec-section-head">
+            <div>
+              <h2 class="oec-section-title" id="timelineHeading">📋 Nhật ký hoạt động</h2>
+              <p class="oec-section-sub">Ghi nhận mỗi lần bạn tham gia hoặc hoàn thành thử thách.</p>
+            </div>
+          </div>
+          <div class="oec-timeline" id="activityTimeline" aria-live="polite" aria-label="Nhật ký hoạt động thử thách"></div>
+        </section>
+
+      </main>
+
+      <!-- APP FOOTER (Semantic Standard) -->
+      <footer class="app-footer">
+        <p class="footer-copyright">&copy; 2026 SmartBuilding Team 01 (BTL-36) · Phân hệ Tiện nghi &amp; Cộng đồng (Occupant SV2)</p>
+      </footer>
+    </div>
+  </div>
+
+  <nav class="mobile-bottom-nav user-bottom-nav" aria-label="Điều hướng nhanh">
+    <a href="occupant-comfort-feedback.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon" aria-hidden="true">☀️</span>
+      <span class="bottom-nav-label">Tiện nghi</span>
+    </a>
+    <a href="occupant-energy-challenge.html" class="bottom-nav-item active">
+      <span class="bottom-nav-icon" aria-hidden="true">🌱</span>
+      <span class="bottom-nav-label">Thử thách</span>
+    </a>
+    <a href="profile.html?role=occupant" class="bottom-nav-item">
+      <span class="bottom-nav-icon" aria-hidden="true">👤</span>
+      <span class="bottom-nav-label">Hồ sơ</span>
+    </a>
+  </nav>
+
+  <script src="../js/user.js"></script>
+  <script src="../js/occupant-energy-challenge.js"></script>
+</body>
+</html>

@@ -189,3 +189,45 @@ function handleExportExcel() {
 
   showToast(`Đã xuất báo cáo: Bao_Cao_${rep.id}.csv`);
 }
+
+
+// ============================================================
+// Xuất báo cáo ra định dạng CSV (Điểm thưởng Mục IV Barem)
+// ============================================================
+function exportReportsToCSV() {
+  const headers = ["ID", "Tháng", "Điện năng tiêu thụ", "Chi phí (VNĐ)", "Phát thải CO2", "Trạng thái", "Nhận định AI", "Kết luận BQL"];
+  const rows = monthlyReportsData.map(r => [
+    r.id,
+    r.month,
+    r.kwh,
+    r.cost,
+    r.co2,
+    r.statusLabel,
+    `"${(r.aiReview || '').replace(/"/g, '""')}"`,
+    `"${(r.mgmtConclusion || '').replace(/"/g, '""')}"`
+  ]);
+
+  const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `Bao_Cao_Nang_Luong_SmartBuilding_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  if (typeof showToast === "function") {
+    showToast("✅ Đã xuất báo cáo CSV thành công!");
+  } else {
+    alert("✅ Đã xuất báo cáo CSV thành công!");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const exportBtn = document.getElementById("btnExportCSV");
+  if (exportBtn) {
+    exportBtn.addEventListener("click", exportReportsToCSV);
+  }
+});

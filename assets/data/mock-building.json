@@ -1,51 +1,76 @@
 {
   "building": {
-    "name": "Innovation Tech Tower (BTL-36)",
+    "name": "Green Tower Hà Nội (BTL-36)",
     "address": "144 Xuân Thủy, Cầu Giấy, Hà Nội",
     "totalFloors": 15,
     "grossAreaM2": 18500,
-    "totalOccupants": 1200
+    "totalOccupants": 1250,
+    "baselineEUI": 142.5,
+    "targetEUI": 125.0
   },
   "kpis": {
-    "dailyConsumptionKWh": 12500,
-    "monthlyCostVND": 937500000,
-    "currentEUI": 142.5,
-    "targetEUI": 130.0,
-    "carbonEmissionTons": 270.5
+    "dailyConsumptionKWh": 12450,
+    "monthlyCostVND": 935000000,
+    "currentEUI": 134.2,
+    "targetEUI": 125.0,
+    "carbonEmissionTons": 268.4,
+    "peakReductionPercent": 14.2
   },
   "zones": [
-    {"id": "Z-01", "name": "Tầng 1 - Sảnh chính & Lễ tân", "floor": 1, "areaM2": 850, "occupancy": 85, "status": "active", "powerKW": 45.2},
-    {"id": "Z-02", "name": "Tầng 2 - Căn-tin & Khu nghỉ ngơi", "floor": 2, "areaM2": 720, "occupancy": 120, "status": "active", "powerKW": 62.4},
-    {"id": "Z-03", "name": "Tầng 5 - Văn phòng Mở Khối Kỹ Thuật", "floor": 5, "areaM2": 950, "occupancy": 210, "status": "active", "powerKW": 88.6},
-    {"id": "Z-04", "name": "Tầng 8 - Phòng Họp & Hội nghị", "floor": 8, "areaM2": 600, "occupancy": 45, "status": "active", "powerKW": 32.1},
-    {"id": "Z-05", "name": "Tầng 12 - Trung tâm Dữ liệu (Server Room)", "floor": 12, "areaM2": 400, "occupancy": 6, "status": "active", "powerKW": 115.8}
+    { "id": "ZN-001", "name": "Tầng 1 - Sảnh chính & Lễ tân", "floor": "Tầng 1", "area": "2.480 m²", "sensors": 32, "status": "active", "statusLabel": "Hoạt động", "badgeBg": "#ECFDF5", "badgeColor": "#047857", "dotColor": "#047857", "currentKW": 45.2 },
+    { "id": "ZN-002", "name": "Tầng 2 - Căn tin & Giải trí", "floor": "Tầng 2", "area": "2.520 m²", "sensors": 38, "status": "active", "statusLabel": "Hoạt động", "badgeBg": "#ECFDF5", "badgeColor": "#047857", "dotColor": "#047857", "currentKW": 68.4 },
+    { "id": "ZN-003", "name": "Tầng 3 - Khối Văn phòng Mở R&D", "floor": "Tầng 3", "area": "2.400 m²", "sensors": 42, "status": "active", "statusLabel": "Hoạt động", "badgeBg": "#ECFDF5", "badgeColor": "#047857", "dotColor": "#047857", "currentKW": 82.5 },
+    { "id": "ZN-004", "name": "Tầng 4 - Văn phòng Kỹ thuật Phần mềm", "floor": "Tầng 4", "area": "2.400 m²", "sensors": 36, "status": "active", "statusLabel": "Hoạt động", "badgeBg": "#ECFDF5", "badgeColor": "#047857", "dotColor": "#047857", "currentKW": 74.1 },
+    { "id": "ZN-005", "name": "Tầng 5 - Trung tâm BMS & Vận hành", "floor": "Tầng 5", "area": "1.800 m²", "sensors": 28, "status": "active", "statusLabel": "Hoạt động", "badgeBg": "#ECFDF5", "badgeColor": "#047857", "dotColor": "#047857", "currentKW": 56.3 },
+    { "id": "ZN-008", "name": "Tầng 8 - Trung tâm Hội nghị & Phòng họp", "floor": "Tầng 8", "area": "2.480 m²", "sensors": 30, "status": "maintenance", "statusLabel": "Bảo trì", "badgeBg": "#FEF3C7", "badgeColor": "#92400E", "dotColor": "#F59E0B", "currentKW": 32.8 },
+    { "id": "ZN-010", "name": "Tầng 10 - Ban Lãnh đạo & Khách VIP", "floor": "Tầng 10", "area": "1.650 m²", "sensors": 22, "status": "active", "statusLabel": "Hoạt động", "badgeBg": "#ECFDF5", "badgeColor": "#047857", "dotColor": "#047857", "currentKW": 38.6 },
+    { "id": "ZN-SRV", "name": "Tầng 12 - Trung tâm Dữ liệu (Server Room)", "floor": "Tầng 12", "area": "420 m²", "sensors": 18, "status": "active", "statusLabel": "Hoạt động", "badgeBg": "#ECFDF5", "badgeColor": "#047857", "dotColor": "#047857", "currentKW": 118.2 }
   ],
   "sensors": [
-    {"id": "SNS-PWR-01", "zoneId": "Z-01", "type": "Power Meter", "model": "Schneider PM5350", "status": "online", "value": 45.2, "unit": "kW"},
-    {"id": "SNS-TMP-01", "zoneId": "Z-01", "type": "Temperature", "model": "Honeywell T6 Pro", "status": "online", "value": 24.5, "unit": "°C"},
-    {"id": "SNS-PWR-02", "zoneId": "Z-03", "type": "Power Meter", "model": "Schneider PM5350", "status": "online", "value": 88.6, "unit": "kW"},
-    {"id": "SNS-TMP-02", "zoneId": "Z-03", "type": "Temperature", "model": "Honeywell T6 Pro", "status": "online", "value": 23.8, "unit": "°C"},
-    {"id": "SNS-CO2-01", "zoneId": "Z-03", "type": "Air Quality (CO2)", "model": "Siemens QPA2062", "status": "online", "value": 680, "unit": "ppm"},
-    {"id": "SNS-PWR-03", "zoneId": "Z-05", "type": "Power Meter", "model": "Schneider PM5350", "status": "warning", "value": 115.8, "unit": "kW"}
-  ],
-  "readings": [
-    {"timestamp": "2026-10-13 08:00", "totalKW": 280, "tempAvg": 23.5},
-    {"timestamp": "2026-10-13 10:00", "totalKW": 410, "tempAvg": 24.1},
-    {"timestamp": "2026-10-13 12:00", "totalKW": 465, "tempAvg": 24.8},
-    {"timestamp": "2026-10-13 14:00", "totalKW": 440, "tempAvg": 25.0},
-    {"timestamp": "2026-10-13 16:00", "totalKW": 395, "tempAvg": 24.6},
-    {"timestamp": "2026-10-13 18:00", "totalKW": 220, "tempAvg": 23.9}
+    { "id": "PWR-T1-01", "type": "Đồng hồ điện", "zone": "Tầng 1", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 45.2, "unit": "kW", "threshold": 60.0, "isLocked": false },
+    { "id": "TMP-T1-02", "type": "Nhiệt độ", "zone": "Tầng 1", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 24.5, "unit": "°C", "threshold": 26.0, "isLocked": false },
+    { "id": "PWR-T2-014", "type": "Đồng hồ điện", "zone": "Tầng 2", "status": "disconnected", "statusLabel": "Mất kết nối", "statusBg": "#FEF2F2", "statusColor": "#DC2626", "dotColor": "#EF4444", "value": 0.0, "unit": "kW", "threshold": 75.0, "isLocked": false },
+    { "id": "TMP-T2-05", "type": "Nhiệt độ", "zone": "Tầng 2", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 25.2, "unit": "°C", "threshold": 26.5, "isLocked": false },
+    { "id": "LUX-T3-22", "type": "Ánh sáng", "zone": "Tầng 3", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 450, "unit": "Lux", "threshold": 500, "isLocked": true },
+    { "id": "PWR-T3-08", "type": "Đồng hồ điện", "zone": "Tầng 3", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 82.5, "unit": "kW", "threshold": 95.0, "isLocked": false },
+    { "id": "CO2-T3-12", "type": "CO₂", "zone": "Tầng 3", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 685, "unit": "ppm", "threshold": 1000, "isLocked": false },
+    { "id": "PWR-T4-031", "type": "Đồng hồ điện", "zone": "Tầng 4", "status": "disconnected", "statusLabel": "Mất kết nối", "statusBg": "#FEF2F2", "statusColor": "#DC2626", "dotColor": "#EF4444", "value": 0.0, "unit": "kW", "threshold": 80.0, "isLocked": false },
+    { "id": "TMP-T4-09", "type": "Nhiệt độ", "zone": "Tầng 4", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 24.1, "unit": "°C", "threshold": 26.0, "isLocked": false },
+    { "id": "HUM-T5-03", "type": "Độ ẩm", "zone": "Tầng 5", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 55, "unit": "%", "threshold": 70, "isLocked": false },
+    { "id": "PWR-T5-11", "type": "Đồng hồ điện", "zone": "Tầng 5", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 56.3, "unit": "kW", "threshold": 65.0, "isLocked": false },
+    { "id": "CO2-T8-04", "type": "CO₂", "zone": "Tầng 8", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 540, "unit": "ppm", "threshold": 1000, "isLocked": false },
+    { "id": "TMP-T8-15", "type": "Nhiệt độ", "zone": "Tầng 8", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 26.8, "unit": "°C", "threshold": 26.0, "isLocked": false },
+    { "id": "TMP-SRV-08", "type": "Nhiệt độ", "zone": "Server Room", "status": "warning", "statusLabel": "Cảnh báo cao", "statusBg": "#FFFBEB", "statusColor": "#D97706", "dotColor": "#F59E0B", "value": 27.2, "unit": "°C", "threshold": 25.0, "isLocked": false },
+    { "id": "PWR-SRV-01", "type": "Đồng hồ điện", "zone": "Server Room", "status": "online", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "value": 118.2, "unit": "kW", "threshold": 120.0, "isLocked": false }
   ],
   "alerts": [
-    {"id": "ALT-001", "zoneId": "Z-05", "severity": "warning", "message": "Nhiệt độ phòng máy chủ vượt ngưỡng khuyến nghị (26.2°C)", "timestamp": "14:15 - Hôm nay"},
-    {"id": "ALT-002", "zoneId": "Z-03", "severity": "info", "message": "Đề xuất kích hoạt chế độ Eco cho hệ thống đèn chiếu sáng", "timestamp": "11:30 - Hôm nay"}
-  ],
-  "actions": [
-    {"id": "ACT-101", "title": "Bật chế độ tiết kiệm năng lượng tầng 3-5", "status": "completed", "executedBy": "Admin", "time": "08:15"},
-    {"id": "ACT-102", "title": "Tăng điểm cài đặt HVAC tầng 8 lên 25°C", "status": "pending", "executedBy": "Manager", "time": "14:00"}
+    { "id": "ALT-001", "zone": "Server Room", "severity": "HIGH", "severityLabel": "Nghiêm trọng", "badgeBg": "#FEF2F2", "badgeColor": "#DC2626", "message": "Nhiệt độ phòng máy chủ đạt 27.2°C (Vượt ngưỡng an toàn 25.0°C). Nguy cơ quá nhiệt hạ tầng mạng.", "timestamp": "14:15 - Hôm nay", "status": "pending", "statusLabel": "Chờ xử lý" },
+    { "id": "ALT-002", "zone": "Tầng 2", "severity": "WARNING", "severityLabel": "Cảnh báo", "badgeBg": "#FFFBEB", "badgeColor": "#D97706", "message": "Mất tín hiệu cảm biến điện năng PWR-T2-014 trong hơn 30 phút. Kiểm tra cổng Gateway Modbus RTU.", "timestamp": "13:40 - Hôm nay", "status": "in_progress", "statusLabel": "Đang xử lý" },
+    { "id": "ALT-003", "zone": "Tầng 8", "severity": "WARNING", "severityLabel": "Cảnh báo", "badgeBg": "#FFFBEB", "badgeColor": "#D97706", "message": "Nhiệt độ phòng họp đạt 26.8°C trong khi phòng đang diễn ra hội thảo đông người.", "timestamp": "11:20 - Hôm nay", "status": "pending", "statusLabel": "Chờ xử lý" },
+    { "id": "ALT-004", "zone": "Tầng 4", "severity": "INFO", "severityLabel": "Thông tin", "badgeBg": "#EFF6FF", "badgeColor": "#1E40AF", "message": "Cảm biến PWR-T4-031 mất kết nối chập chờn khi chuyển nguồn UPS dự phòng.", "timestamp": "09:10 - Hôm nay", "status": "resolved", "statusLabel": "Đã giải quyết" },
+    { "id": "ALT-005", "zone": "Tầng 3", "severity": "INFO", "severityLabel": "Thông tin", "badgeBg": "#EFF6FF", "badgeColor": "#1E40AF", "message": "Đề xuất AI-1: Tự động điều chỉnh nhiệt độ điều hòa sang 25.5°C giờ nghỉ trưa.", "timestamp": "08:30 - Hôm nay", "status": "resolved", "statusLabel": "Đã giải quyết" }
   ],
   "challenges": [
-    {"id": "CH-01", "title": "Tắt đèn giờ nghỉ trưa", "targetZones": ["Z-03", "Z-04"], "points": 100, "participants": 86},
-    {"id": "CH-02", "title": "Tối ưu nhiệt độ phòng họp 25°C", "targetZones": ["Z-04"], "points": 150, "participants": 42}
-  ]
+    { "id": "CH-001", "title": "Tắt đèn chiếu sáng giờ nghỉ trưa", "zone": "Tầng 3 & Tầng 4", "points": 120, "participants": 142, "progress": 85, "status": "active", "statusLabel": "Đang diễn ra", "deadline": "13:30 Hôm nay", "desc": "Tự giác tắt cụm đèn làm việc cá nhân từ 12:00 đến 13:00 để giảm tải 15kW điện." },
+    { "id": "CH-002", "title": "Cài đặt điều hòa chuẩn 25°C - 26°C", "zone": "Toàn tòa nhà", "points": 180, "participants": 215, "progress": 92, "status": "active", "statusLabel": "Đang diễn ra", "deadline": "Cuối tuần này", "desc": "Hạn chế hạ nhiệt độ dưới 24°C, bảo vệ sức khỏe và tiết kiệm 12% điện làm mát." },
+    { "id": "CH-003", "title": "Đi cầu thang bộ giờ cao điểm", "zone": "Tầng 1 đến Tầng 5", "points": 80, "participants": 98, "progress": 64, "status": "active", "statusLabel": "Đang diễn ra", "deadline": "Hàng ngày", "desc": "Giảm ùn tắc thang máy và rèn luyện thể chất nhân viên văn phòng." },
+    { "id": "CH-004", "title": "Giảm 10% công suất chiếu sáng phòng họp", "zone": "Tầng 8", "points": 150, "participants": 65, "progress": 100, "status": "completed", "statusLabel": "Đã hoàn thành", "deadline": "Hôm qua", "desc": "Tận dụng tối đa ánh sáng tự nhiên qua vách kính hội trường." }
+  ],
+  "users": [
+    { "id": "USR-001", "name": "Trần Thu Hà", "email": "thuha@greentower.vn", "role": "Manager", "zone": "Toàn bộ tòa nhà", "status": "active", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "roleBg": "#ECFDF5", "roleColor": "#047857" },
+    { "id": "USR-002", "name": "Lê Hoàng Nam", "email": "nam.le@greentower.vn", "role": "Engineer", "zone": "Tầng Kỹ thuật & BMS", "status": "active", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "roleBg": "#EFF6FF", "roleColor": "#1E40AF" },
+    { "id": "USR-003", "name": "Phạm Mai Linh", "email": "linh.pm@greentower.vn", "role": "Occupant", "zone": "Tầng 3 - Khối KT", "status": "active", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "roleBg": "#F1F5F9", "roleColor": "#475569" },
+    { "id": "USR-004", "name": "Nguyễn Minh Anh", "email": "minh.anh@greentower.vn", "role": "Admin", "zone": "Hệ thống trung tâm", "status": "active", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "roleBg": "#FEF3C7", "roleColor": "#92400E" },
+    { "id": "USR-005", "name": "Vũ Đình Trọng", "email": "trong.vu@greentower.vn", "role": "Occupant", "zone": "Tầng 4", "status": "locked", "statusLabel": "Đã khóa", "statusBg": "#FEF2F2", "statusColor": "#DC2626", "dotColor": "#EF4444", "roleBg": "#F1F5F9", "roleColor": "#475569" },
+    { "id": "USR-006", "name": "Tô Hồng Anh", "email": "honganh.to@greentower.vn", "role": "Manager", "zone": "Ban Năng Lượng & Vận Hành", "status": "active", "statusLabel": "Hoạt động", "statusBg": "#ECFDF5", "statusColor": "#047857", "dotColor": "#047857", "roleBg": "#ECFDF5", "roleColor": "#047857" }
+  ],
+  "occupantPreferences": {
+    "currentTemp": 24,
+    "targetTemp": 25,
+    "acMode": "eco",
+    "fanSpeed": "auto",
+    "lightIntensity": 75,
+    "ecoPoints": 480,
+    "rank": "Chiến binh Xanh Hạng Vàng"
+  }
 }

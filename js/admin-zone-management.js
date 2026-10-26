@@ -1,32 +1,25 @@
 /**
  * CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
- * admin-zone-management.js - Quản lý Danh mục Khu vực / Zone (SV3 - Admin)
+ * js/admin-zone-management.js - Quản lý Danh mục Khu vực / Zone (SV3 - Admin)
+ * Tích hợp Tầng lưu trữ LocalStorage, Modal Form & Validation chuẩn A11y
  */
-
-let zoneList = [
-  { id: "ZN-001", name: "Tầng 1", area: "2.480 m²", sensors: 32, status: "active", statusLabel: "Hoạt động", badgeBg: "#ECFDF5", badgeColor: "#047857", dotColor: "#047857" },
-  { id: "ZN-002", name: "Tầng 2", area: "2.520 m²", sensors: 38, status: "active", statusLabel: "Hoạt động", badgeBg: "#ECFDF5", badgeColor: "#047857", dotColor: "#047857" },
-  { id: "ZN-SRV", name: "Server Room", area: "420 m²", sensors: 18, status: "active", statusLabel: "Hoạt động", badgeBg: "#ECFDF5", badgeColor: "#047857", dotColor: "#047857" },
-  { id: "ZN-008", name: "Tầng 8", area: "2.480 m²", sensors: 30, status: "maintenance", statusLabel: "Bảo trì", badgeBg: "#FEF3C7", badgeColor: "#92400E", dotColor: "#F59E0B" }
-];
 
 let searchKeyword = "";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Đảm bảo dữ liệu từ storage.js đã sẵn sàng
+  if (typeof DB !== 'undefined') {
+    await DB.init();
+  }
   initSearch();
-  initActions();
+  initModalActions();
   renderZones();
-});
 
-function initSearch() {
-  const searchInput = document.getElementById("zoneSearchInput");
-  const handleInput = (e) => {
-    searchKeyword = e.target.value.toLowerCase().trim();
+  // Lắng nghe sự kiện đồng bộ đa tab
+  window.addEventListener('smartbuilding_db_sync', () => {
     renderZones();
-  };
-
-  if (searchInput) searchInput.addEventListener("input", handleInput);
-}
+  });
+});
 
 function escapeHtml(str) {
   if (!str) return "";
@@ -38,45 +31,192 @@ function escapeHtml(str) {
     .replace(/'/g, "&#039;");
 }
 
-function initActions() {
-  const btnAdd = document.getElementById("btnAddZone");
-  const handleAdd = () => {
-    const rawName = prompt("Nhập tên tầng / khu vực mới (Ví dụ: Tầng 9 - Khối R&D):");
-    if (!rawName) return;
-    const zoneName = escapeHtml(rawName.trim());
-
-    const newId = `ZN-00${zoneList.length + 1}`;
-    zoneList.push({
-      id: newId,
-      name: zoneName,
-      area: "2.400 m²",
-      sensors: 24,
-      status: "active",
-      statusLabel: "Hoạt động",
-      badgeBg: "#ECFDF5",
-      badgeColor: "#047857",
-      dotColor: "#047857"
+function initSearch() {
+  const searchInput = document.getElementById("zoneSearchInput");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      searchKeyword = e.target.value.toLowerCase().trim();
+      renderZones();
     });
+  }
 
-    renderZones();
-    showToast(`Đã thêm khu vực mới: ${zoneName} (${newId})`);
+  const btnReset = document.getElementById("btnResetZoneSearch");
+  if (btnReset) {
+    btnReset.addEventListener("click", () => {
+      if (searchInput) searchInput.value = "";
+      searchKeyword = "";
+      renderZones();
+    });
+  }
+}
+
+function initModalActions() {
+  const modal = document.getElementById("zoneModal");
+  const btnAdd = document.getElementById("btnAddZone");
+  const btnClose = document.getElementById("btnCloseZoneModal");
+  const btnCancel = document.getElementById("btnCancelZoneModal");
+  const form = document.getElementById("zoneForm");
+
+  const openModal = (isEdit = false, zoneData = null) => {
+    document.getElementById("zoneModalTitle").textContent = isEdit ? "Cập nhật Thông tin Khu vực" : "Thêm Khu vực (Zone) Mới";
+    document.getElementById("zoneEditId").value = isEdit ? zoneData.id : "";
+    document.getElementById("zoneCodeInput").value = isEdit ? zoneData.id : `ZN-00${DB.get('zones').length + 1}`;
+    document.getElementById("zoneCodeInput").disabled = isEdit;
+    document.getElementById("zoneNameInput").value = isEdit ? zoneData.name : "";
+    document.getElementById("zoneAreaInput").value = isEdit ? zoneData.area : "2.400 m²";
+    document.getElementById("zoneSensorsInput").value = isEdit ? zoneData.sensors : 24;
+    document.getElementById("zoneStatusSelect").value = isEdit ? zoneData.status : "active";
+
+    // Reset error messages
+    document.querySelectorAll(".error-feedback").forEach(el => el.classList.remove("show"));
+    document.querySelectorAll(".form-input").forEach(el => el.classList.remove("is-invalid"));
+
+    modal.classList.add("show");
+    document.getElementById("zoneNameInput").focus();
   };
 
-  if (btnAdd) btnAdd.addEventListener("click", handleAdd);
+  const closeModal = () => {
+    modal.classList.remove("show");
+  };
+
+  if (btnAdd) btnAdd.addEventListener("click", () => openModal(false));
+  if (btnClose) btnClose.addEventListener("click", closeModal);
+  if (btnCancel) btnCancel.addEventListener("click", closeModal);
+
+  // Đóng modal khi bấm phím Esc chuẩn A11y
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("show")) {
+      closeModal();
+    }
+  });
+
+  // Xử lý gửi Form & Validation (Chuẩn tiêu chí 5.2 & Đề thi Live Mod B3)
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const editId = document.getElementById("zoneEditId").value;
+      const code = document.getElementById("zoneCodeInput").value.trim();
+      const name = document.getElementById("zoneNameInput").value.trim();
+      const area = document.getElementById("zoneAreaInput").value.trim();
+      const sensors = parseInt(document.getElementById("zoneSensorsInput").value) || 0;
+      const status = document.getElementById("zoneStatusSelect").value;
+
+      let isValid = true;
+
+      // Validate Mã Zone
+      const codeErr = document.getElementById("zoneCodeError");
+      if (!code) {
+        codeErr.textContent = "Mã Zone không được để trống!";
+        codeErr.classList.add("show");
+        document.getElementById("zoneCodeInput").classList.add("is-invalid");
+        isValid = false;
+      } else if (!editId) {
+        // Kiểm tra chống trùng lặp mã Zone
+        const exists = DB.get('zones').some(z => z.id.toUpperCase() === code.toUpperCase());
+        if (exists) {
+          codeErr.textContent = `Mã Zone "${code}" đã tồn tại trên hệ thống!`;
+          codeErr.classList.add("show");
+          document.getElementById("zoneCodeInput").classList.add("is-invalid");
+          isValid = false;
+        }
+      }
+
+      // Validate Tên Zone
+      const nameErr = document.getElementById("zoneNameError");
+      if (name.length < 4) {
+        nameErr.classList.add("show");
+        document.getElementById("zoneNameInput").classList.add("is-invalid");
+        isValid = false;
+      }
+
+      // Validate Diện tích
+      const areaErr = document.getElementById("zoneAreaError");
+      if (!area) {
+        areaErr.classList.add("show");
+        document.getElementById("zoneAreaInput").classList.add("is-invalid");
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      const badgeConfigs = {
+        active: { label: "Hoạt động", bg: "#ECFDF5", color: "#047857" },
+        maintenance: { label: "Bảo trì", bg: "#FEF3C7", color: "#92400E" },
+        disabled: { label: "Đã khóa", bg: "#F1F5F9", color: "#64748B" }
+      };
+
+      const cfg = badgeConfigs[status] || badgeConfigs.active;
+
+      if (editId) {
+        // Cập nhật bản ghi vào LocalStorage qua DB.update()
+        DB.update('zones', editId, {
+          name: escapeHtml(name),
+          area: escapeHtml(area),
+          sensors: sensors,
+          status: status,
+          statusLabel: cfg.label,
+          badgeBg: cfg.bg,
+          badgeColor: cfg.color,
+          dotColor: cfg.color
+        });
+        showToast(`Đã cập nhật thành công khu vực: ${editId}`);
+      } else {
+        // Thêm mới bản ghi vào LocalStorage qua DB.insert()
+        DB.insert('zones', {
+          id: escapeHtml(code.toUpperCase()),
+          name: escapeHtml(name),
+          area: escapeHtml(area),
+          sensors: sensors,
+          status: status,
+          statusLabel: cfg.label,
+          badgeBg: cfg.bg,
+          badgeColor: cfg.color,
+          dotColor: cfg.color,
+          currentKW: (Math.random() * 40 + 30).toFixed(1)
+        });
+        showToast(`Đã thêm mới khu vực: ${code}`);
+      }
+
+      closeModal();
+      renderZones();
+    });
+  }
+
+  // Mở modal sửa khi bấm nút Sửa
+  window.handleEditZone = function(id) {
+    const zone = DB.get('zones').find(z => z.id === id);
+    if (zone) openModal(true, zone);
+  };
 }
 
 function renderZones() {
-  const filtered = zoneList.filter(z =>
+  const zones = DB.get('zones');
+  const filtered = zones.filter(z =>
     z.id.toLowerCase().includes(searchKeyword) ||
     z.name.toLowerCase().includes(searchKeyword)
   );
 
-  // Desktop Table Body (Standard <tr> and <td>)
+  // Cập nhật số lượng đếm trên tiêu đề
+  const activeCount = zones.filter(z => z.status === 'active').length;
+  const maintCount = zones.filter(z => z.status === 'maintenance').length;
+  const countSummary = document.getElementById("zoneCountSummary");
+  if (countSummary) {
+    countSummary.textContent = `${zones.length} Zone • ${activeCount} hoạt động • ${maintCount} bảo trì`;
+  }
+  const badgeCount = document.getElementById("zoneBadgeCount");
+  if (badgeCount) badgeCount.textContent = `${zones.length} Zone`;
+
+  // Desktop Table Body
   const tableBody = document.getElementById("zoneTableBody");
+  const emptyState = document.getElementById("zoneEmptyState");
+
   if (tableBody) {
     if (filtered.length === 0) {
-      tableBody.innerHTML = `<tr><td colspan="6" style="padding: 32px; text-align: center; color: var(--text-muted); font-size: 13px;">Không tìm thấy khu vực nào phù hợp.</td></tr>`;
+      tableBody.innerHTML = "";
+      if (emptyState) emptyState.classList.remove("d-none");
     } else {
+      if (emptyState) emptyState.classList.add("d-none");
       tableBody.innerHTML = filtered.map(z => `
         <tr>
           <td style="font-weight: 600; color: #1E293B;">${z.id}</td>
@@ -91,16 +231,22 @@ function renderZones() {
           </td>
           <td>
             <div style="display: flex; gap: 8px; align-items: center; flex-wrap: nowrap;">
-              <button class="btn btn-outline btn-sm" onclick="handleEditZone('${z.id}')" title="Sửa tên khu vực" style="padding: 0 10px;">
+              <button class="btn btn-outline btn-sm" onclick="handleEditZone('${z.id}')" title="Sửa thông tin khu vực" style="padding: 0 10px;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                   <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
                 </svg>
               </button>
-              <button class="btn btn-outline btn-sm" onclick="handleToggleZone('${z.id}')" title="Vô hiệu hóa" style="padding: 0 10px; color: var(--alert-red-text); border-color: var(--border-color);">
+              <button class="btn btn-outline btn-sm" onclick="handleToggleZone('${z.id}')" title="${z.status === 'active' ? 'Vô hiệu hóa' : 'Kích hoạt lại'}" style="padding: 0 10px; color: ${z.status === 'active' ? 'var(--alert-red-text)' : 'var(--primary-green-dark)'};">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="12" cy="12" r="10"></circle>
                   <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                </svg>
+              </button>
+              <button class="btn btn-outline btn-sm" onclick="handleDeleteZone('${z.id}')" title="Xóa khu vực" style="padding: 0 10px; color: var(--alert-red-text);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
               </button>
             </div>
@@ -114,7 +260,7 @@ function renderZones() {
   const mobileList = document.getElementById("zoneCardsListMobile");
   if (mobileList) {
     if (filtered.length === 0) {
-      mobileList.innerHTML = `<div style="padding: 24px; text-align: center; color: #64748B; font-size: 13px;">Không tìm thấy khu vực nào.</div>`;
+      mobileList.innerHTML = `<div class="state-container state-empty"><div class="state-title">Không tìm thấy khu vực</div></div>`;
     } else {
       mobileList.innerHTML = filtered.map(z => `
         <div class="mobile-data-card">
@@ -138,9 +284,10 @@ function renderZones() {
               <span>${z.sensors} cảm biến</span>
             </div>
           </div>
-          <div style="display: flex; gap: 8px; margin-top: 4px;">
+          <div style="display: flex; gap: 8px; margin-top: 10px;">
             <button class="btn btn-outline btn-sm" onclick="handleEditZone('${z.id}')" style="flex: 1;">Sửa</button>
-            <button class="btn btn-danger btn-sm" onclick="handleToggleZone('${z.id}')" style="flex: 1;">Vô hiệu hóa</button>
+            <button class="btn btn-outline btn-sm" onclick="handleToggleZone('${z.id}')" style="flex: 1; color: var(--alert-red-text);">Đổi trạng thái</button>
+            <button class="btn btn-outline btn-sm" onclick="handleDeleteZone('${z.id}')" style="flex: 1; color: var(--alert-red-text);">Xóa</button>
           </div>
         </div>
       `).join("");
@@ -148,27 +295,56 @@ function renderZones() {
   }
 }
 
-window.handleEditZone = function(id) {
-  const z = zoneList.find(x => x.id === id);
+window.handleToggleZone = function(id) {
+  const z = DB.get('zones').find(x => x.id === id);
   if (!z) return;
-  const newName = prompt(`Sửa tên cho khu vực ${z.id}:`, z.name);
-  if (newName) {
-    z.name = escapeHtml(newName.trim());
+  const isNowActive = z.status !== "active";
+  const newStatus = isNowActive ? "active" : "disabled";
+  const newLabel = isNowActive ? "Hoạt động" : "Đã khóa";
+  const newBg = isNowActive ? "#ECFDF5" : "#F1F5F9";
+  const newColor = isNowActive ? "#047857" : "#64748B";
+
+  DB.update('zones', id, {
+    status: newStatus,
+    statusLabel: newLabel,
+    badgeBg: newBg,
+    badgeColor: newColor,
+    dotColor: newColor
+  });
+
+  renderZones();
+  showToast(`Đã chuyển trạng thái ${z.id} sang: ${newLabel}`);
+};
+
+window.handleDeleteZone = function(id) {
+  const z = DB.get('zones').find(x => x.id === id);
+  if (!z) return;
+
+  // Kiểm tra an toàn: Nếu zone còn cảm biến đang liên kết
+  const sensors = DB.get('sensors') || [];
+  const relatedSensors = sensors.filter(s => s.zone === z.floor || s.zone === z.name || (z.floor && s.zone.includes(z.floor)));
+  
+  let confirmMsg = `Bạn có chắc chắn muốn xóa khu vực ${z.name} (${z.id}) khỏi hệ thống?`;
+  if (relatedSensors.length > 0) {
+    confirmMsg += `\nLưu ý: Khu vực này hiện có ${relatedSensors.length} cảm biến liên kết.`;
+  }
+
+  if (confirm(confirmMsg)) {
+    DB.delete('zones', id);
     renderZones();
-    showToast(`Đã cập nhật thông tin: ${z.id}`);
+    showToast(`Đã xóa thành công khu vực: ${z.name} (${id})`);
   }
 };
 
-window.handleToggleZone = function(id) {
-  const z = zoneList.find(x => x.id === id);
-  if (!z) return;
-  if (confirm(`Bạn có chắc chắn muốn vô hiệu hóa khu vực ${z.name} (${z.id})?`)) {
-    z.status = "disabled";
-    z.statusLabel = "Đã khóa";
-    z.badgeBg = "#F1F5F9";
-    z.badgeColor = "#64748B";
-    z.dotColor = "#64748B";
-    renderZones();
-    showToast(`Đã vô hiệu hóa: ${z.name}`);
-  }
-};
+function showToast(msg) {
+  const container = document.getElementById("toastContainer");
+  if (!container) return;
+  const toast = document.createElement("div");
+  toast.className = "toast toast-success show";
+  toast.innerHTML = `<span>✓</span> <span>${escapeHtml(msg)}</span>`;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}

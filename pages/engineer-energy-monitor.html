@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giám sát năng lượng - SmartBuilding</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/user-pages.css">
+  <link rel="stylesheet" href="../css/engineer-energy-monitor.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body data-user-page="engineer-energy-monitor">
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+  <div class="app-layout">
+    <aside id="appSidebar" class="app-sidebar">
+      <div class="sidebar-brand"><div class="brand-logo">▥</div><div class="brand-text"><span class="brand-title">SmartBuilding</span><span class="brand-sub">BTL-36</span></div><button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">×</button></div>
+      <div class="sidebar-profile"><div class="profile-avatar">OP</div><div class="profile-info"><div class="profile-name">Operator</div><div class="profile-role">Vận hành tòa nhà</div></div></div>
+      <div class="sidebar-section-title">VẬN HÀNH TÒA NHÀ</div>
+      <nav class="sidebar-nav">
+        <a href="engineer-energy-monitor.html" class="nav-item active"><span class="nav-num">01</span><span class="nav-label">Giám sát năng lượng</span><span class="nav-arrow">›</span></a>
+        <a href="engineer-alert-center.html" class="nav-item"><span class="nav-num">02</span><span class="nav-label">Trung tâm cảnh báo</span><span class="nav-arrow">›</span></a>
+        <a href="engineer-saving-actions.html" class="nav-item"><span class="nav-num">03</span><span class="nav-label">Hành động tiết kiệm</span><span class="nav-arrow">›</span></a>
+        <a href="operator-energy-kpis.html" class="nav-item"><span class="nav-num">04</span><span class="nav-label">KPI năng lượng</span><span class="nav-arrow">›</span></a>
+      </nav>
+      <div class="sidebar-bottom"><div class="building-badge"><span class="building-badge-sub">TÒA NHÀ HIỆN TẠI</span><div class="building-badge-main"><span class="building-name">Green Tower • BTL-36</span><span class="nav-arrow">›</span></div></div><button class="btn-logout" onclick="handleLogout()">Đăng xuất</button></div>
+    </aside>
+    <div class="main-wrapper">
+      <header class="app-header">
+        <div class="header-left"><button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button><div class="header-location"><span class="location-name">Green Tower • Hà Nội</span><span class="status-online"><span class="dot"></span> Trực tuyến</span></div></div>
+        <div class="header-right"><div class="header-user"><div class="profile-avatar">OP</div><div class="user-text"><span class="user-name">Operator</span><span class="user-role">Vận hành tòa nhà</span></div></div></div>
+      </header>
+      <main class="content-body user-content">
+        <section class="page-heading-row"><div class="page-title-box"><h1 class="page-title-text">Giám sát năng lượng</h1><p class="page-subtitle-text">Theo dõi phụ tải và trạng thái thiết bị theo thời gian thực.</p></div><span class="user-live-badge"><span></span> Cập nhật trực tiếp</span></section>
+        <section class="kpi-row user-kpi-row" aria-label="Trạng thái năng lượng">
+          <article class="card user-stat-card"><span class="user-stat-label">Công suất hiện tại</span><strong class="user-stat-value">428 <small>kW</small></strong><span class="user-stat-note">↓ 4,2% so với hôm qua</span></article>
+          <article class="card user-stat-card"><span class="user-stat-label">Cảm biến trực tuyến</span><strong class="user-stat-value">148 <small>/ 152</small></strong><span class="user-stat-note">97,4% thiết bị hoạt động</span></article>
+          <article class="card user-stat-card"><span class="user-stat-label">Cảnh báo đang mở</span><strong class="user-stat-value alert-number">3 <small>cảnh báo</small></strong><span class="user-stat-note">1 cảnh báo cần xử lý ngay</span></article>
+        </section>
+        <section class="card user-panel">
+          <div class="user-section-heading"><div><h2 class="widget-title">Phụ tải điện trong 24 giờ</h2><p class="widget-subtitle">Công suất tiêu thụ toàn tòa nhà · kW</p></div><label class="report-filter"><span>Khu vực</span><select id="monitorZoneSelect" aria-label="Chọn khu vực giám sát"><option value="building">Toàn tòa nhà</option><option value="floor5">Tầng 5</option><option value="floor12">Tầng 12 · Server Room</option></select></label></div>
+          <div id="engineerEnergyChart" class="engineer-energy-chart" role="img" aria-label="Biểu đồ phụ tải điện trong ngày"></div>
+          <div class="chart-axis-labels"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+        </section>
+        <section class="card user-panel">
+          <div class="user-section-heading"><div><h2 class="widget-title">Thiết bị cần chú ý</h2><p class="widget-subtitle">Tình trạng mới nhất từ mạng lưới cảm biến.</p></div><a class="user-text-link" href="engineer-alert-center.html">Mở trung tâm cảnh báo →</a></div>
+          <div class="table-scroll"><table class="report-table"><thead><tr><th>Thiết bị</th><th>Khu vực</th><th>Thông số</th><th>Cập nhật</th><th>Trạng thái</th></tr></thead><tbody>
+            <tr><td><strong>HVAC-12-03</strong><span class="zone-table-sub">Bộ điều hòa</span></td><td>Tầng 12</td><td>28,4 °C</td><td>Vừa xong</td><td><span class="report-status status-warning">Cần kiểm tra</span></td></tr>
+            <tr><td><strong>CO2-05-01</strong><span class="zone-table-sub">Cảm biến CO₂</span></td><td>Tầng 5</td><td>812 ppm</td><td>1 phút trước</td><td><span class="report-status status-good">Bình thường</span></td></tr>
+            <tr><td><strong>PWR-02-04</strong><span class="zone-table-sub">Công tơ điện</span></td><td>Tầng 2</td><td>54,8 kW</td><td>2 phút trước</td><td><span class="report-status status-good">Bình thường</span></td></tr>
+          </tbody></table></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <nav class="mobile-bottom-nav user-bottom-nav">
+    <a href="occupant-energy-challenge.html" class="bottom-nav-item"><span class="bottom-nav-icon">🌱</span><span class="bottom-nav-label">Thử thách</span></a>
+    <a href="occupant-comfort-feedback.html" class="bottom-nav-item"><span class="bottom-nav-icon">☀</span><span class="bottom-nav-label">Tiện nghi</span></a>
+    <a href="engineer-energy-monitor.html" class="bottom-nav-item active"><span class="bottom-nav-icon">📊</span><span class="bottom-nav-label">Giám sát</span></a>
+    <a href="engineer-alert-center.html" class="bottom-nav-item"><span class="bottom-nav-icon">⚠</span><span class="bottom-nav-label">Cảnh báo</span></a>
+    <a href="engineer-saving-actions.html" class="bottom-nav-item"><span class="bottom-nav-icon">✓</span><span class="bottom-nav-label">Tiết kiệm</span></a>
+  </nav>
+  <script src="../js/user.js"></script>
+  <script src="../js/engineer-energy-monitor.js"></script>
+</body>
+</html>

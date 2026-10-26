@@ -1,0 +1,365 @@
+/* ==========================================================================
+   CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
+   PAGE-SPECIFIC: OCCUPANT DASHBOARD (css/occupant-dashboard.css)
+   Không đè style hệ thống dùng chung, tuân thủ biến :root của style.css
+   ========================================================================== */
+
+[hidden] {
+  display: none !important;
+}
+
+/* Page Header & Live status */
+.odb-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.odb-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 4px 0;
+}
+
+.odb-subtitle {
+  font-size: 13px;
+  color: #64748B;
+  margin: 0;
+}
+
+/* 3 Stat Cards Row */
+.odb-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.odb-stat-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.odb-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.odb-stat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.odb-stat-label {
+  font-size: 13px;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.odb-stat-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.icon-energy {
+  background: #ECFDF5;
+  color: #10B981;
+}
+
+.icon-points {
+  background: #EFF6FF;
+  color: #3B82F6;
+}
+
+.icon-saving {
+  background: #F0FDF4;
+  color: #16A34A;
+}
+
+.odb-stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.odb-stat-badge {
+  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+.badge-green {
+  color: #10B981;
+}
+
+.badge-blue {
+  color: #3B82F6;
+}
+
+/* AI Eco Banner */
+.odb-ai-banner {
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.odb-ai-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.odb-ai-icon {
+  width: 40px;
+  height: 40px;
+  background: #10B981;
+  color: #FFFFFF;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.odb-ai-heading {
+  font-size: 14px;
+  font-weight: 700;
+  color: #065F46;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.odb-ai-desc {
+  font-size: 13px;
+  color: #047857;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.odb-btn-join {
+  background: #10B981;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+
+.odb-btn-join:hover {
+  background: #059669;
+}
+
+/* Leaderboard Card & Table */
+.odb-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.odb-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.odb-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E293B;
+  margin: 0 0 4px 0;
+}
+
+.odb-card-subtitle {
+  font-size: 12.5px;
+  color: #64748B;
+  margin: 0;
+}
+
+.odb-my-rank {
+  font-size: 12px;
+  background: #ECFDF5;
+  color: #065F46;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid #A7F3D0;
+}
+
+/* Search & Filter Bar */
+.odb-filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.odb-search-input {
+  flex: 1;
+  min-width: 220px;
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  outline: none;
+}
+
+.odb-search-input:focus-visible {
+  border-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+}
+
+.odb-select-filter {
+  padding: 8px 12px;
+  font-size: 13px;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #334155;
+  outline: none;
+}
+
+/* Table styling */
+.odb-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #F1F5F9;
+}
+
+.odb-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13px;
+}
+
+.odb-table thead th {
+  background: #F8FAFC;
+  color: #64748B;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 1px solid #E2E8F0;
+  white-space: nowrap;
+}
+
+.odb-table tbody tr {
+  border-bottom: 1px solid #F1F5F9;
+  transition: background 0.15s;
+}
+
+.odb-table tbody tr:hover {
+  background: #F8FAFC;
+}
+
+.odb-table tbody tr.is-current-user {
+  background: #F0FDF4;
+  font-weight: 600;
+}
+
+.odb-table tbody tr.is-current-user td:first-child {
+  border-left: 3px solid #10B981;
+}
+
+.odb-table td {
+  padding: 12px 16px;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.rank-1 { background: #FEF3C7; color: #D97706; }
+.rank-2 { background: #E2E8F0; color: #475569; }
+.rank-3 { background: #FFEDD5; color: #C2410C; }
+.rank-other { background: #F1F5F9; color: #64748B; }
+
+.val-saving {
+  color: #10B981;
+  font-weight: 600;
+}
+
+.val-points {
+  color: #3B82F6;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .odb-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .odb-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .odb-ai-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .odb-btn-join {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .odb-table th, .odb-table td {
+    padding: 10px 12px;
+    font-size: 12.5px;
+  }
+}
+

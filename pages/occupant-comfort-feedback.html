@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiện nghi &amp; Phản hồi - SmartBuilding BTL-36</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/user-pages.css">
+  <link rel="stylesheet" href="../css/occupant-comfort-feedback.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body data-user-page="occupant-comfort-feedback">
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+  <div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside id="appSidebar" class="app-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-title">SmartBuilding</span>
+          <span class="brand-sub">BTL-36</span>
+        </div>
+        <button id="closeSidebarBtn" class="close-sidebar-btn" aria-label="Đóng menu">&times;</button>
+      </div>
+      <div class="sidebar-profile">
+        <div class="profile-avatar">NL</div>
+        <div class="profile-info">
+          <div class="profile-name">Nguyễn Thúy Linh</div>
+          <div class="profile-role">Tiện nghi &amp; cộng đồng</div>
+        </div>
+      </div>
+            <!-- Main Navigation -->
+      <div class="sidebar-section-title">MENU OCCUPANT</div>
+      <nav class="sidebar-nav" aria-label="Điều hướng tiện nghi">
+        <a href="occupant-comfort-feedback.html" class="nav-item active">
+          <span class="nav-num">01</span>
+          <span class="nav-label">Tiện nghi & phản hồi</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+        <a href="occupant-energy-challenge.html" class="nav-item">
+          <span class="nav-num">02</span>
+          <span class="nav-label">Thử thách xanh</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+        <a href="profile.html?role=occupant" class="nav-item">
+          <span class="nav-num">03</span>
+          <span class="nav-label">Hồ sơ cá nhân</span>
+          <span class="nav-arrow">&rsaquo;</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="building-badge">
+          <span class="building-badge-sub">TÒA NHÀ HIỆN TẠI</span>
+          <div class="building-badge-main">
+            <span class="building-name">Green Tower · BTL-36</span>
+            <span class="nav-arrow">›</span>
+          </div>
+        </div>
+        <button class="btn-logout" onclick="handleLogout()">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+
+      <!-- HEADER -->
+      <header class="app-header">
+        <div class="header-left">
+          <button id="menuToggleBtn" class="menu-toggle-btn" aria-label="Mở menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="header-location">
+            <span class="location-name">Green Tower · Hà Nội</span>
+            <span class="status-online"><span class="dot"></span> Trực tuyến</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <button class="header-icon-btn" aria-label="Thông báo hệ thống">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E293B" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+          </button>
+          <div class="header-user" onclick="location.href='profile.html?role=occupant'" role="link" tabindex="0" aria-label="Mở hồ sơ Nguyễn Thúy Linh" style="cursor: pointer;">
+            <div class="profile-avatar">NL</div>
+            <div class="user-text">
+              <span class="user-name">Nguyễn Thúy Linh</span>
+              <span class="user-role">Office Occupant (SV2)</span>
+            </div>
+            <span class="user-chevron">&#9662;</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- MAIN CONTENT -->
+      <main class="content-body user-content" id="mainContent">
+
+        <!-- SKELETON LOADING OVERLAY -->
+        <div id="pageLoadingState" class="ocf-loading-overlay" aria-live="polite" aria-label="Đang tải dữ liệu">
+          <div class="ocf-skeleton-page">
+            <div class="ocf-skeleton ocf-skeleton-title"></div>
+            <div class="ocf-skeleton-kpi-row">
+              <div class="ocf-skeleton ocf-skeleton-card"></div>
+              <div class="ocf-skeleton ocf-skeleton-card"></div>
+              <div class="ocf-skeleton ocf-skeleton-card"></div>
+            </div>
+            <div class="ocf-skeleton-two-col">
+              <div class="ocf-skeleton ocf-skeleton-panel"></div>
+              <div class="ocf-skeleton ocf-skeleton-panel"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAGE CONTENT (hidden during loading) -->
+        <div id="pageMainContent" class="ocf-page-content" hidden>
+
+          <!-- 1. PAGE HEADER -->
+          <section class="page-heading-row" aria-labelledby="pageTitle">
+            <div class="page-title-box">
+              <h1 class="page-title-text" id="pageTitle">Tiện nghi &amp; Phản hồi</h1>
+              <p class="page-subtitle-text">Điều chỉnh tiện nghi và chia sẻ cảm nhận về không gian làm việc của bạn.</p>
+            </div>
+            <span class="user-live-badge" aria-label="Đang hiển thị khu vực của tôi">
+              <span aria-hidden="true"></span> Khu vực của tôi
+            </span>
+          </section>
+
+          <!-- 2. KPI SUMMARY BAR -->
+          <section class="kpi-row user-kpi-row" aria-label="Trạng thái môi trường hiện tại">
+            <article class="card user-stat-card">
+              <span class="user-stat-label">Nhiệt độ phòng</span>
+              <strong class="user-stat-value" id="kpiTemperature">24 <small>°C</small></strong>
+              <span class="user-stat-note comfort-good" id="kpiTempNote">Thoải mái</span>
+            </article>
+            <article class="card user-stat-card">
+              <span class="user-stat-label">Chất lượng không khí (CO₂)</span>
+              <strong class="user-stat-value" id="kpiAirQuality">Tốt</strong>
+              <span class="user-stat-note" id="kpiAirNote">CO₂ trong ngưỡng an toàn</span>
+            </article>
+            <article class="card user-stat-card">
+              <span class="user-stat-label">Mức tiện nghi trung bình</span>
+              <strong class="user-stat-value" id="kpiComfort">—</strong>
+              <span class="user-stat-note" id="kpiComfortNote">Đánh giá khu vực của bạn</span>
+            </article>
+          </section>
+
+          <!-- 3. SECTION: ADJUST SPACE + AI RECOMMENDATION -->
+          <section class="ocf-two-column" aria-label="Điều chỉnh không gian làm việc">
+
+            <!-- LEFT: SPACE CONTROL -->
+            <article class="card user-panel" aria-labelledby="adjustHeading">
+              <div class="user-section-heading">
+                <div>
+                  <h2 class="widget-title" id="adjustHeading">Điều chỉnh không gian</h2>
+                  <p class="widget-subtitle">Thiết lập tiện nghi trong phòng làm việc của bạn.</p>
+                </div>
+              </div>
+
+              <!-- Temperature Slider -->
+              <div class="ocf-control-group">
+                <label class="user-range-label" for="comfortTemperature">
+                  <span>Nhiệt độ điều hòa</span>
+                  <strong><span id="comfortTemperatureValue">24</span>°C</strong>
+                </label>
+                <input id="comfortTemperature" class="user-range" type="range"
+                       min="18" max="30" value="24"
+                       aria-label="Điều chỉnh nhiệt độ từ 18 đến 30 độ C"
+                       aria-valuemin="18" aria-valuemax="30" aria-valuenow="24">
+                <div class="user-range-scale" aria-hidden="true">
+                  <span>18°C</span>
+                  <span>30°C</span>
+                </div>
+              </div>
+
+              <!-- Lighting Slider -->
+              <div class="ocf-control-group">
+                <label class="user-range-label" for="comfortLighting">
+                  <span>Độ sáng đèn</span>
+                  <strong><span id="comfortLightingValue">70</span>%</strong>
+                </label>
+                <input id="comfortLighting" class="user-range" type="range"
+                       min="0" max="100" value="70"
+                       aria-label="Điều chỉnh độ sáng đèn từ 0 đến 100 phần trăm"
+                       aria-valuemin="0" aria-valuemax="100" aria-valuenow="70">
+                <div class="user-range-scale" aria-hidden="true">
+                  <span>0%</span>
+                  <span>100%</span>
+                </div>
+              </div>
+
+              <!-- AC Toggle -->
+              <div class="comfort-toggle-row">
+                <div>
+                  <strong>Hệ thống điều hòa</strong>
+                  <span id="comfortSystemStatus" class="status-good">Đang hoạt động</span>
+                </div>
+                <button id="comfortPowerToggle" class="user-toggle is-on" type="button"
+                        aria-label="Bật hoặc tắt điều hòa" aria-pressed="true">
+                  <span aria-hidden="true"></span>
+                </button>
+              </div>
+              <p class="user-inline-note">Thay đổi được áp dụng cho khu vực làm việc của bạn.</p>
+
+              <button id="saveSettingsBtn" class="btn btn-primary btn-sm" type="button">
+                💾 Lưu cài đặt
+              </button>
+            </article>
+
+            <!-- RIGHT: AI RECOMMENDATION -->
+            <article class="card user-panel ocf-ai-panel" aria-labelledby="aiHeading">
+              <div class="user-section-heading">
+                <div>
+                  <h2 class="widget-title" id="aiHeading">
+                    <span class="ocf-ai-badge" aria-label="Tính năng AI">AI</span>
+                    Gợi ý tối ưu tiện nghi
+                  </h2>
+                  <p class="widget-subtitle">Phân tích môi trường và đề xuất cài đặt tối ưu cho bạn.</p>
+                </div>
+              </div>
+
+              <!-- STEP 1: AI INPUT FORM -->
+              <div id="aiInputStep" class="ocf-ai-step">
+                <!-- AI Quick Scenarios / Kịch bản mẫu trực quan -->
+                <div class="ocf-scenario-box" style="margin-bottom: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 12px;">
+                  <div style="font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 6px; display: flex; align-items: center; gap: 5px;">
+                    <span>💡 Kịch bản ví dụ mẫu (Nhấp để thử nghiệm nhanh):</span>
+                  </div>
+                  <div class="ocf-scenario-buttons" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 6px;">
+                    <button type="button" class="btn btn-sm ocf-preset-scenario" data-env="cold" data-focus="medium" style="font-size: 11px; padding: 6px 8px; text-align: left; background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer;">
+                      🥶 <b>Phòng lạnh</b><br><span style="color:#64748b; font-size:10px;">Làm việc thông thường</span>
+                    </button>
+                    <button type="button" class="btn btn-sm ocf-preset-scenario" data-env="hot" data-focus="high" style="font-size: 11px; padding: 6px 8px; text-align: left; background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer;">
+                      🥵 <b>Phòng oi bức</b><br><span style="color:#64748b; font-size:10px;">Cần tập trung cao độ</span>
+                    </button>
+                    <button type="button" class="btn btn-sm ocf-preset-scenario" data-env="normal" data-focus="high" style="font-size: 11px; padding: 6px 8px; text-align: left; background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer;">
+                      🎯 <b>Chuẩn ASHRAE</b><br><span style="color:#64748b; font-size:10px;">Môi trường lý tưởng</span>
+                    </button>
+                    <button type="button" class="btn btn-sm ocf-preset-scenario" data-env="cold" data-focus="low" style="font-size: 11px; padding: 6px 8px; text-align: left; background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer;">
+                      ☕ <b>Phòng buốt lạnh</b><br><span style="color:#64748b; font-size:10px;">Thư giãn / Nghỉ ngơi</span>
+                    </button>
+                  </div>
+                </div>
+                <fieldset class="ocf-ai-fieldset">
+                  <legend class="ocf-ai-legend">Điều kiện môi trường hiện tại</legend>
+
+                  <div class="ocf-form-row">
+                    <label class="ocf-label" for="aiEnvCondition">Cảm giác nhiệt độ phòng</label>
+                    <select id="aiEnvCondition" class="form-control ocf-select">
+                      <option value="">-- Chọn cảm giác --</option>
+                      <option value="hot">🥵 Nóng / Oi bức</option>
+                      <option value="cold">🥶 Lạnh / Khó chịu</option>
+                      <option value="normal">😊 Bình thường / Thoải mái</option>
+                    </select>
+                  </div>
+
+                  <div class="ocf-form-row">
+                    <label class="ocf-label" for="aiWorkFocus">Mức độ tập trung công việc</label>
+                    <select id="aiWorkFocus" class="form-control ocf-select">
+                      <option value="">-- Chọn mức độ --</option>
+                      <option value="high">🎯 Cao (cần tập trung sâu)</option>
+                      <option value="medium">💼 Trung bình (làm việc thông thường)</option>
+                      <option value="low">☕ Thấp (thư giãn / họp nhóm)</option>
+                    </select>
+                  </div>
+                </fieldset>
+
+                <!-- AI Failure: Prompt Chips -->
+                <div id="aiPromptChips" class="ocf-prompt-chips" hidden aria-live="polite">
+                  <p class="ocf-prompt-chips-label">💡 Chưa đủ dữ liệu để phân tích. Hãy chọn:</p>
+                  <div class="ocf-chips-row">
+                    <button class="ocf-chip" type="button" data-chip="hot" data-target="aiEnvCondition">🥵 Phòng đang nóng</button>
+                    <button class="ocf-chip" type="button" data-chip="cold" data-target="aiEnvCondition">🥶 Phòng đang lạnh</button>
+                    <button class="ocf-chip" type="button" data-chip="high" data-target="aiWorkFocus">🎯 Cần tập trung cao</button>
+                  </div>
+                </div>
+
+                <button id="aiRunBtn" class="btn btn-primary btn-sm ocf-ai-run-btn" type="button"
+                        aria-label="Chạy phân tích AI gợi ý tiện nghi">
+                  ✨ Phân tích &amp; Gợi ý
+                </button>
+              </div>
+
+              <!-- STEP 2: PROCESSING (Spinner) -->
+              <div id="aiProcessingStep" class="ocf-ai-step" hidden aria-live="polite" aria-label="AI đang phân tích">
+                <div class="ocf-ai-processing">
+                  <div class="ocf-spinner" role="status" aria-label="Đang xử lý"></div>
+                  <p class="ocf-processing-label">AI đang phân tích điều kiện phòng của bạn…</p>
+                  <div class="ocf-skeleton-result">
+                    <div class="ocf-skeleton ocf-skeleton-line"></div>
+                    <div class="ocf-skeleton ocf-skeleton-line ocf-skeleton-short"></div>
+                    <div class="ocf-skeleton ocf-skeleton-line"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 3+4+5: OUTPUT + EXPLAINABILITY + USER CONTROL -->
+              <div id="aiOutputStep" class="ocf-ai-step" hidden>
+
+                <!-- Output Card -->
+                <div class="ocf-ai-result-card" id="aiResultCard" aria-live="polite">
+                  <div class="ocf-result-header">
+                    <span class="ocf-result-icon" aria-hidden="true">🤖</span>
+                    <div>
+                      <strong class="ocf-result-title">Gợi ý tối ưu tiện nghi</strong>
+                      <p class="ocf-result-sub" id="aiResultContext"></p>
+                    </div>
+                  </div>
+                  <div class="ocf-result-metrics">
+                    <div class="ocf-metric">
+                      <span class="ocf-metric-icon" aria-hidden="true">🌡️</span>
+                      <div>
+                        <span class="ocf-metric-label">Nhiệt độ khuyến nghị</span>
+                        <strong class="ocf-metric-value" id="aiTempRec">—</strong>
+                      </div>
+                    </div>
+                    <div class="ocf-metric">
+                      <span class="ocf-metric-icon" aria-hidden="true">💡</span>
+                      <div>
+                        <span class="ocf-metric-label">Độ sáng đèn</span>
+                        <strong class="ocf-metric-value" id="aiLightRec">—</strong>
+                      </div>
+                    </div>
+                    <div class="ocf-metric">
+                      <span class="ocf-metric-icon" aria-hidden="true">🌀</span>
+                      <div>
+                        <span class="ocf-metric-label">Chế độ quạt</span>
+                        <strong class="ocf-metric-value" id="aiFanRec">—</strong>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Explainability Block -->
+                <details class="ocf-explain-block" open>
+                  <summary class="ocf-explain-summary" aria-expanded="true">
+                    🧠 Tại sao AI gợi ý điều này?
+                  </summary>
+                  <div class="ocf-explain-body">
+                    <p id="aiExplainText" class="ocf-explain-text"></p>
+                    <div class="ocf-confidence-row" aria-label="Độ tin cậy của AI">
+                      <span class="ocf-confidence-label">Confidence Score:</span>
+                      <div class="ocf-confidence-bar-wrap">
+                        <div class="ocf-confidence-bar" id="aiConfidenceBar" role="progressbar"
+                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                          <span class="ocf-confidence-fill" id="aiConfidenceFill"></span>
+                        </div>
+                        <span class="ocf-confidence-pct" id="aiConfidencePct">—</span>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+
+                <!-- User Control: 4 Actions -->
+                <div class="ocf-ai-actions" role="group" aria-label="Hành động với gợi ý AI">
+                  <button id="aiApplyBtn" class="btn btn-primary btn-sm" type="button"
+                          aria-label="Áp dụng gợi ý AI ngay">
+                    ✅ Áp dụng ngay
+                  </button>
+                  <button id="aiEditBtn" class="ocf-btn-ghost btn-sm" type="button"
+                          aria-label="Chỉnh sửa gợi ý AI">
+                    ✏️ Chỉnh sửa
+                  </button>
+                  <button id="aiRejectBtn" class="ocf-btn-ghost btn-sm ocf-btn-danger" type="button"
+                          aria-label="Từ chối gợi ý AI">
+                    ✕ Từ chối
+                  </button>
+                  <button id="aiRegenerateBtn" class="ocf-btn-ghost btn-sm" type="button"
+                          aria-label="Tạo lại gợi ý AI">
+                    🔄 Tạo lại
+                  </button>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <!-- 4. SECTION: FEEDBACK FORM -->
+          <section class="card user-panel ocf-section" aria-labelledby="feedbackFormHeading">
+            <div class="user-section-heading">
+              <div>
+                <h2 class="widget-title" id="feedbackFormHeading">Gửi phản hồi</h2>
+                <p class="widget-subtitle">Cho chúng tôi biết trải nghiệm của bạn hôm nay.</p>
+              </div>
+            </div>
+
+            <form id="comfortFeedbackForm" class="ocf-form" novalidate>
+              <!-- Room -->
+              <div class="ocf-form-row">
+                <label class="ocf-label" for="fbRoom">Phòng / Khu vực <span class="ocf-required" aria-hidden="true">*</span></label>
+                <input id="fbRoom" class="form-control" type="text"
+                       placeholder="Ví dụ: B1204" required
+                       aria-required="true" aria-describedby="fbRoomError">
+                <span id="fbRoomError" class="ocf-field-error" role="alert" hidden></span>
+              </div>
+
+              <!-- Name -->
+              <div class="ocf-form-row">
+                <label class="ocf-label" for="fbName">Họ và tên <span class="ocf-required" aria-hidden="true">*</span></label>
+                <input id="fbName" class="form-control" type="text"
+                       placeholder="Nguyễn Thúy Linh" required
+                       aria-required="true" aria-describedby="fbNameError">
+                <span id="fbNameError" class="ocf-field-error" role="alert" hidden></span>
+              </div>
+
+              <!-- Type -->
+              <div class="ocf-form-row">
+                <label class="ocf-label" for="fbType">Chủ đề phản hồi <span class="ocf-required" aria-hidden="true">*</span></label>
+                <select id="fbType" class="form-control" required
+                        aria-required="true" aria-describedby="fbTypeError">
+                  <option value="">-- Chọn chủ đề --</option>
+                  <option value="Nhiệt độ phòng">Nhiệt độ phòng</option>
+                  <option value="Chất lượng không khí">Chất lượng không khí</option>
+                  <option value="Ánh sáng">Ánh sáng</option>
+                  <option value="Khác">Khác</option>
+                </select>
+                <span id="fbTypeError" class="ocf-field-error" role="alert" hidden></span>
+              </div>
+
+              <!-- Rating -->
+              <div class="ocf-form-row">
+                <span class="ocf-label" id="fbRatingLabel">Mức độ thoải mái <span class="ocf-required" aria-hidden="true">*</span></span>
+                <div class="comfort-rating" role="radiogroup" aria-labelledby="fbRatingLabel" aria-required="true">
+                  <label>
+                    <input type="radio" name="fbRating" value="1" aria-label="1 sao - Rất tệ">
+                    <span>1</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="fbRating" value="2" aria-label="2 sao - Tệ">
+                    <span>2</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="fbRating" value="3" aria-label="3 sao - Bình thường" checked>
+                    <span>3</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="fbRating" value="4" aria-label="4 sao - Tốt">
+                    <span>4</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="fbRating" value="5" aria-label="5 sao - Rất tốt">
+                    <span>5</span>
+                  </label>
+                </div>
+                <span id="fbRatingError" class="ocf-field-error" role="alert" hidden></span>
+              </div>
+
+              <!-- Content -->
+              <div class="ocf-form-row">
+                <label class="ocf-label" for="fbContent">
+                  Nội dung chi tiết <span class="ocf-required" aria-hidden="true">*</span>
+                  <span class="ocf-char-counter" id="fbCharCounter" aria-live="polite">(0/200 ký tự)</span>
+                </label>
+                <textarea id="fbContent" class="form-control user-textarea"
+                          rows="4" maxlength="200" required
+                          placeholder="Mô tả chi tiết vấn đề bạn gặp phải (tối thiểu 10 ký tự)…"
+                          aria-required="true" aria-describedby="fbContentError fbCharCounter"></textarea>
+                <span id="fbContentError" class="ocf-field-error" role="alert" hidden></span>
+              </div>
+
+              <div class="ocf-form-actions">
+                <button id="fbSubmitBtn" class="btn btn-primary btn-sm" type="submit"
+                        aria-label="Gửi phản hồi tiện nghi">
+                  📤 Gửi phản hồi
+                </button>
+                <span id="fbMessage" class="user-feedback-message" aria-live="polite"></span>
+              </div>
+            </form>
+          </section>
+
+          <!-- 5. SECTION: FEEDBACK HISTORY -->
+          <section class="card user-panel ocf-section" aria-labelledby="historyHeading">
+            <div class="user-section-heading">
+              <div>
+                <h2 class="widget-title" id="historyHeading">Lịch sử phản hồi</h2>
+                <p class="widget-subtitle">Danh sách các phản hồi đã gửi và trạng thái xử lý.</p>
+              </div>
+              <span class="ocf-result-counter" id="resultCounter" aria-live="polite">Hiển thị — kết quả</span>
+            </div>
+
+            <!-- Filters -->
+            <div class="ocf-filter-bar" role="search" aria-label="Tìm kiếm và lọc phản hồi">
+              <div class="ocf-filter-group">
+                <label class="ocf-label" for="filterType">Loại phản hồi</label>
+                <select id="filterType" class="form-control ocf-filter-select">
+                  <option value="">Tất cả loại</option>
+                  <option value="Nhiệt độ phòng">Nhiệt độ phòng</option>
+                  <option value="Chất lượng không khí">Chất lượng không khí</option>
+                  <option value="Ánh sáng">Ánh sáng</option>
+                  <option value="Khác">Khác</option>
+                </select>
+              </div>
+              <div class="ocf-filter-group">
+                <label class="ocf-label" for="filterStatus">Trạng thái</label>
+                <select id="filterStatus" class="form-control ocf-filter-select">
+                  <option value="">Tất cả trạng thái</option>
+                  <option value="Chờ xử lý">Chờ xử lý</option>
+                  <option value="Đang xử lý">Đang xử lý</option>
+                  <option value="Đã giải quyết">Đã giải quyết</option>
+                </select>
+              </div>
+              <div class="ocf-filter-group">
+                <label class="ocf-label" for="filterSearch">Tìm kiếm</label>
+                <input id="filterSearch" class="form-control ocf-filter-input" type="search"
+                       placeholder="Tên, phòng, nội dung…"
+                       aria-label="Tìm kiếm phản hồi theo tên hoặc phòng">
+              </div>
+              <button id="clearFilterBtn" class="ocf-btn-ghost btn-sm ocf-clear-btn" type="button"
+                      aria-label="Xóa bộ lọc">
+                ✕ Xóa bộ lọc
+              </button>
+            </div>
+
+            <!-- Feedback List -->
+            <div id="feedbackListContainer" aria-live="polite" aria-label="Danh sách phản hồi">
+              <!-- Populated by JS -->
+            </div>
+
+            <!-- Pagination -->
+            <nav id="paginationContainer" class="ocf-pagination" aria-label="Phân trang danh sách phản hồi">
+              <!-- Populated by JS -->
+            </nav>
+          </section>
+
+        </div><!-- END #pageMainContent -->
+
+        <!-- ERROR STATE -->
+        <div id="pageErrorState" class="ocf-state-box" hidden role="alert" aria-live="assertive">
+          <div class="ocf-state-icon">❌</div>
+          <h2 class="ocf-state-title">Không thể tải dữ liệu</h2>
+          <p class="ocf-state-desc">Đã có lỗi khi tải trang. Vui lòng kiểm tra kết nối và thử lại.</p>
+          <button id="retryBtn" class="btn btn-primary btn-sm" type="button">🔄 Thử lại</button>
+        </div>
+
+      </main><!-- END main.content-body -->
+
+      <!-- APP FOOTER (Semantic Standard) -->
+      <footer class="app-footer">
+        <p class="footer-copyright">&copy; 2026 SmartBuilding Team 01 (BTL-36) · Phân hệ Tiện nghi &amp; Cộng đồng (Occupant SV2)</p>
+      </footer>
+    </div><!-- END .main-wrapper -->
+  </div><!-- END .app-layout -->
+
+  <!-- MODAL: Feedback Detail -->
+  <div id="feedbackDetailModal" class="ocf-modal-overlay" hidden role="dialog"
+       aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+    <div class="ocf-modal">
+      <div class="ocf-modal-header">
+        <h2 class="ocf-modal-title" id="modalTitle">Chi tiết phản hồi</h2>
+        <button id="closeModalBtn" class="ocf-modal-close" type="button"
+                aria-label="Đóng hộp thoại">✕</button>
+      </div>
+      <div class="ocf-modal-body" id="modalBody">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav user-bottom-nav" aria-label="Điều hướng nhanh mobile">
+    <a href="occupant-comfort-feedback.html" class="bottom-nav-item active">
+      <span class="bottom-nav-icon" aria-hidden="true">😊</span>
+      <span class="bottom-nav-label">Tiện nghi</span>
+    </a>
+    <a href="occupant-energy-challenge.html" class="bottom-nav-item">
+      <span class="bottom-nav-icon" aria-hidden="true">🌱</span>
+      <span class="bottom-nav-label">Thử thách</span>
+    </a>
+    <a href="profile.html?role=occupant" class="bottom-nav-item">
+      <span class="bottom-nav-icon" aria-hidden="true">👤</span>
+      <span class="bottom-nav-label">Hồ sơ</span>
+    </a>
+  </nav>
+
+  <script src="../js/user.js"></script>
+  <script src="../js/occupant-comfort-feedback.js"></script>
+</body>
+</html>

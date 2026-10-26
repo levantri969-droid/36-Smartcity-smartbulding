@@ -142,18 +142,141 @@
                     <p class="page-subtitle-text">Khuyến nghị AI và tiến độ thực thi</p>
                 </div>
 
-                <section class="ai-banner" aria-label="Khuyến nghị AI">
-                    <div class="ai-ic">✦</div>
-                    <div class="ai-tx">
-                        <div class="ai-brand">AI-2 Saving Recommendation</div>
-                        <div class="ai-msg">Tắt 50% hệ thống chiếu sáng hành lang Tầng 3 từ 22:00 để tiết kiệm 120 kWh</div>
+                <!-- AI-2 Saving Recommendation: Chuẩn 6 bước AI UX & Failure UX -->
+                <section class="card ai-recommend-card" aria-label="AI Điều phối tiết kiệm">
+                    <div class="ai-card-header">
+                        <div class="ai-badge-group">
+                            <span class="ai-pill-brand">✦ AI-2 OPTIMIZER</span>
+                            <span class="ai-status-pill" id="aiModelStatus"><span class="ai-pulse-dot"></span>Mô hình trực tuyến (Rule + ML Model)</span>
+                        </div>
+                        <div class="ai-demo-controls" title="Chuyển kịch bản để phục vụ Hội đồng chấm thi BTL">
+                            <span class="demo-label">Chế độ Demo:</span>
+                            <button type="button" class="btn-demo-mode active" id="btnModeNormal">Khuyến nghị chuẩn (94%)</button>
+                            <button type="button" class="btn-demo-mode" id="btnModeFailure">Kịch bản Thiếu dữ liệu (42%)</button>
+                        </div>
                     </div>
-                    <button class="btn-create" id="createTaskTop" type="button">+ Tạo Task giao Kỹ thuật</button>
+
+                    <!-- Bước 1: INPUT CONTROLS -->
+                    <div class="ai-input-bar">
+                        <div class="ai-input-group">
+                            <label for="aiTargetZone" class="ai-label">Khu vực mục tiêu</label>
+                            <select id="aiTargetZone" class="ai-select">
+                                <option value="tang-3">Tầng 3 (Hành lang & Sảnh chung)</option>
+                                <option value="tang-2">Tầng 2 (Khu văn phòng mở)</option>
+                                <option value="server-room">Server Room (Trung tâm dữ liệu)</option>
+                                <option value="all-zones">Toàn bộ tòa nhà (Giờ giới nghiêm)</option>
+                                <option value="unknown-zone">Khu kỹ thuật mái tầng 21 (Chưa lắp sensor)</option>
+                            </select>
+                        </div>
+
+                        <div class="ai-input-group">
+                            <label for="aiPriorityGoal" class="ai-label">Mục tiêu tiết kiệm</label>
+                            <select id="aiPriorityGoal" class="ai-select">
+                                <option value="peak-shaving">Cắt giảm phụ tải giờ cao điểm (-15%)</option>
+                                <option value="night-cut">Cắt điện lãng phí ban đêm (22:00 - 05:00)</option>
+                                <option value="hvac-tune">Tối ưu hiệu suất điều hòa HVAC</option>
+                            </select>
+                        </div>
+
+                        <div class="ai-input-action">
+                            <button type="button" class="btn-ai-analyze" id="btnAiAnalyze">
+                                <span class="btn-ai-icon">⚡</span>
+                                <span class="btn-ai-text">Chạy phân tích AI</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Bước 2: PROCESSING STATE (Loading Skeleton / Steps) -->
+                    <div class="ai-processing-state" id="aiProcessingState" style="display: none;" role="status" aria-live="polite">
+                        <div class="ai-spinner-ring"></div>
+                        <div class="ai-processing-info">
+                            <div class="ai-processing-title" id="aiProcessingStep">Đang tải dữ liệu cảm biến thời gian thực...</div>
+                            <div class="ai-processing-bar"><div class="ai-processing-progress" id="aiProgressBar"></div></div>
+                            <div class="ai-processing-sub">Đang đối chiếu mô hình dự báo tải 7 ngày qua với lịch vận hành...</div>
+                        </div>
+                    </div>
+
+                    <!-- Bước 3, 4, 5: OUTPUT + EXPLAINABILITY + USER CONTROL (SUCCESS STATE) -->
+                    <div class="ai-result-box" id="aiResultSuccess">
+                        <div class="ai-result-main">
+                            <div class="ai-result-icon">💡</div>
+                            <div class="ai-result-body">
+                                <div class="ai-result-title-row">
+                                    <h2 class="ai-result-title" id="aiResultTitle">Tắt 50% đèn hành lang Tầng 3 sau 22:00</h2>
+                                    <span class="confidence-badge high" id="aiConfidenceBadge">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        Độ tin cậy: <b id="aiConfidenceValue">94%</b>
+                                    </span>
+                                </div>
+                                <p class="ai-result-desc" id="aiResultDesc">Phân tích mật độ lưu thông sau 22:00 chỉ còn dưới 3 người/giờ. Giảm 50% công suất đèn chiếu sáng hành lang giúp cắt giảm 120 kWh/đêm mà vẫn đảm bảo an ninh.</p>
+                                
+                                <!-- Bước 4: EXPLAINABILITY (Minh bạch lý do) -->
+                                <div class="ai-explain-box">
+                                    <div class="explain-heading">
+                                        <span class="explain-tag">Giải thích căn cứ đề xuất (Explainable AI):</span>
+                                    </div>
+                                    <ul class="explain-list" id="aiExplainList">
+                                        <li>Cảm biến hiện diện PIR T3 ghi nhận mức rỗng 98.2% trong khung giờ 22:00 - 05:00.</li>
+                                        <li>Phụ tải ánh sáng chiếu liên tục gây lãng phí khoảng 180.000 VNĐ mỗi đêm.</li>
+                                        <li>Hành động không ảnh hưởng đến tiêu chuẩn PCCC và an toàn lối thoát hiểm.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bước 5: USER CONTROL (Hành động của Kỹ sư vận hành) -->
+                        <div class="ai-control-actions">
+                            <button type="button" class="btn-ctrl btn-ctrl-apply" id="btnAiAccept">
+                                <span class="ctrl-icon">✓</span> Duyệt & Lưu thành Task
+                            </button>
+                            <button type="button" class="btn-ctrl btn-ctrl-edit" id="btnAiEdit">
+                                <span class="ctrl-icon">✎</span> Sửa nội dung trước khi lưu
+                            </button>
+                            <button type="button" class="btn-ctrl btn-ctrl-reject" id="btnAiReject">
+                                <span class="ctrl-icon">✕</span> Bỏ qua gợi ý
+                            </button>
+                            <button type="button" class="btn-ctrl btn-ctrl-regen" id="btnAiRegenerate" title="Tạo phương án khác">
+                                ↻ Đổi phương án khác
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- KỊCH BẢN AI UNCERTAINTY / FAILURE UX (Barem Tiêu chí 6.3) -->
+                    <div class="ai-result-box ai-failure-box" id="aiResultFailure" style="display: none;">
+                        <div class="ai-failure-header">
+                            <div class="ai-failure-icon">⚠</div>
+                            <div class="ai-failure-info">
+                                <div class="ai-failure-title">AI CẢNH BÁO: Không đủ dữ liệu cảm biến tin cậy</div>
+                                <div class="ai-failure-status">
+                                    <span class="confidence-badge low">
+                                        Độ tin cậy: <b>42% (Dưới ngưỡng an toàn 75%)</b>
+                                    </span>
+                                    <span class="failure-reason-tag">Mất tín hiệu kết nối 4/6 cảm biến IoT</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="ai-failure-desc">
+                            Mô hình Anomaly Optimizer không nhận đủ tín hiệu telemetry từ <b>Khu kỹ thuật mái tầng 21</b> trong 48 giờ qua. AI từ chối tự động áp dụng kế hoạch tiết kiệm để tránh sự cố chập tải hoặc gián đoạn kỹ thuật.
+                        </p>
+                        <div class="ai-failure-prompt-chips">
+                            <span class="chips-label">Gợi ý xử lý nhanh (Prompt Chips):</span>
+                            <button type="button" class="prompt-chip" data-fix="sensor">Kiểm tra kết nối Cảm biến IoT</button>
+                            <button type="button" class="prompt-chip" data-fix="prev">Dùng dữ liệu định mức tháng trước</button>
+                            <button type="button" class="prompt-chip" data-fix="manual">Chuyển sang Điều phối thủ công</button>
+                        </div>
+                        <div class="ai-failure-actions">
+                            <button type="button" class="btn-fail-retry" id="btnAiRetry">
+                                <span>↻</span> Thử quét lại dữ liệu
+                            </button>
+                            <button type="button" class="btn-fail-manual" id="btnAiManualCreate">
+                                <span>+</span> Nhập Task điều phối thủ công
+                            </button>
+                        </div>
+                    </div>
                 </section>
 
-                <button class="btn-create btn-create-full" id="createTaskMobile" type="button">+ Tạo Task giao Kỹ thuật</button>
-
                 <div class="card task-table-card">
+                    <div class="task-table-responsive">
                     <table class="task-table">
                         <thead>
                             <tr>
@@ -232,6 +355,7 @@
                             </tr>
                         </tbody>
                     </table>
+                    </div>
                 </div>
 
                 <div class="task-cards" id="taskCards">
@@ -340,6 +464,51 @@
             <div class="modal-foot">
                 <button class="btn-cancel" id="taskModalCancel" type="button">Hủy</button>
                 <button class="btn-submit" id="taskModalSubmit" type="button">Tạo Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal chỉnh sửa gợi ý AI trước khi lưu (Barem Tiêu chí 6.2 - User Control & Edit) -->
+    <div class="modal-overlay" id="editAiModal" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="editAiModalTitle">
+            <div class="modal-head">
+                <h2 id="editAiModalTitle">Chỉnh sửa gợi ý AI trước khi áp dụng</h2>
+                <button class="modal-close" id="editAiModalClose" type="button" aria-label="Đóng">×</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="ai-edit-note">
+                    <i>ℹ</i> Bạn có thể điều chỉnh mục tiêu và phân công kỹ thuật viên phù hợp với thực tế trước khi ghi nhận vào hệ thống.
+                </div>
+                <label for="aiEditTitle">
+                    Nội dung kế hoạch tiết kiệm
+                    <input id="aiEditTitle" type="text" value="" />
+                </label>
+
+                <label for="aiEditTech">
+                    Đội ngũ phụ trách
+                    <select id="aiEditTech" class="ai-select">
+                        <option value="Kỹ thuật điện">Kỹ thuật điện (Chiếu sáng, Tải phụ)</option>
+                        <option value="Đội HVAC">Đội HVAC (Chiller, AHU, Điều hòa)</option>
+                        <option value="Ban Quản lý Tòa nhà">Ban Quản lý Tòa nhà</option>
+                        <option value="Kỹ thuật IoT/Sensor">Kỹ thuật IoT / Sensor</option>
+                    </select>
+                </label>
+
+                <label for="aiEditDeadline">
+                    Thời hạn hoàn thành (Deadline)
+                    <input id="aiEditDeadline" type="text" value="Hôm nay 22:00" />
+                </label>
+
+                <label for="aiEditSavings">
+                    Điện năng dự kiến tiết kiệm (kWh)
+                    <input id="aiEditSavings" type="number" value="120" />
+                </label>
+            </div>
+
+            <div class="modal-foot">
+                <button class="btn-cancel" id="editAiModalCancel" type="button">Quay lại</button>
+                <button class="btn-submit" id="editAiModalSave" type="button">Xác nhận & Lưu Task</button>
             </div>
         </div>
     </div>

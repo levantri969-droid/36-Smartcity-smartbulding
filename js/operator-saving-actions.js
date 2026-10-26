@@ -68,11 +68,16 @@
     var list      = load();
     var empty     = $('taskEmpty');
     var cardTable = document.querySelector('.task-table-card');
+    var taskCards = document.querySelector('.task-cards');
     if (empty) {
       empty.style.display = (list.length === 0) ? 'block' : 'none';
     }
-    if (cardTable && window.innerWidth > 768) {
-      cardTable.style.display = (list.length === 0) ? 'none' : 'block';
+    if (list.length === 0) {
+      if (cardTable) cardTable.style.display = 'none';
+      if (taskCards) taskCards.style.display = 'none';
+    } else {
+      if (cardTable) cardTable.style.display = '';
+      if (taskCards) taskCards.style.display = '';
     }
   }
   function persistDelete(id) {
@@ -277,6 +282,175 @@
       deleteTask(id);
     });
   }
+  // ============================================================
+  // MODULE AI-2 SAVING OPTIMIZER: CHUẨN 6 BƯỚC AI UX & FAILURE UX
+  // ============================================================
+  var AI_PRESETS = {
+    'tang-3': {
+      title: 'Tắt 50% đèn hành lang Tầng 3 sau 22:00',
+      tech: 'Kỹ thuật điện',
+      deadline: 'Hôm nay 22:00',
+      savings: 120,
+      confidence: 94,
+      desc: 'Phân tích mật độ lưu thông sau 22:00 chỉ còn dưới 3 người/giờ. Giảm 50% công suất đèn chiếu sáng hành lang giúp cắt giảm 120 kWh/đêm mà vẫn đảm bảo an ninh.',
+      explains: [
+        'Cảm biến hiện diện PIR T3 ghi nhận mức rỗng 98.2% trong khung giờ 22:00 - 05:00.',
+        'Phụ tải ánh sáng chiếu liên tục gây lãng phí khoảng 180.000 VNĐ mỗi đêm.',
+        'Hành động không ảnh hưởng đến tiêu chuẩn PCCC và an toàn lối thoát hiểm.'
+      ]
+    },
+    'tang-2': {
+      title: 'Tăng nhiệt độ điều hòa Tầng 2 lên 26°C sau 18:00',
+      tech: 'Đội HVAC',
+      deadline: 'Ngày mai 18:00',
+      savings: 85,
+      confidence: 89,
+      desc: 'Nhiệt độ ngoài trời giảm sau 18:00. Nâng setpoint từ 24°C lên 26°C tại khu văn phòng mở giúp giảm tải chiller 18% trong khi vẫn giữ tiện nghi văn phòng.',
+      explains: [
+        'Nhiệt độ môi trường dự báo ban đêm mát mẻ (25.5°C), không cần làm mát sâu.',
+        'Nhân sự làm việc ngoài giờ chỉ tập trung ở khu vực góc đông nam.',
+        'Giúp tòa nhà giảm nguy cơ vượt đỉnh công suất biểu giá giờ cao điểm.'
+      ]
+    },
+    'server-room': {
+      title: 'Cân bằng tải luồng khí làm mát Cold Aisle Server Room',
+      tech: 'Đội HVAC',
+      deadline: 'Trong tuần này',
+      savings: 160,
+      confidence: 96,
+      desc: 'Cảm biến chênh lệch nhiệt độ cho thấy luồng khí lạnh bị phân tán. Điều chỉnh cánh gió baffle giúp giảm 1.5 kW công suất máy nén liên tục 24/7.',
+      explains: [
+        'Delta T giữa hot aisle và cold aisle hiện đạt 9.8°C (vượt định mức tối ưu 8.0°C).',
+        'Tối ưu khí động học giúp tăng hiệu quả COP của cụm điều hòa phòng máy.',
+        'Không rủi ro quá nhiệt máy chủ theo khuyến nghị chuẩn ASHRAE TC 9.9.'
+      ]
+    },
+    'all-zones': {
+      title: 'Kích hoạt kịch bản ngắt nguồn thiết bị dự phòng toàn tòa nhà',
+      tech: 'Ban Quản lý Tòa nhà',
+      deadline: 'Cuối tuần này',
+      savings: 210,
+      confidence: 91,
+      desc: 'Thực hiện ngắt tải standby của bình nước nóng, màn hình quảng cáo và quạt thông gió hầm gửi xe trong các ngày nghỉ cuối tuần.',
+      explains: [
+        'Tải tiêu thụ nền cuối tuần chiếm 28% ngày thường (mức lãng phí cao).',
+        'Lịch hoạt động văn phòng xác nhận 0 sự kiện lớn trong 48 giờ tới.',
+        'Lợi ích tài chính ước tính cắt giảm hơn 500.000 VNĐ mỗi cuối tuần.'
+      ]
+    }
+  };
+
+  var currentAiPlan = AI_PRESETS['tang-3'];
+  var aiSimulationTimer = null;
+
+  function runAiAnalysis(isFailureForced) {
+    var zoneVal = ($('aiTargetZone') && $('aiTargetZone').value) || 'tang-3';
+    var isFailure = isFailureForced === true || zoneVal === 'unknown-zone';
+
+    var procBox = $('aiProcessingState');
+    var succBox = $('aiResultSuccess');
+    var failBox = $('aiResultFailure');
+    var pBar = $('aiProgressBar');
+    var pStep = $('aiProcessingStep');
+
+    if (succBox) succBox.style.display = 'none';
+    if (failBox) failBox.style.display = 'none';
+    if (procBox) procBox.style.display = 'flex';
+    if (pBar) pBar.style.width = '10%';
+
+    clearTimeout(aiSimulationTimer);
+
+    // Mô phỏng 2 bước xử lý trực quan (Skeleton / Step)
+    if (pStep) pStep.textContent = 'Bước 1/2: Đang quét dữ liệu chuỗi cảm biến thời gian thực...';
+
+    aiSimulationTimer = setTimeout(function () {
+      if (pBar) pBar.style.width = '65%';
+      if (pStep) pStep.textContent = 'Bước 2/2: Đang chạy mô hình AI-2 Saving Optimizer & kiểm tra biên độ an toàn...';
+
+      aiSimulationTimer = setTimeout(function () {
+        if (pBar) pBar.style.width = '100%';
+        if (procBox) procBox.style.display = 'none';
+
+        if (isFailure) {
+          // HIỂN THỊ KỊCH BẢN FAILURE / UNCERTAINTY UX
+          if (failBox) failBox.style.display = 'block';
+          toast('AI cảnh báo: Thiếu dữ liệu cảm biến (Độ tin cậy 42%)', false);
+        } else {
+          // HIỂN THỊ KỊCH BẢN THÀNH CÔNG ĐỦ 6 BƯỚC
+          currentAiPlan = AI_PRESETS[zoneVal] || AI_PRESETS['tang-3'];
+          renderAiSuccess(currentAiPlan);
+          if (succBox) succBox.style.display = 'block';
+          toast('AI đã phân tích xong với độ tin cậy ' + currentAiPlan.confidence + '%', true);
+        }
+      }, 500);
+    }, 450);
+  }
+
+  function renderAiSuccess(plan) {
+    if ($('aiResultTitle')) $('aiResultTitle').textContent = plan.title;
+    if ($('aiConfidenceValue')) $('aiConfidenceValue').textContent = plan.confidence + '%';
+    if ($('aiResultDesc')) $('aiResultDesc').textContent = plan.desc;
+
+    var ul = $('aiExplainList');
+    if (ul) {
+      ul.innerHTML = '';
+      (plan.explains || []).forEach(function (txt) {
+        var li = document.createElement('li');
+        li.textContent = txt;
+        ul.appendChild(li);
+      });
+    }
+  }
+
+  function openEditAiModal() {
+    var m = $('editAiModal');
+    if (!m) return;
+    if ($('aiEditTitle')) $('aiEditTitle').value = currentAiPlan.title;
+    if ($('aiEditTech')) $('aiEditTech').value = currentAiPlan.tech;
+    if ($('aiEditDeadline')) $('aiEditDeadline').value = currentAiPlan.deadline;
+    if ($('aiEditSavings')) $('aiEditSavings').value = currentAiPlan.savings;
+    m.classList.add('show');
+    m.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeEditAiModal() {
+    var m = $('editAiModal');
+    if (m) {
+      m.classList.remove('show');
+      m.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  function applyAiPlanToTask(customPlan) {
+    var plan = customPlan || currentAiPlan;
+    var curList = load();
+    var maxNum = 142;
+    curList.forEach(function (t) {
+      var m = /^TASK-(\d+)$/.exec(t.id);
+      if (m) maxNum = Math.max(maxNum, parseInt(m[1], 10));
+    });
+    var id = 'TASK-' + (maxNum + 1);
+    var t = {
+      id: id,
+      content: plan.title,
+      tech: plan.tech,
+      deadline: plan.deadline,
+      progress: 0
+    };
+    curList.unshift(t);
+    save(curList);
+
+    // Cập nhật lại DOM bảng và cards
+    var tb = $('taskTableBody');
+    var cards = $('taskCards');
+    if (tb) tb.innerHTML = '';
+    if (cards) cards.innerHTML = '';
+    curList.forEach(addTask);
+    checkEmpty();
+
+    toast('Đã duyệt gợi ý AI & Tạo mới ' + id + ' (Lưu thành công vào dữ liệu thật)', true);
+  }
+
   function openModal() {
     var m = $('taskModal');
     if (m) {
@@ -296,6 +470,7 @@
       m.setAttribute('aria-hidden', 'true');
     }
   }
+
   document.addEventListener('DOMContentLoaded', function () {
     // 1. Neu localStorage trong (chua tung khoi tao), dua mac dinh 3 task tu HTML static
     if (localStorage.getItem(STORE) === null) {
@@ -315,14 +490,12 @@
     // 3. Nap task tu localStorage
     list.forEach(addTask);
     checkEmpty();
-    // 4. Modal
-    ['createTaskTop', 'createTaskMobile'].forEach(function (id) {
-      var b = $(id); if (b) b.addEventListener('click', openModal);
-    });
+
+    // 4. Modal tạo Task thủ công
     var c   = $('taskModalClose'); if (c) c.addEventListener('click', closeModal);
     var x   = $('taskModalCancel'); if (x) x.addEventListener('click', closeModal);
     var m   = $('taskModal'); if (m) m.addEventListener('click', function (e) { if (e.target === m) closeModal(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeModal(); });
+
     var s = $('taskModalSubmit');
     if (s) s.addEventListener('click', function () {
       var content   = ($('fContent') && $('fContent').value.trim()) || 'Task tiết kiệm mới';
@@ -337,10 +510,136 @@
       });
       var id = 'TASK-' + (maxNum + 1);
       var t = { id: id, content: content, tech: tech, deadline: deadline, progress: progress };
-      curList.push(t); save(curList); addTask(t); closeModal();
-      toast('Đã tạo ' + id + ' giao ' + tech + '.', true);
-      if ($('fContent')) $('fContent').value = 'Tối ưu điều hòa Zone 2 sau giờ làm việc';
-      if ($('fProgress')) $('fProgress').value = '0';
+      curList.unshift(t); save(curList);
+      
+      var tbEl = $('taskTableBody');
+      var cdEl = $('taskCards');
+      if (tbEl) tbEl.innerHTML = '';
+      if (cdEl) cdEl.innerHTML = '';
+      curList.forEach(addTask);
+      checkEmpty();
+      closeModal();
+      toast('Đã tạo thủ công ' + id + ' giao ' + tech + '.', true);
+    });
+
+    // 5. GẮN SỰ KIỆN AI UX 6 BƯỚC & DEMO SWITCHER (Barem Tiêu chí 6)
+    var btnModeNormal = $('btnModeNormal');
+    var btnModeFailure = $('btnModeFailure');
+    if (btnModeNormal && btnModeFailure) {
+      btnModeNormal.addEventListener('click', function () {
+        btnModeNormal.classList.add('active');
+        btnModeFailure.classList.remove('active');
+        if ($('aiTargetZone')) $('aiTargetZone').value = 'tang-3';
+        runAiAnalysis(false);
+      });
+      btnModeFailure.addEventListener('click', function () {
+        btnModeFailure.classList.add('active');
+        btnModeNormal.classList.remove('active');
+        if ($('aiTargetZone')) $('aiTargetZone').value = 'unknown-zone';
+        runAiAnalysis(true);
+      });
+    }
+
+    // Nút phân tích AI
+    var btnAnalyze = $('btnAiAnalyze');
+    if (btnAnalyze) {
+      btnAnalyze.addEventListener('click', function () {
+        var zoneVal = ($('aiTargetZone') && $('aiTargetZone').value) || '';
+        runAiAnalysis(zoneVal === 'unknown-zone');
+      });
+    }
+
+    // Bước 5 & 6: Chấp nhận -> Lưu vào dữ liệu thật (Save/Apply)
+    var btnAccept = $('btnAiAccept');
+    if (btnAccept) {
+      btnAccept.addEventListener('click', function () {
+        applyAiPlanToTask();
+      });
+    }
+
+    // Bước 5: Chỉnh sửa trước khi lưu (User Control & Edit)
+    var btnEdit = $('btnAiEdit');
+    if (btnEdit) {
+      btnEdit.addEventListener('click', openEditAiModal);
+    }
+    var closeAiEdit = $('editAiModalClose');
+    if (closeAiEdit) closeAiEdit.addEventListener('click', closeEditAiModal);
+    var cancelAiEdit = $('editAiModalCancel');
+    if (cancelAiEdit) cancelAiEdit.addEventListener('click', closeEditAiModal);
+
+    var saveAiEdit = $('editAiModalSave');
+    if (saveAiEdit) {
+      saveAiEdit.addEventListener('click', function () {
+        var editedPlan = {
+          title: ($('aiEditTitle') && $('aiEditTitle').value.trim()) || currentAiPlan.title,
+          tech: ($('aiEditTech') && $('aiEditTech').value) || currentAiPlan.tech,
+          deadline: ($('aiEditDeadline') && $('aiEditDeadline').value.trim()) || currentAiPlan.deadline,
+          savings: ($('aiEditSavings') && $('aiEditSavings').value) || currentAiPlan.savings
+        };
+        closeEditAiModal();
+        applyAiPlanToTask(editedPlan);
+      });
+    }
+
+    // Nút từ chối gợi ý
+    var btnReject = $('btnAiReject');
+    if (btnReject) {
+      btnReject.addEventListener('click', function () {
+        if ($('aiResultSuccess')) $('aiResultSuccess').style.display = 'none';
+        toast('Đã bỏ qua khuyến nghị hiện tại của AI.', true);
+      });
+    }
+
+    // Nút đổi phương án khác (Regenerate)
+    var btnRegen = $('btnAiRegenerate');
+    if (btnRegen) {
+      btnRegen.addEventListener('click', function () {
+        var keys = ['tang-3', 'tang-2', 'server-room', 'all-zones'];
+        var randomKey = keys[Math.floor(Math.random() * keys.length)];
+        if ($('aiTargetZone')) $('aiTargetZone').value = randomKey;
+        runAiAnalysis(false);
+      });
+    }
+
+    // Kịch bản Failure: Nút thử lại & Nút nhập thủ công
+    var btnRetry = $('btnAiRetry');
+    if (btnRetry) {
+      btnRetry.addEventListener('click', function () {
+        toast('Đang thử kết nối lại hạ tầng Gateway IoT...', true);
+        runAiAnalysis(true);
+      });
+    }
+    var btnManual = $('btnAiManualCreate');
+    if (btnManual) {
+      btnManual.addEventListener('click', function () {
+        openModal();
+      });
+    }
+
+    // Xử lý các Prompt Chips trong kịch bản Failure
+    all('.prompt-chip').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var actionType = chip.getAttribute('data-fix');
+        if (actionType === 'sensor') {
+          toast('Đang mở chẩn đoán cảm biến... Khuyến nghị kiểm tra Gateway Tầng 21.', true);
+        } else if (actionType === 'prev') {
+          toast('Đã nạp dữ liệu định mức tháng trước: Phụ tải nền 45 kW.', true);
+          if (btnModeNormal) btnModeNormal.click();
+        } else if (actionType === 'manual') {
+          openModal();
+        }
+      });
+    });
+
+    // Khởi tạo hiển thị AI ban đầu
+    renderAiSuccess(currentAiPlan);
+
+    // Escape chung để đóng modal
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeEditAiModal();
+      }
     });
   });
 })();

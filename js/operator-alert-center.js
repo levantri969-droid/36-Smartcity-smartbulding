@@ -89,27 +89,87 @@
     if (sub) sub.textContent = open + ' cảnh báo mở • ' + crit + ' cảnh báo khẩn cấp';
   }
 
+  /* Lọc kết hợp đa tiêu chí: Từ khóa (debounce) + Mức độ (pills) + Trạng thái (select) */
   function applyFilter() {
-    var on = {};
+    var onSevs = {};
     all('.filter-pill').forEach(function (p) {
       var f = p.getAttribute('data-filter');
       var isOn = p.classList.contains('is-on');
-      on[f] = isOn;
+      onSevs[f] = isOn;
       p.setAttribute('aria-pressed', isOn ? 'true' : 'false');
     });
+
+    var keyword = (($('alertSearchInput') && $('alertSearchInput').value) || '').trim().toLowerCase();
+    var statusVal = ($('statusFilterSelect') && $('statusFilterSelect').value) || 'all';
+
+    // Ẩn/hiện nút clear search
+    var clearBtn = $('alertSearchClear');
+    if (clearBtn) {
+      clearBtn.style.display = keyword ? 'block' : 'none';
+    }
+
+    var totalRows = 0;
     var visible = 0;
-    all('#alertTableBody tr').forEach(function (el) {
-      var show = !!on[el.getAttribute('data-sev')];
-      el.classList.toggle('is-hidden', !show);
+
+    all('#alertTableBody tr').forEach(function (tr) {
+      totalRows++;
+      var sev = tr.getAttribute('data-sev');
+      var id = tr.getAttribute('data-id');
+      var currentStatus = state[id] || 'pending'; // mặc định nếu chưa lưu là pending
+      var rowText = (tr.textContent || '').toLowerCase();
+
+      var matchSev = !!onSevs[sev];
+      var matchKeyword = !keyword || (rowText.indexOf(keyword) !== -1);
+      var matchStatus = (statusVal === 'all') || (currentStatus === statusVal);
+
+      var show = matchSev && matchKeyword && matchStatus;
+      tr.classList.toggle('is-hidden', !show);
       if (show) visible++;
     });
-    all('#alertCards .alert-card').forEach(function (el) {
-      var show = !!on[el.getAttribute('data-sev')];
-      el.classList.toggle('is-hidden', !show);
+
+    all('#alertCards .alert-card').forEach(function (card) {
+      var sev = card.getAttribute('data-sev');
+      var id = card.getAttribute('data-id');
+      var currentStatus = state[id] || 'pending';
+      var cardText = (card.textContent || '').toLowerCase();
+
+      var matchSev = !!onSevs[sev];
+      var matchKeyword = !keyword || (cardText.indexOf(keyword) !== -1);
+      var matchStatus = (statusVal === 'all') || (currentStatus === statusVal);
+
+      var show = matchSev && matchKeyword && matchStatus;
+      card.classList.toggle('is-hidden', !show);
     });
+
+    // Cập nhật bộ đếm X / Y kết quả (Live Mod Đề A3)
+    var countBadge = $('alertResultCount');
+    if (countBadge) {
+      countBadge.textContent = 'Hiển thị ' + visible + ' / ' + totalRows + ' cảnh báo';
+    }
+
+    // Hiển thị Empty State card (Tiêu chí 2.3 & Live Mod D1)
     var empty = $('alertEmpty');
-    if (empty) empty.classList.toggle('show', visible === 0);
+    var cardTable = document.querySelector('.alert-table-card');
+    if (empty) {
+      empty.style.display = (visible === 0) ? 'block' : 'none';
+    }
+    if (cardTable && window.innerWidth > 768) {
+      cardTable.style.display = (visible === 0) ? 'none' : 'block';
+    }
   }
+
+  function resetAllFilters() {
+    if ($('alertSearchInput')) $('alertSearchInput').value = '';
+    if ($('statusFilterSelect')) $('statusFilterSelect').value = 'all';
+    all('.filter-pill').forEach(function (p) {
+      p.classList.add('is-on');
+      p.classList.remove('is-off');
+    });
+    applyFilter();
+    toast('Đã đưa tất cả bộ lọc về mặc định', true);
+  }
+
+  var searchDebounceTimer = null;
 
   document.addEventListener('DOMContentLoaded', function () {
     /* Sync trạng thái từ op-energy */
@@ -129,7 +189,7 @@
     });
     updateSubtitle();
 
-    /* Bộ lọc */
+    /* Bộ lọc Mức độ */
     all('.filter-pill').forEach(function (p) {
       p.addEventListener('click', function () {
         p.classList.toggle('is-on');
@@ -137,6 +197,37 @@
         applyFilter();
       });
     });
+
+    /* Tìm kiếm từ khóa kèm debounce 250ms (Tiêu chí 5.1 Barem) */
+    var searchInput = $('alertSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', function () {
+        clearTimeout(searchDebounceTimer);
+        searchDebounceTimer = setTimeout(applyFilter, 250);
+      });
+    }
+
+    var searchClearBtn = $('alertSearchClear');
+    if (searchClearBtn) {
+      searchClearBtn.addEventListener('click', function () {
+        if ($('alertSearchInput')) $('alertSearchInput').value = '';
+        applyFilter();
+        if ($('alertSearchInput')) $('alertSearchInput').focus();
+      });
+    }
+
+    /* Bộ lọc Trạng thái (Select) */
+    var statusSelect = $('statusFilterSelect');
+    if (statusSelect) {
+      statusSelect.addEventListener('change', applyFilter);
+    }
+
+    /* Nút Reset Filters trên thanh toolbar và trong Empty State (Live Mod A4 & D1) */
+    var btnReset = $('btnResetFilters');
+    if (btnReset) btnReset.addEventListener('click', resetAllFilters);
+
+    var btnEmptyReset = $('btnEmptyReset');
+    if (btnEmptyReset) btnEmptyReset.addEventListener('click', resetAllFilters);
 
     /* Nút Tiếp nhận từng dòng — dùng event delegation để tránh bind nhiều lần */
     document.addEventListener('click', function (e) {

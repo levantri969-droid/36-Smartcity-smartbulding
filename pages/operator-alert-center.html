@@ -92,12 +92,39 @@
             <p class="page-subtitle-text" id="alertSubtitle">3 cảnh báo mở • 1 cảnh báo khẩn cấp</p>
           </div>
         </div>
-        <div class="filter-row" role="group" aria-label="Lọc theo mức độ">
-          <button class="filter-pill is-on" data-filter="critical" type="button" aria-pressed="true"><i></i>Khẩn
-            cấp</button>
-          <button class="filter-pill is-on" data-filter="medium" type="button" aria-pressed="true"><i></i>Trung
-            bình</button>
-          <button class="filter-pill is-on" data-filter="low" type="button" aria-pressed="true"><i></i>Thấp</button>
+        <!-- Toolbar tìm kiếm & lọc đa tiêu chí (Tiêu chí 5.1 & Live Mod A1, A3, A4) -->
+        <div class="card alert-toolbar-card">
+          <div class="alert-toolbar-top">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="alertSearchInput" class="search-input" placeholder="Tìm theo mã alert, tên sự cố, khu vực (Zone)..." aria-label="Tìm kiếm cảnh báo" />
+              <button type="button" id="alertSearchClear" class="search-clear-btn" aria-label="Xóa từ khóa" style="display: none;">×</button>
+            </div>
+            
+            <div class="status-filter-group">
+              <label for="statusFilterSelect" class="filter-label">Trạng thái:</label>
+              <select id="statusFilterSelect" class="filter-select" aria-label="Lọc theo trạng thái">
+                <option value="all">Tất cả trạng thái</option>
+                <option value="pending">Chờ xử lý</option>
+                <option value="done">Đã tiếp nhận</option>
+                <option value="skipped">Đã bỏ qua</option>
+              </select>
+            </div>
+
+            <div class="result-count-box">
+              <span class="count-badge" id="alertResultCount">Hiển thị 3 / 3 cảnh báo</span>
+            </div>
+          </div>
+
+          <div class="filter-row" role="group" aria-label="Lọc theo mức độ nghiêm trọng">
+            <span class="filter-label-inline">Mức độ:</span>
+            <button class="filter-pill is-on" data-filter="critical" type="button" aria-pressed="true"><i></i>Khẩn cấp</button>
+            <button class="filter-pill is-on" data-filter="medium" type="button" aria-pressed="true"><i></i>Trung bình</button>
+            <button class="filter-pill is-on" data-filter="low" type="button" aria-pressed="true"><i></i>Thấp</button>
+            <button type="button" id="btnResetFilters" class="btn-reset-filters" title="Đưa toàn bộ bộ lọc về mặc định">
+              <span>↻</span> Xóa bộ lọc (Reset)
+            </button>
+          </div>
         </div>
         <div class="card alert-table-card">
           <table class="alert-table">
@@ -177,7 +204,17 @@
                 type="button">Bỏ qua</button></div>
           </article>
         </div>
-        <div class="alert-empty" id="alertEmpty">Không có cảnh báo nào khớp bộ lọc hiện tại.</div>
+        <!-- Empty State chuẩn UX theo Barem Tiêu chí 2.3 & Live Mod D1 -->
+        <div class="alert-empty-card" id="alertEmpty" style="display: none;">
+          <div class="empty-icon-wrap">🔔</div>
+          <h3 class="empty-title">Không tìm thấy cảnh báo nào phù hợp</h3>
+          <p class="empty-desc">Không có bản ghi nào khớp với từ khóa tìm kiếm hoặc các tiêu chí lọc hiện tại của bạn.</p>
+          <div class="empty-actions">
+            <button type="button" class="btn-empty-reset" id="btnEmptyReset">
+              <span>↻</span> Xóa toàn bộ bộ lọc
+            </button>
+          </div>
+        </div>
         <div class="bulk-bar"><button class="btn-bulk-ack" id="bulkAckBtn" type="button">✓ Tiếp nhận tất cả cảnh
             báo</button><button class="btn-bulk-skip" id="bulkSkipBtn" type="button">Bỏ qua tất cả</button></div>
       </main>

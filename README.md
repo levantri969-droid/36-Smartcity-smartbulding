@@ -12,19 +12,19 @@ Dự án Bài tập lớn học phần **Phát triển ứng dụng Web cơ bả
 
 Hệ thống được thiết kế theo kiến trúc đa vai trò hoàn chỉnh (Multi-Role) gồm 4 vai trò tác nghiệp thực tế. Mỗi thành viên đảm nhiệm trọn vẹn từ Mockup Figma, HTML5, CSS3, JavaScript tương tác, CRUD dữ liệu, tính năng AI UX 6 bước đến Video OBS và bảo vệ vấn đáp:
 
-- **La Ngọc Quang (La Ngọc Quang)**:
+- **La Ngọc Quang**:
   - **Vai trò phụ trách**: **Building Operator (Kỹ sư Vận hành Kỹ thuật tòa nhà)**.
   - **Màn hình phụ trách**: Giám sát phụ tải năng lượng thời gian thực (`operator-energy-monitor.html`), Trung tâm xử lý cảnh báo sự cố IoT (`operator-alert-center.html`), Điều phối hành động tiết kiệm điện năng (`operator-saving-actions.html`).
   - **Tính năng AI**: **AI-2 Saving Actions Dispatcher** (Điều phối cắt giảm phụ tải khẩn cấp tự động chuẩn 6 bước).
   - **Trách nhiệm chéo (Cross-Responsibility)**: Chuẩn hóa hệ thống thiết kế Design System & Biến CSS (`:root`, Dark Mode đồng bộ), Thanh điều hướng chung (Sidebar, Navigation, Header Role Switcher) và Khả năng tiếp cận (Accessibility - A11y).
 
-- **Lê Văn Trí (Lê Văn Trí)**:
+- **Lê Văn Trí**:
   - **Vai trò phụ trách**: **Office Occupant (Cư dân & Nhân viên Văn phòng)**.
   - **Màn hình phụ trách**: Tổng quan năng lượng căn hộ & Bảng xếp hạng cư dân (`occupant-dashboard.html`), Thử thách sống xanh Eco (`occupant-energy-challenge.html`), Phản hồi tiện nghi nhiệt & ánh sáng (`occupant-comfort-feedback.html`).
   - **Tính năng AI**: **AI-1 Comfort Assistant** (Đề xuất tối ưu hóa điều hòa và chiếu sáng cá nhân hóa chuẩn 6 bước kèm kịch bản AI Failure / Uncertainty UX).
   - **Trách nhiệm chéo (Cross-Responsibility)**: Kiến trúc JavaScript phân lớp, Tầng quản trị dữ liệu tập trung & LocalStorage (`storage.js`, `mock-building.json`), liên thông dữ liệu thời gian thực đa vai trò.
 
-- **Tô Hồng Anh (Tô Hồng Anh)**:
+- **Tô Hồng Anh**:
   - **Vai trò phụ trách**: **Facility Manager (Nhà Quản lý Vận hành Năng lượng) & System Administrator (Quản trị viên Hệ thống)**.
   - **Màn hình phụ trách**: 
     - *Manager*: Bảng điều khiển KPI năng lượng cấp cao (`manager-energy-kpis.html`), So sánh hiệu suất năng lượng đa Zone (`manager-zone-comparison.html`), Báo cáo tiêu thụ điện định kỳ tháng (`manager-monthly-report.html`).
@@ -145,8 +145,6 @@ cse122-smartbuilding-team01/
 ## 5. Liên kết Minh chứng Dự án & Báo vệ
 - **Link Thiết kế Figma công khai**: [Figma Green Tower SmartBuilding UI/UX](https://www.figma.com/design/GxyxWCHGyobvm2KCDMrdoJ/H%25C3%25ACnh-%25E1%25BA%25A3nh-tr%25E1%25BB%25B1c-quan?node-id=0-1&p=f&t=DneHZK8jYEBvCjtd-0)
 - **Link Video Demo & Minh chứng OBS**:
-  - Video Demo Tổng thể: [YouTube Demo Green Tower](https://youtu.be/eNDMW9z6fJY)
   - Danh mục Video OBS chi tiết từng màn hình: [docs/obs-evidence.md](docs/obs-evidence.md)
 - **Kho lưu trữ GitHub Repository**:
   - Kho chính thức Nhóm 01: [https://github.com/levantri969-droid/36-Smartcity-smartbulding](https://github.com/levantri969-droid/36-Smartcity-smartbulding)
-  - Kho cá nhân thành viên: [https://github.com/hanhhong2208-gif/BaiGiuaKy_ToHongAnh_67CNTT1](https://github.com/hanhhong2208-gif/BaiGiuaKy_ToHongAnh_67CNTT1)

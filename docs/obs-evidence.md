@@ -12,7 +12,7 @@ Lê Văn Trí (Occupant) :
 
 
 Tô Hồng Anh (Manager & Admin) : 
-manager-energy-kpis: https://youtu.be/eNDMW9z6fJY?si=HZKXte0f2nHJowxN
+manager-energy-kpis: https://youtu.be/eNDMW9z6fJY?si=HZKXte0f2nHJowxNgit add .
 manager-zone-comparison:
 manager-monthly-report:
 admin-zone-management: https://youtu.be/L_PU3Acr59Q?si=HCLEGgx-NkqJVIO5

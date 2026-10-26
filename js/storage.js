@@ -21,7 +21,9 @@ const DB = {
 
         const res = await fetch(fetchPath);
         if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
-        const data = await res.json();
+        let text = await res.text();
+        if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+        const data = JSON.parse(text);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
         console.log('✅ [DB] Đã nạp thành công dữ liệu mẫu phong phú từ mock-building.json vào LocalStorage.');
         return data;

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
  * login.js - Authentication simulation & Demo role fast-switch
  * Matching Figma Login Page Specification
@@ -7,17 +7,17 @@
 // Demo accounts - matching Figma quick login buttons
 const DEMO_ACCOUNTS = {
   admin: {
-    email: "minh.anh@greentower.vn",
+    email: "honganh.admin@greentower.vn",
     password: "admin2026",
-    name: "Nguyễn Minh Anh",
+    name: "Tô Hồng Anh",
     role: "admin",
     roleTitle: "System Administrator (SV3)",
     redirect: "admin-zone-management.html"
   },
   manager: {
-    email: "thuha@greentower.vn",
+    email: "honganh.to@greentower.vn",
     password: "manager2026",
-    name: "Trần Thu Hà",
+    name: "Tô Hồng Anh",
     role: "manager",
     roleTitle: "Facility Manager (SV3)",
     redirect: "manager-energy-kpis.html"
@@ -31,15 +31,15 @@ const DEMO_ACCOUNTS = {
     redirect: "manager-energy-kpis.html" // fallback for demo
   },
   operator: {
-    email: "operator@greentower.vn",
+    email: "ngocquang.la@greentower.vn",
     password: "operator2026",
-    name: "Lê Quốc Bảo",
+    name: "La Ngọc Quang",
     role: "operator",
     roleTitle: "Operator • Kỹ thuật vận hành (SV1)",
     redirect: "operator-energy-monitor.html"
   },
   occupant: {
-    email: "occupant@greentower.vn",
+    email: "vantri.le@greentower.vn",
     password: "occupant2026",
     name: "Hoàng Nhân Viên",
     role: "occupant",
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (lowerEmail.includes("operator")) {
           matched = {
             email: email,
-            name: email.split("@")[0] || "Lê Quốc Bảo",
+            name: email.split("@")[0] || "La Ngọc Quang",
             role: "operator",
             roleTitle: "Operator • Kỹ thuật vận hành",
             redirect: "operator-energy-monitor.html"
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           matched = {
             email: email,
-            name: email.split("@")[0] || "Trần Thu Hà",
+            name: email.split("@")[0] || "Tô Hồng Anh",
             role: "manager",
             roleTitle: "Facility Manager",
             redirect: "manager-energy-kpis.html"

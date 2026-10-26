@@ -326,35 +326,57 @@
       pointsEl.className = 'oec-ch-points';
       pointsEl.innerHTML = `+${ch.points} <small>điểm · tiết kiệm ${ch.kwhSave} kWh</small>`;
 
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'oec-join-btn';
-      btn.setAttribute('data-id', ch.id);
+      const actionsWrap = document.createElement('div');
+      actionsWrap.className = 'oec-ch-actions';
+      actionsWrap.style.display = 'flex';
+      actionsWrap.style.gap = '6px';
+      actionsWrap.style.alignItems = 'center';
 
       if (status === 'none') {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'oec-join-btn btn-join';
+        btn.setAttribute('data-id', ch.id);
         btn.textContent = 'Tham gia';
-        btn.classList.add('btn-join');
         btn.setAttribute('aria-label', `Tham gia thử thách: ${ch.title}`);
+        btn.addEventListener('click', () => handleJoin(ch.id));
+        actionsWrap.appendChild(btn);
       } else if (status === 'inprogress') {
-        btn.textContent = 'Đang thực hiện ⏳';
-        btn.classList.add('btn-inprogress');
-        btn.disabled = true;
-        btn.setAttribute('aria-label', `Đang thực hiện: ${ch.title}`);
+        const btnComplete = document.createElement('button');
+        btnComplete.type = 'button';
+        btnComplete.className = 'oec-join-btn btn-complete';
+        btnComplete.setAttribute('data-id', ch.id);
+        btnComplete.style.background = '#10B981';
+        btnComplete.style.color = '#FFFFFF';
+        btnComplete.textContent = 'Hoàn thành ✓';
+        btnComplete.setAttribute('aria-label', `Hoàn thành thử thách: ${ch.title}`);
+        btnComplete.addEventListener('click', () => handleComplete(ch.id));
+
+        const btnCancel = document.createElement('button');
+        btnCancel.type = 'button';
+        btnCancel.className = 'oec-join-btn btn-cancel';
+        btnCancel.setAttribute('data-id', ch.id);
+        btnCancel.style.background = 'transparent';
+        btnCancel.style.border = '1px solid #EF4444';
+        btnCancel.style.color = '#EF4444';
+        btnCancel.textContent = 'Hủy ✕';
+        btnCancel.setAttribute('aria-label', `Hủy thử thách: ${ch.title}`);
+        btnCancel.addEventListener('click', () => handleCancel(ch.id));
+
+        actionsWrap.append(btnCancel, btnComplete);
       } else {
-        btn.textContent = 'Hoàn thành ✓';
-        btn.classList.add('btn-done');
-        btn.disabled = true;
-        btn.setAttribute('aria-label', `Đã hoàn thành: ${ch.title}`);
+        const btnDone = document.createElement('button');
+        btnDone.type = 'button';
+        btnDone.className = 'oec-join-btn btn-done';
+        btnDone.disabled = true;
+        btnDone.textContent = 'Đã hoàn thành ✓';
+        btnDone.setAttribute('aria-label', `Đã hoàn thành: ${ch.title}`);
+        actionsWrap.appendChild(btnDone);
       }
 
-      footer.append(pointsEl, btn);
+      footer.append(pointsEl, actionsWrap);
       article.append(top, meta, footer);
       grid.append(article);
-    });
-
-    // Bind join buttons
-    grid.querySelectorAll('.oec-join-btn.btn-join').forEach((btn) => {
-      btn.addEventListener('click', () => handleJoin(btn.getAttribute('data-id')));
     });
   }
 
@@ -375,30 +397,52 @@
     renderTimeline();
 
     if (typeof window.showToast === 'function') {
-      window.showToast(`✅ Đã tham gia thử thách: "${ch.title}"`, 'success');
+      window.showToast(`📌 Đang thực hiện thử thách: "${ch.title}". Nhấn Hoàn thành khi hoàn tất!`, 'info');
     }
+  }
 
-    // Auto-complete after JOIN_DELAY
-    setTimeout(() => {
-      const latestProgress = loadProgress();
-      if (latestProgress[challengeId] === 'inprogress') {
-        latestProgress[challengeId] = 'done';
-        saveProgress(latestProgress);
+  function handleCancel(challengeId) {
+    const ch = CHALLENGES_DATA.find((c) => c.id === challengeId);
+    if (!ch) return;
 
-        // Add points
-        const currentPts = loadPoints();
-        savePoints(currentPts + ch.points);
+    const progress = loadProgress();
+    delete progress[challengeId];
+    saveProgress(progress);
 
-        addLogEntry(`Hoàn thành: ${ch.title} (+${ch.points} điểm)`, 'done');
-        renderChallenges(currentFilter);
-        updateKPIBar(latestProgress);
-        renderTimeline();
+    addLogEntry(`Đã hủy: ${ch.title}`, 'cancel');
+    renderChallenges(currentFilter);
+    updateKPIBar(progress);
+    renderTimeline();
 
-        if (typeof window.showToast === 'function') {
-          window.showToast(`🏆 Hoàn thành "${ch.title}"! +${ch.points} điểm xanh`, 'success');
-        }
-      }
-    }, JOIN_DELAY);
+    if (typeof window.showToast === 'function') {
+      window.showToast(`✕ Đã hủy tham gia thử thách: "${ch.title}"`, 'warning');
+    }
+  }
+
+  function handleComplete(challengeId) {
+    const ch = CHALLENGES_DATA.find((c) => c.id === challengeId);
+    if (!ch) return;
+
+    const progress = loadProgress();
+    progress[challengeId] = 'done';
+    saveProgress(progress);
+
+    // Thêm điểm xanh
+    const currentPts = loadPoints();
+    savePoints(currentPts + ch.points);
+    try {
+      window.dispatchEvent(new CustomEvent('smartbuilding_points_updated', { detail: { points: currentPts + ch.points } }));
+      window.dispatchEvent(new CustomEvent('smartbuilding_db_sync'));
+    } catch (_) {}
+
+    addLogEntry(`Hoàn thành: ${ch.title} (+${ch.points} điểm)`, 'done');
+    renderChallenges(currentFilter);
+    updateKPIBar(progress);
+    renderTimeline();
+
+    if (typeof window.showToast === 'function') {
+      window.showToast(`🎉 Xuất sắc! Hoàn thành "${ch.title}"! +${ch.points} điểm xanh`, 'success');
+    }
   }
 
   /* ═══════════════════════════════════════════════════════════

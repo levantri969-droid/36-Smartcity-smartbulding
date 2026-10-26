@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
  * user.js - Master Navigation, Unified Role RBAC, Mobile Drawer Toggle,
  * Header Profile Link, System Notifications Toast & Logout Handler
@@ -7,29 +7,29 @@
 const UNIFIED_ROLES = {
   operator: {
     key: "operator",
-    name: "Lê Minh Khang",
+    name: "La Ngọc Quang",
     description: "Vận hành tòa nhà",
-    roleTitle: "Building Operator (SV1)",
-    initials: "LK",
-    email: "minhkhang@greentower.vn",
+    roleTitle: "Operator",
+    initials: "NQ",
+    email: "ngocquang.la@greentower.vn",
     phone: "0901 234 567",
     department: "Ban Kỹ thuật Vận hành • Green Tower",
     section: "MENU OPERATOR",
     features: [
-      ["engineer-energy-monitor.html", "Giám sát năng lượng", "Giám sát", "📊"],
-      ["engineer-alert-center.html", "Trung tâm cảnh báo", "Cảnh báo", "⚠"],
-      ["engineer-saving-actions.html", "Hành động tiết kiệm", "Tiết kiệm", "✓"],
+      ["operator-energy-monitor.html", "Giám sát năng lượng", "Giám sát", "📊"],
+      ["operator-alert-center.html", "Trung tâm cảnh báo", "Cảnh báo", "⚠"],
+      ["operator-saving-actions.html", "Hành động tiết kiệm", "Tiết kiệm", "✓"],
       ["operator-energy-kpis.html", "KPI năng lượng", "KPI", "⚡"],
       ["profile.html?role=operator", "Hồ sơ cá nhân", "Hồ sơ", "👤"]
     ]
   },
   occupant: {
     key: "occupant",
-    name: "Nguyễn Thuỳ Linh",
+    name: "Lê Văn Trí",
     description: "Tiện nghi & cộng đồng",
-    roleTitle: "Office Occupant (SV2)",
-    initials: "NL",
-    email: "thuylinh@greentower.vn",
+    roleTitle: "Occupant",
+    initials: "VT",
+    email: "vantri.le@greentower.vn",
     phone: "0902 345 678",
     department: "Khu văn phòng • Tầng 05",
     section: "MENU OCCUPANT",
@@ -42,11 +42,11 @@ const UNIFIED_ROLES = {
   },
   manager: {
     key: "manager",
-    name: "Trần Thu Hà",
+    name: "Tô Hồng Anh",
     description: "Quản lý năng lượng",
-    roleTitle: "Facility Manager (SV3)",
-    initials: "TH",
-    email: "thuha@greentower.vn",
+    roleTitle: "Manager",
+    initials: "HA",
+    email: "honganh.to@greentower.vn",
     phone: "0912 345 678",
     department: "Ban Quản lý Năng lượng • P. 12-01",
     section: "MENU MANAGER",
@@ -59,11 +59,11 @@ const UNIFIED_ROLES = {
   },
   admin: {
     key: "admin",
-    name: "Nguyễn Minh Anh",
+    name: "Tô Hồng Anh",
     description: "Quản trị hệ thống",
-    roleTitle: "System Administrator (SV3)",
-    initials: "NA",
-    email: "minh.anh@greentower.vn",
+    roleTitle: "Admin",
+    initials: "HA",
+    email: "honganh.admin@greentower.vn",
     phone: "0988 246 810",
     department: "Ban Vận hành • P. B2-04",
     section: "QUẢN TRỊ HỆ THỐNG",
@@ -375,3 +375,18 @@ window.initRoleNavigation = initRoleNavigation;
 window.highlightActiveNavigation = highlightActiveNavigation;
 window.showToast = showToast;
 window.handleLogout = handleLogout;
+
+
+// Real-time synchronization when Admin updates users in DB or another tab changes profile
+window.addEventListener("smartbuilding_db_sync", () => {
+  if (typeof initRoleNavigation === "function") {
+    initRoleNavigation();
+  }
+});
+window.addEventListener("storage", (e) => {
+  if (e.key === "SMART_BUILDING_DB_V2" || e.key === "smartbuilding_user") {
+    if (typeof initRoleNavigation === "function") {
+      initRoleNavigation();
+    }
+  }
+});

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <script>(function(){try{if(localStorage.getItem('sm_theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
@@ -43,7 +43,7 @@
       <div class="sidebar-profile">
         <div class="profile-avatar">NA</div>
         <div class="profile-info">
-          <div class="profile-name">Nguyễn Minh Anh</div>
+          <div class="profile-name">Tô Hồng Anh</div>
           <div class="profile-role">Admin • minh.anh@greentower.vn</div>
         </div>
       </div>
@@ -133,13 +133,21 @@
 
         <!-- Role Switcher (Mục 2.4 Barem - Chuyển đổi vai trò nhanh phục vụ chấm vấn đáp) -->
         <div class="role-switcher-container" role="group" aria-label="Chuyển đổi vai trò nhanh">
-          <a href="manager-energy-kpis.html" class="role-switch-btn " title="Chuyển sang vai trò Facility Manager" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'manager',name:'Trần Thu Hà',email:'thuha@greentower.vn'}))">
-            <span>Quản lý</span>
-            
-          </a>
-          <a href="admin-zone-management.html" class="role-switch-btn active" title="Chuyển sang vai trò System Admin" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'admin',name:'Nguyễn Minh Anh',email:'minh.anh@greentower.vn'}))">
+          <a href="admin-zone-management.html" class="role-switch-btn active" title="Chuyển sang vai trò System Admin (SV3)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'admin',name:'Tô Hồng Anh',email:'honganh.admin@greentower.vn'}))">
             <span>Admin</span>
             <span class="role-switch-badge">Đang chọn</span>
+          </a>
+          <a href="manager-energy-kpis.html" class="role-switch-btn " title="Chuyển sang vai trò Facility Manager (SV3)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'manager',name:'Tô Hồng Anh',email:'honganh.to@greentower.vn'}))">
+            <span>Manager</span>
+            
+          </a>
+          <a href="operator-energy-monitor.html" class="role-switch-btn " title="Chuyển sang vai trò Building Operator (SV1 - La Ngọc Quang)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'operator',name:'La Ngọc Quang',email:'ngocquang.la@greentower.vn'}))">
+            <span>Operator</span>
+            
+          </a>
+          <a href="occupant-dashboard.html" class="role-switch-btn " title="Chuyển sang vai trò Office Occupant (SV2 - Lê Văn Trí)" onclick="localStorage.setItem('smartbuilding_user', JSON.stringify({role:'occupant',name:'Lê Văn Trí',email:'vantri.le@greentower.vn'}))">
+            <span>Occupant</span>
+            
           </a>
         </div>
   
@@ -150,10 +158,10 @@
             </svg>
           </button>
           <div class="header-user" onclick="location.href='profile.html?role=admin'">
-            <img src="../assets/images/profilepic.webp" alt="Nguyễn Minh Anh" class="user-avatar-img">
+            <img src="../assets/images/profilepic.webp" alt="Tô Hồng Anh" class="user-avatar-img">
             <div class="user-text">
-              <span class="user-name">Nguyễn Minh Anh</span>
-              <span class="user-role">System Admin (SV3)</span>
+              <span class="user-name">Tô Hồng Anh</span>
+              <span class="user-role">Admin</span>
             </div>
             <span class="user-chevron">&#9662;</span>
           </div>
@@ -227,9 +235,9 @@
       </main>
 
       <!-- Semantic Footer -->
-      <footer class="app-footer">
+            <footer class="app-footer">
         <span>Green Tower SmartBuilding</span>
-        <span class="footer-version">Nhóm 01 – CSE122 BTL-36</span>
+        <span class="footer-version">Nhóm 01 - CSE122 BTL-36</span>
         <span class="footer-network-status"><span class="dot-online" id="footerNetDot"></span><span id="footerNetLabel">Online</span></span>
       </footer>
     </div>
@@ -286,25 +294,7 @@
   <!-- Dark Mode Toggle -->
   <button class="dark-mode-toggle" id="darkModeToggle" title="Dark/Light" aria-label="Toggle dark mode">&#x1F319;</button>
 
-  <!-- Mobile Bottom Navigation (Admin Role) -->
-  <nav class="mobile-bottom-nav" aria-label="Điều hướng di động">
-    <a href="admin-zone-management.html" class="bottom-nav-item active">
-      <span class="bottom-nav-icon">🏢</span>
-      <span class="bottom-nav-label">Quản lý Zone</span>
-    </a>
-    <a href="admin-sensor-management.html" class="bottom-nav-item">
-      <span class="bottom-nav-icon">📡</span>
-      <span class="bottom-nav-label">Cảm biến</span>
-    </a>
-    <a href="admin-user-management.html" class="bottom-nav-item">
-      <span class="bottom-nav-icon">👥</span>
-      <span class="bottom-nav-label">Người dùng</span>
-    </a>
-    <a href="profile.html?role=admin" class="bottom-nav-item">
-      <span class="bottom-nav-icon">👤</span>
-      <span class="bottom-nav-label">Hồ sơ</span>
-    </a>
-  </nav>
+  
 
   <!-- Toast Notification Container -->
   <div id="toastContainer" class="toast-container"></div>

@@ -1,18 +1,39 @@
-# BẢNG KIỂM KÊ MÀN HÌNH CHUẨN (SCREEN INVENTORY) - BTL-36
+# BẢNG KIỂM KÊ MÀN HÌNH CHUẨN (SCREEN INVENTORY)
+**Học phần**: Phát triển ứng dụng Web cơ bản – CSE122  
+**Đề tài**: Green Tower SmartBuilding (BTL-36) • Nhóm 01  
+**Quy chuẩn Barem CSE122 V2**: Đủ 12 cột chuẩn, tỷ lệ 1:1 với mã nguồn trong `pages/`, khớp minh chứng Git/OBS/Task ID, bao phủ đầy đủ 4 trạng thái giao diện (Normal, Loading, Empty, Error) và 3 tính năng AI UX 6 bước.
 
-| STT | Mã màn hình | Tên màn hình | Vai trò (Role) | Đường dẫn tệp | Thành viên đảm nhiệm | Trạng thái |
-|:---:|:---|:---|:---:|:---|:---:|:---:|
-| 1 | SCR-00 | Landing Page Giới thiệu | All / Public | `index.html` | Team 01 | Hoàn thành khung |
-| 2 | SCR-01 | Đăng nhập hệ thống | All | `pages/login.html` | SV3 | Hoàn thành khung |
-| 3 | SCR-02 | Dashboard Giám sát Realtime | Engineer | `pages/engineer-dashboard.html` | SV1 | Kế hoạch tích hợp |
-| 4 | SCR-03 | Quản lý Thiết bị & Cảnh báo IoT | Engineer | `pages/engineer-alerts.html` | SV1 | Kế hoạch tích hợp |
-| 5 | SCR-04 | Điều khiển Tiện nghi Cá nhân | Occupant | `pages/occupant-controls.html` | SV2 | Kế hoạch tích hợp |
-| 6 | SCR-05 | Thử thách Xanh & Điểm thưởng | Occupant | `pages/occupant-challenges.html` | SV2 | Kế hoạch tích hợp |
-| 7 | SCR-06 | KPI Năng lượng & AI-3 What-if Simulator | Manager | `pages/manager-energy-kpis.html` | SV3 | Hoàn thành khung |
-| 8 | SCR-07 | So sánh Năng lượng giữa các Zone | Manager | `pages/manager-zone-comparison.html` | SV3 | Hoàn thành chi tiết |
-| 9 | SCR-08 | Báo cáo Tiêu thụ Năng lượng Tháng | Manager | `pages/manager-monthly-report.html` | SV3 | Hoàn thành chi tiết |
-| 10 | SCR-09 | Quản trị Danh mục Khu vực (Zones) | Admin | `pages/admin-zone-management.html` | SV3 | Hoàn thành chi tiết |
-| 11 | SCR-10 | Quản trị Hệ thống Cảm biến (Sensors) | Admin | `pages/admin-sensor-management.html` | SV3 | Hoàn thành chi tiết |
-| 12 | SCR-11 | Quản trị Tài khoản & Phân quyền | Admin | `pages/admin-user-management.html` | SV3 | Hoàn thành chi tiết |
-| 13 | SCR-12 | Hồ sơ cá nhân & Bảo mật | All | pages/profile.html | SV3 | Hoàn thành chi tiết |
-| 14 | SCR-13 | 404 Không tìm thấy trang | All | pages/404.html | SV3 | Hoàn thành chi tiết |
+---
+
+## 1. Bảng Kiểm kê Màn hình Toàn hệ thống (15 Màn hình Độc lập)
+
+| STT | Mã MH | Tên màn hình | Vai trò (Role) | User Goal & User Task | Đường dẫn tệp | Thao tác CRUD | Trạng thái State Coverage | Tính năng AI UX | Thành viên đảm nhiệm | Task ID & Branch Git | Minh chứng Video OBS |
+|:---:|:---|:---|:---:|:---|:---|:---:|:---:|:---:|:---:|:---:|:---:|
+| 1 | SCR-00 | Landing Page Giới thiệu | All / Public | Tìm hiểu kiến trúc tổng thể tòa nhà thông minh Green Tower, điều hướng tới các phân hệ | `index.html` | Read | Normal, Responsive 320px–1920px | Giới thiệu hệ sinh thái AI | Nhóm 01 | TASK-00<br>`main` | `Team-00-landing.mp4` |
+| 2 | SCR-01 | Đăng nhập & Xác thực | All | Đăng nhập tài khoản theo vai trò (Admin, Manager, Operator, Occupant) | `pages/login.html` | Read, Auth | Normal, Loading, Error (sai mật khẩu) | Phân tích quyền truy cập | Tô Hồng Anh | TASK-01<br>`feature/auth-login` | `Tô Hồng Anh-01-login.mp4` |
+| 3 | SCR-02 | Giám sát Năng lượng Thời gian thực | Operator | Theo dõi phụ tải điện các Zone, nhiệt độ trung bình, phát hiện thời điểm tiêu thụ đỉnh | `pages/operator-energy-monitor.html` | Read, Filter | Normal, Loading, Empty (lọc không có dữ liệu) | Dự báo xu hướng phụ tải | La Ngọc Quang | TASK-02<br>`feature/operator-monitor` | `La Ngọc Quang-02-energy-monitor.mp4` |
+| 4 | SCR-03 | Trung tâm Cảnh báo Sự cố IoT | Operator | Giám sát, lọc và xử lý các cảnh báo quá nhiệt, rò rỉ, vượt ngưỡng công suất | `pages/operator-alert-center.html` | Read, Update (xử lý/bỏ qua cảnh báo) | Normal, Loading (Skeleton), Empty, Error, Success | Phân loại mức độ ưu tiên cảnh báo | La Ngọc Quang | TASK-03<br>`feature/operator-alerts` | `La Ngọc Quang-03-alert-center.mp4` |
+| 5 | SCR-04 | Điều phối Tiết kiệm Năng lượng | Operator | Lập và thực thi lệnh tiết giảm điện năng khẩn cấp giờ cao điểm | `pages/operator-saving-actions.html` | Create, Read, Update, Delete (hủy lệnh) | Normal, Loading, Empty, Error, Success (Toast) | **AI-2: Saving Actions Dispatcher (6 bước)** | La Ngọc Quang | TASK-04<br>`feature/operator-saving` | `La Ngọc Quang-04-saving-actions.mp4` |
+| 6 | SCR-05 | Tổng quan Căn hộ & Xếp hạng | Occupant | Xem điện năng tiêu thụ phòng P.1204, điểm Eco, thi đua xếp hạng cư dân | `pages/occupant-dashboard.html` | Read, Search, Filter tầng | Normal, Loading, Empty (tìm không thấy căn hộ) | Banner gợi ý thử thách Eco | Lê Văn Trí | TASK-05<br>`feature/occupant-dash` | `Lê Văn Trí-05-occupant-dash.mp4` |
+| 7 | SCR-06 | Thử thách Sống xanh (Eco Challenges) | Occupant | Tham gia thử thách tiết kiệm điện, hoàn thành và tích lũy điểm xanh | `pages/occupant-energy-challenge.html` | Create, Read, Update (hoàn thành) | Normal, Loading (Skeleton), Empty, Success (Toast) | Phân tích tác động giảm $CO_2$ | Lê Văn Trí | TASK-06<br>`feature/occupant-challenges` | `Lê Văn Trí-06-energy-challenge.mp4` |
+| 8 | SCR-07 | Phản hồi Tiện nghi Nhiệt & Ánh sáng | Occupant | Gửi đánh giá nóng/lạnh, yêu cầu AI đề xuất tối ưu điều hòa và chiếu sáng | `pages/occupant-comfort-feedback.html` | Create, Read, Filter lịch sử | Normal, Loading, Empty, Error, AI Uncertainty UX | **AI-1: Comfort Assistant (6 bước + Failure UX)** | Lê Văn Trí | TASK-07<br>`feature/occupant-feedback` | `Lê Văn Trí-07-comfort-feedback.mp4` |
+| 9 | SCR-08 | Chỉ số KPI Năng lượng & AI What-if | Manager | Quản lý EUI, tổng điện năng, chi phí, mô phỏng dự báo kịch bản cắt giảm | `pages/manager-energy-kpis.html` | Read, Update kịch bản | Normal, Interactive Slider, Success Banner | **AI-3: What-if Scenario Simulator** | Tô Hồng Anh | TASK-08<br>`feature/manager-kpis` | `Tô Hồng Anh-08-manager-kpis.mp4` |
+| 10 | SCR-09 | So sánh Năng lượng Đa Khu vực | Manager | So sánh tương quan tiêu thụ giữa các Zone (Khối VP, Căn hộ, Kỹ thuật, Đỗ xe) | `pages/manager-zone-comparison.html` | Read, Filter thời gian/Zone | Normal, Loading, Chart rendering | Phân tích phát hiện Zone lãng phí | Tô Hồng Anh | TASK-09<br>`feature/manager-zones` | `Tô Hồng Anh-09-zone-comparison.mp4` |
+| 11 | SCR-10 | Báo cáo Năng lượng Định kỳ Tháng | Manager | Xem báo cáo tổng hợp phụ tải tháng, xuất dữ liệu in ấn định dạng chuẩn | `pages/manager-monthly-report.html` | Read, Filter tháng, Print/Export | Normal, Filtered view, Print view (@media print) | Tóm tắt phân tích hiệu suất tháng | Tô Hồng Anh | TASK-10<br>`feature/manager-report` | `Tô Hồng Anh-10-monthly-report.mp4` |
+| 12 | SCR-11 | Quản trị Danh mục Phân vùng (Zones) | Admin | Thêm mới, chỉnh sửa diện tích, loại khu vực và xóa/lưu trữ Zone | `pages/admin-zone-management.html` | Create, Read, Update, Delete (CRUD thực) | Normal, Modal popup, Loading, Empty, Toast | Tự động chuẩn hóa mã phân vùng | Tô Hồng Anh | TASK-11<br>`feature/admin-zones` | `Tô Hồng Anh-11-admin-zones.mp4` |
+| 13 | SCR-12 | Quản trị Mạng lưới Cảm biến IoT | Admin | Theo dõi tình trạng kết nối, pin, thêm/sửa cảm biến nhiệt độ, điện năng, CO2 | `pages/admin-sensor-management.html` | Create, Read, Update, Delete (CRUD thực) | Normal, Modal popup, Filter loại sensor/Zone | Phân loại trạng thái pin & tín hiệu | Tô Hồng Anh | TASK-12<br>`feature/admin-sensors` | `Tô Hồng Anh-12-admin-sensors.mp4` |
+| 14 | SCR-13 | Quản trị Người dùng & Phân quyền (RBAC) | Admin | Quản lý danh sách tài khoản, vai trò, số điện thoại, khóa/kích hoạt tài khoản | `pages/admin-user-management.html` | Create, Read, Update, Delete (CRUD thực) | Normal, Modal popup, Search/Filter, Toast | Kiểm tra hợp lệ email/role tự động | Tô Hồng Anh | TASK-13<br>`feature/admin-users` | `Tô Hồng Anh-13-admin-users.mp4` |
+| 15 | SCR-14 | Hồ sơ Cá nhân & Quản lý Tài khoản | All Roles | Xem/sửa thông tin cá nhân, số điện thoại, đổi mật khẩu, xem lịch sử hoạt động | `pages/profile.html` | Read, Update (lưu hồ sơ, đổi mật khẩu) | Normal, Tabs di động, Success Toast, Error Toast | Gợi ý mật khẩu mạnh an toàn | Tô Hồng Anh | TASK-14<br>`feature/user-profile` | `Tô Hồng Anh-14-profile.mp4` |
+
+*Ghi chú*: Trang lỗi `pages/404.html` (SCR-15) được xây dựng đầy đủ theo chuẩn Responsive và nhận diện thương hiệu Green Tower, sẵn sàng xử lý các liên kết không tồn tại.
+
+---
+
+## 2. Bảng Tổng hợp Phân công & Khối lượng Công việc Cá nhân
+
+| Thành viên thực hiện | Phân hệ & Vai trò phụ trách | Số màn hình độc lập | Tính năng AI tích hợp | Trục trách nhiệm chéo (Cross-Responsibility) | Tỷ lệ đóng góp |
+|:---|:---|:---:|:---|:---|:---:|
+| **La Ngọc Quang**<br>*(La Ngọc Quang)* | **Building Operator**<br>(Giám sát năng lượng, Cảnh báo IoT, Điều phối tiết kiệm) | **3 màn hình chính**<br>(SCR-02, SCR-03, SCR-04) | **AI-2**: Saving Actions Dispatcher (Cắt giảm điện năng tự động 6 bước) | Hệ thống Design System & CSS Variables (`:root`, Dark Mode) + Thanh điều hướng chung (Navigation / Header Role Switcher) + Chuẩn tiếp cận A11y | **33.3%** |
+| **Lê Văn Trí**<br>*(Lê Văn Trí)* | **Office Occupant**<br>(Tổng quan căn hộ, Thử thách Eco, Phản hồi tiện nghi) | **3 màn hình chính**<br>(SCR-05, SCR-06, SCR-07) | **AI-1**: Comfort Assistant (Tối ưu điều hòa & chiếu sáng 6 bước + Failure UX) | Kiến trúc JavaScript + Tầng dữ liệu trung tâm & LocalStorage (`storage.js`, `mock-building.json`) + Chuẩn hóa luồng tương tác AI UX 6 bước | **33.3%** |
+| **Tô Hồng Anh**<br>*(Tô Hồng Anh)* | **Facility Manager & System Admin**<br>(KPIs, So sánh Zone, Báo cáo tháng, Quản trị Zone, Sensor, User, Login, Profile) | **9 màn hình chính**<br>(SCR-01, SCR-08 → SCR-14) | **AI-3**: What-if Scenario Simulator (Mô phỏng dự báo kịch bản năng lượng) | Kiểm thử Responsive đa thiết bị (320px–1920px) + Quản trị kho mã nguồn Git/GitHub (Branching, PR Review, Merge dev → main) + Triển khai Live Deployment | **33.4%** |
+| **Cả nhóm 01** | **All Roles & Shared Infrastructure** | **15 màn hình hoàn thiện** | **Đủ 3 tính năng AI đặc thù** | Phối hợp liên thông dữ liệu đa vai trò, chuẩn hóa giao diện Sáng / Tối và kịch bản vấn đáp | **100%** |

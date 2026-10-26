@@ -1,4 +1,4 @@
-/**
+﻿/**
  * CSE122 - SMARTBUILDING TEAM 01 (BTL-36)
  * js/admin-user-management.js - Quản trị Người dùng & Phân quyền (SV3 - Admin)
  * Tích hợp: Tầng lưu trữ localStorage (DB), Modal Form A11y, Form Validation, Dark Mode
@@ -6,10 +6,10 @@
 
 // ─── Dữ liệu mặc định nếu DB chưa có users ───────────────────────────────────
 const DEFAULT_USERS = [
-  { id: "USR-001", name: "Trần Thu Hà",    email: "thuha@greentower.vn",    role: "Manager",  zone: "Toàn bộ tòa nhà",       status: "active" },
-  { id: "USR-002", name: "Lê Hoàng Nam",   email: "nam.le@greentower.vn",   role: "Engineer", zone: "Tầng Kỹ thuật & BMS",   status: "active" },
-  { id: "USR-003", name: "Phạm Mai Linh",  email: "linh.pm@greentower.vn",  role: "Occupant", zone: "Tầng 3 - Khối KT",      status: "active" },
-  { id: "USR-004", name: "Nguyễn Minh Anh",email: "minh.anh@greentower.vn", role: "Admin",    zone: "Hệ thống trung tâm",    status: "active" },
+  { id: "USR-001", name: "Tô Hồng Anh",    email: "honganh.to@greentower.vn",    role: "Manager",  zone: "Toàn bộ tòa nhà",       status: "active" },
+  { id: "USR-002", name: "La Ngọc Quang",   email: "ngocquang.la@greentower.vn",   role: "Engineer", zone: "Tầng Kỹ thuật & BMS",   status: "active" },
+  { id: "USR-003", name: "Lê Văn Trí",  email: "vantri.le@greentower.vn",  role: "Occupant", zone: "Tầng 3 - Khối KT",      status: "active" },
+  { id: "USR-004", name: "Tô Hồng Anh",email: "honganh.admin@greentower.vn", role: "Admin",    zone: "Hệ thống trung tâm",    status: "active" },
   { id: "USR-005", name: "Vũ Đình Trọng",  email: "trong.vu@greentower.vn", role: "Occupant", zone: "Tầng 4",                status: "locked" }
 ];
 

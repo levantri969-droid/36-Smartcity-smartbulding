@@ -11,7 +11,7 @@
 - Đề xuất thuật toán mô phỏng toán học cho module **AI-3 What-if Simulator** (ước tính năng lượng theo độ chênh lệch nhiệt độ và độ rọi chiếu sáng).
 
 ## 2. Công cụ AI Sử dụng
-- **Công cụ**: Google Antigravity Code Assistant (Gemini Flash).
+- **Công cụ**: Google Antigravity Code Assistant (Gemini Flash). (ĐẶC BIỆT LÀ ANTI CLI VÌ SỰ THUẬN TIỆN + KHẢ NĂNG LÀM VIỆC ỔN ĐỊNH)
 - **Mục đích**: Hỗ trợ tạo cấu trúc dự án, sinh boilerplate code và định hình luồng tương tác.
 
 ## 3. Bảng Khai báo Chi tiết Các Thành phần Tạo bằng AI
@@ -25,3 +25,6 @@
 
 ## 4. Cam kết Tính Liêm chính Học thuật
 Nhóm 01 cam kết toàn bộ logic nghiệp vụ, giao diện và mã nguồn đều được các thành viên trong nhóm hiểu rõ, kiểm soát toàn diện và sẵn sàng giải trình chi tiết trong các buổi báo cáo đánh giá học phần.
+
+## 5. Promt AI
+Thường sẽ yêu cầu AI tự tạo 1 file word/doc đưa ra phương án trước rồi mới thực hiện khi công việc quá dài/phức tạp
